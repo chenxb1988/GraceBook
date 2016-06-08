@@ -1,20 +1,24 @@
 package com.yyydjk.gank.widget.refresh.header;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.aspsine.swipetoloadlayout.SwipeRefreshTrigger;
 import com.aspsine.swipetoloadlayout.SwipeTrigger;
 import com.yyydjk.gank.R;
+import com.yyydjk.gank.theme.ColorUiInterface;
 import com.yyydjk.gank.utils.ThemeUtils;
 import com.yyydjk.gank.widget.refresh.GoogleCircleProgressView;
 
 /**
  * Created by aspsine on 15/11/7.
  */
-public class GoogleCircleHookRefreshHeaderView extends FrameLayout implements SwipeTrigger, SwipeRefreshTrigger {
+public class GoogleCircleHookRefreshHeaderView extends FrameLayout implements
+        SwipeTrigger, SwipeRefreshTrigger, ColorUiInterface {
     private GoogleCircleProgressView progressView;
 
     private int mTriggerOffset;
@@ -81,4 +85,13 @@ public class GoogleCircleHookRefreshHeaderView extends FrameLayout implements Sw
         ViewCompat.setAlpha(progressView, 1f);
     }
 
+    @Override
+    public View getView() {
+        return this;
+    }
+
+    @Override
+    public void setTheme(Resources.Theme themeId) {
+        progressView.setColorSchemeColors(ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary));
+    }
 }

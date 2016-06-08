@@ -1,5 +1,5 @@
 ##本项目fork自dongjunkun的github，原地址：https://github.com/dongjunkun/GanK
-####在原作基础上添加了内部webview跳转，并把原作的链接文字改为普通文字随主题颜色显示，
+####(在原作基础上添加了内部webview跳转，并把原作的链接文字改为普通文字随主题颜色显示)
 
 ###介绍
 一款优雅的干货集中营android客户端，实现了沉浸式状态栏[另外两种android沉浸式状态栏实现思路](http://www.jianshu.com/p/b100b64544f3)(第一种实现思路)，无缝切换换肤[MultipleTheme](https://github.com/dersoncheng/MultipleTheme),Icon Font([Icon Font --Android图标也能轻松换肤](http://www.jianshu.com/p/dd01072998c5)),带3D感的侧滑菜单[ResideLayout](https://github.com/dongjunkun/ResideLayout)，刷新加载[SwipeToLoadLayout](https://github.com/Aspsine/SwipeToLoadLayout)，[material-dialogs](https://github.com/afollestad/material-dialogs)……，麻雀虽小五脏俱全，练习之作，该有的都有了。

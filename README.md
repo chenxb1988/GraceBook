@@ -1,4 +1,4 @@
-##本项目fork自dongjunkun的github，原地址：https://github.com/dongjunkun/GanK
+##本项目fork自dongjunkun的github，原地址：[戳我](https://github.com/dongjunkun/GanK)
 ####(在原作基础上添加了内部webview跳转，并把原作的链接文字改为普通文字随主题颜色显示)
 
 ###介绍

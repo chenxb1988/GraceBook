@@ -1,8 +1,6 @@
 package com.yyydjk.gank.adapter;
 
 import android.content.Context;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +9,7 @@ import android.widget.TextView;
 
 import com.yyydjk.gank.R;
 import com.yyydjk.gank.beans.GanHuo;
+import com.yyydjk.gank.utils.ActivityUtils;
 
 import java.util.List;
 
@@ -54,11 +53,19 @@ public class AndroidAdapter extends BaseAdapter {
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         }
-        viewHolder.mText.setText(Html.fromHtml("<a href=\""
-                + ganHuos.get(position).getUrl() + "\">"
-                + ganHuos.get(position).getDesc() + "</a>"
-                + "[" + ganHuos.get(position).getWho() + "]"));
-        viewHolder.mText.setMovementMethod(LinkMovementMethod.getInstance());
+        final GanHuo ganHuo = ganHuos.get(position);
+        ActivityUtils.setTitleByTheme(viewHolder.mText, ganHuo.getDesc(), "[" + ganHuo.getWho() + "]");
+        viewHolder.mText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityUtils.launchGanhuoDetail(context, ganHuo);
+            }
+        });
+//        viewHolder.mText.setText(Html.fromHtml("<a href=\""
+//                + ganHuos.get(position).getUrl() + "\">"
+//                + ganHuos.get(position).getDesc() + "</a>"
+//                + "[" + ganHuos.get(position).getWho() + "]"));
+//        viewHolder.mText.setMovementMethod(LinkMovementMethod.getInstance());
 //        viewHolder.mText.setText(ganHuos.get(position).getDesc()+"["+ganHuos.get(position).getWho()+"]");
         return convertView;
     }

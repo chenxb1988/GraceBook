@@ -2,10 +2,16 @@ package com.yyydjk.gank.theme;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import com.yyydjk.gank.R;
+import com.yyydjk.gank.utils.ThemeUtils;
 
 
 /**
@@ -58,5 +64,11 @@ public class ColorTextView extends TextView implements ColorUiInterface {
         if (attr_textLinkColor != -1) {
             ViewAttributeUtil.applyTextLinkColor(this, themeId, attr_textLinkColor);
         }
+
+        int index = getText().toString().indexOf('[');
+        int color = ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary);
+        SpannableString ss = new SpannableString(getText().toString());
+        ss.setSpan(new ForegroundColorSpan(color), 0, index, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        setText(ss);
     }
 }

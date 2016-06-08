@@ -5,16 +5,8 @@ repositories {
 
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'djk'
-            keyPassword '319456'
-            storeFile file('E:/djk.keystore')
-            storePassword '319456'
-        }
-    }
     compileSdkVersion 23
-    buildToolsVersion '24.0.0 rc3'
+    buildToolsVersion '23.0.2'
     defaultConfig {
         applicationId "com.yyydjk.gank"
         minSdkVersion 14
@@ -24,18 +16,6 @@ android {
         renderscriptTargetApi 20
         renderscriptSupportModeEnabled true
 
-    }
-    buildTypes {
-        debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        release {
-            minifyEnabled true
-            shrinkResources true
-            signingConfig signingConfigs.config
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
     }
 
 

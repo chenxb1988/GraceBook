@@ -178,6 +178,13 @@ public class WebActivity extends BaseActivity {
                 popup.show();
             }
         });
+
+        mIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebActivity.this.finish();
+            }
+        });
     }
 
     public class WebChromeClient extends android.webkit.WebChromeClient {

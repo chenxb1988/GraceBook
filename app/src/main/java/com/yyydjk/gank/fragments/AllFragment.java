@@ -53,7 +53,7 @@ public class AllFragment extends BaseFragment implements OnRefreshListener, OnLo
     }
 
     @Subscribe
-    public void onEvent(SkinChangeEvent event){
+    public void onEvent(SkinChangeEvent event) {
         adapter.notifyDataSetChanged();
 
     }
@@ -72,7 +72,12 @@ public class AllFragment extends BaseFragment implements OnRefreshListener, OnLo
                         } else {
                             page++;
                         }
-                        ganHuos.addAll(result);
+                        for (GanHuo ganHuo : result) {
+                            if (!ganHuo.getType().equals("福利")) {
+                                ganHuos.add(ganHuo);
+                            }
+                        }
+//                      ganHuos.addAll(result);
                         adapter.notifyDataSetChanged();
                         if (mSwipeToLoadLayout != null) {
                             mSwipeToLoadLayout.setRefreshing(false);

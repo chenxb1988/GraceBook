@@ -15,7 +15,7 @@
         <LinearLayout
             android:id="@+id/top_menu"
             android:layout_width="wrap_content"
-            android:layout_height="160dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
@@ -35,7 +35,8 @@
                 android:maxLines="1"
                 android:padding="10dp"
                 android:textColor="@android:color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
@@ -43,6 +44,7 @@
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
             android:layout_above="@+id/bottom_menu"
             android:layout_below="@+id/top_menu">
 

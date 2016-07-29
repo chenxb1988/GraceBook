@@ -45,7 +45,7 @@ public class FuliAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
         if (convertView != null) {
             viewHolder = (ViewHolder) convertView.getTag();
         } else {
@@ -53,7 +53,10 @@ public class FuliAdapter extends BaseAdapter {
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         }
-        Glide.with(context).load(ganHuos.get(position).getUrl()).placeholder(R.mipmap.avatar).into(viewHolder.mImage);
+        Glide.with(context).load(ganHuos.get(position).getUrl())
+                .placeholder(R.mipmap.avatar)
+                .dontAnimate()
+                .into(viewHolder.mImage);
         return convertView;
     }
 

@@ -1,15 +1,22 @@
 package com.yyydjk.gank.activitys;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -20,6 +27,8 @@ import com.yyydjk.gank.beans.GanHuo;
 import com.yyydjk.gank.utils.ActivityUtils;
 import com.yyydjk.gank.utils.SystemUtils;
 
+import me.xiaopan.android.widget.ToastUtils;
+
 /**
  * Web页面
  */
@@ -29,8 +38,8 @@ public class WebActivity extends BaseActivity {
     private String mUrl;
     private ProgressBar mProgressBar;
 
-
     View mStatusBar;
+    ImageButton mMenu;
     ImageView mIcon;
     TextView mTitle;
 
@@ -54,6 +63,8 @@ public class WebActivity extends BaseActivity {
         mTitle = (TextView) findViewById(R.id.title);
         mTitle.setSingleLine();
         mIcon = (ImageView) findViewById(R.id.icon);
+        mMenu = (ImageButton) findViewById(R.id.menu);
+        mMenu.setVisibility(View.VISIBLE);
     }
 
     protected void init() {
@@ -78,6 +89,7 @@ public class WebActivity extends BaseActivity {
         mWebView.getSettings().setBuiltInZoomControls(true);
         mWebView.getSettings().setSupportZoom(true);
         mWebView.getSettings().setDisplayZoomControls(false);
+        mWebView.getSettings().setDomStorageEnabled(true);
         mWebView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.NARROW_COLUMNS);
         mWebView.setInitialScale(5);
 
@@ -136,6 +148,36 @@ public class WebActivity extends BaseActivity {
                 return false;
             }
         });
+
+        mMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup = new PopupMenu(WebActivity.this, mMenu);
+                popup.getMenuInflater().inflate(R.menu.menu, popup.getMenu());
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.menu_brower:
+                                Intent intent = new Intent();
+                                intent.setAction("android.intent.action.VIEW");
+                                Uri content_url = Uri.parse(mUrl);
+                                intent.setData(content_url);
+                                startActivity(intent);
+                                break;
+                            case R.id.menu_copy:
+                                ClipboardManager myClipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                                ClipData myClip = ClipData.newPlainText("text", mUrl);
+                                myClipboard.setPrimaryClip(myClip);
+                                ToastUtils.toastS(WebActivity.this, "已复制链接");
+                                break;
+                        }
+                        return true;
+                    }
+                });
+                popup.show();
+            }
+        });
     }
 
     public class WebChromeClient extends android.webkit.WebChromeClient {
@@ -152,6 +194,11 @@ public class WebActivity extends BaseActivity {
             super.onProgressChanged(view, newProgress);
         }
 
+        @Override
+        public void onReceivedTitle(WebView view, String title) {
+            mTitle.setText(title);
+            super.onReceivedTitle(view, title);
+        }
     }
 
     @Override

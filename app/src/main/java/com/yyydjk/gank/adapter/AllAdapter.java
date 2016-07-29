@@ -60,7 +60,9 @@ public class AllAdapter extends BaseAdapter {
                 view1.setTag(viewHolder1);
                 convertView = view1;
             }
-            Glide.with(context).load(ganHuo.getUrl()).placeholder(R.mipmap.avatar).into(viewHolder1.mImage);
+            Glide.with(context).load(ganHuo.getUrl())
+                    .placeholder(R.mipmap.avatar)
+                    .into(viewHolder1.mImage);
         } else {
             ViewHolder viewHolder2 = null;
             if (convertView != null && convertView.getTag() instanceof ViewHolder) {

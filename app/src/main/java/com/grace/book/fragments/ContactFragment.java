@@ -23,7 +23,7 @@ import butterknife.Bind;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class VideoFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
+public class ContactFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
 
     @Bind(R.id.swipe_target)
     ListView mListView;
@@ -35,7 +35,6 @@ public class VideoFragment extends BaseFragment implements OnRefreshListener, On
     private int pageSize = 30;
     private int page = 1;
 
-
     @Override
     protected int getLayoutResource() {
         return R.layout.fragment_android;
@@ -44,12 +43,14 @@ public class VideoFragment extends BaseFragment implements OnRefreshListener, On
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initView();
-        onRefresh();
+        if (ganHuos.size() == 0) {
+            initView();
+            onRefresh();
+        }
     }
 
     private void getData(final boolean isRefresh) {
-        RequestManager.get(getName(), "http://gank.io/api/data/休息视频/"
+        RequestManager.get(getName(), "http://gank.io/api/data/Android/"
                         + String.valueOf(pageSize) + "/"
                         + String.valueOf(page), isRefresh,
                 new CallBack<List<GanHuo>>() {
@@ -63,8 +64,10 @@ public class VideoFragment extends BaseFragment implements OnRefreshListener, On
                         }
                         ganHuos.addAll(result);
                         adapter.notifyDataSetChanged();
-                        mSwipeToLoadLayout.setRefreshing(false);
-                        mSwipeToLoadLayout.setLoadingMore(false);
+                        if (mSwipeToLoadLayout != null) {
+                            mSwipeToLoadLayout.setRefreshing(false);
+                            mSwipeToLoadLayout.setLoadingMore(false);
+                        }
                     }
 
                     @Override

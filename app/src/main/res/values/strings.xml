@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">干货集中营</string>
+    <string name="app_name">恩典书会</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -19,4 +19,10 @@
     <string name="app">App</string>
     <string name="about">关于我</string>
     <string name="more">瞎推荐</string>
+
+    <string name="not_login">未登录</string>
+    <string name="homepage">主页</string>
+    <string name="record">我的记录</string>
+    <string name="contact">联系人</string>
+    <string name="self">个人中心</string>
 </resources>

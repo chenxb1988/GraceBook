@@ -23,7 +23,7 @@ import butterknife.Bind;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class IOSFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
+public class RecordFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
 
     @Bind(R.id.swipe_target)
     ListView mListView;
@@ -35,7 +35,6 @@ public class IOSFragment extends BaseFragment implements OnRefreshListener, OnLo
     private int pageSize = 30;
     private int page = 1;
 
-
     @Override
     protected int getLayoutResource() {
         return R.layout.fragment_android;
@@ -44,12 +43,14 @@ public class IOSFragment extends BaseFragment implements OnRefreshListener, OnLo
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initView();
-        onRefresh();
+        if (ganHuos.size() == 0) {
+            initView();
+            onRefresh();
+        }
     }
 
     private void getData(final boolean isRefresh) {
-        RequestManager.get(getName(), "http://gank.io/api/data/iOS/"
+        RequestManager.get(getName(), "http://gank.io/api/data/前端/"
                         + String.valueOf(pageSize) + "/"
                         + String.valueOf(page), isRefresh,
                 new CallBack<List<GanHuo>>() {

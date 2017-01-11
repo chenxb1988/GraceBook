@@ -9,11 +9,15 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.grace.book.R;
-import com.grace.book.adapter.AndroidAdapter;
+import com.grace.book.adapter.AllAdapter;
 import com.grace.book.base.BaseFragment;
 import com.grace.book.beans.GanHuo;
+import com.grace.book.event.SkinChangeEvent;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.RequestManager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,18 +27,16 @@ import butterknife.Bind;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AndroidFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
+public class HomeFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
 
     @Bind(R.id.swipe_target)
     ListView mListView;
     @Bind(R.id.swipeToLoadLayout)
     SwipeToLoadLayout mSwipeToLoadLayout;
-    private AndroidAdapter adapter;
+    private AllAdapter adapter;
     private List<GanHuo> ganHuos = new ArrayList<>();
 
-    private int pageSize = 30;
     private int page = 1;
-
 
     @Override
     protected int getLayoutResource() {
@@ -44,12 +46,22 @@ public class AndroidFragment extends BaseFragment implements OnRefreshListener, 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initView();
-        onRefresh();
+        EventBus.getDefault().register(this);
+        if (ganHuos.size() == 0) {
+            initView();
+            onRefresh();
+        }
+    }
+
+    @Subscribe
+    public void onEvent(SkinChangeEvent event) {
+        adapter.notifyDataSetChanged();
+
     }
 
     private void getData(final boolean isRefresh) {
-        RequestManager.get(getName(), "http://gank.io/api/data/Android/"
+        int pageSize = 30;
+        RequestManager.get(getName(), "http://gank.io/api/data/all/"
                         + String.valueOf(pageSize) + "/"
                         + String.valueOf(page), isRefresh,
                 new CallBack<List<GanHuo>>() {
@@ -61,7 +73,12 @@ public class AndroidFragment extends BaseFragment implements OnRefreshListener, 
                         } else {
                             page++;
                         }
-                        ganHuos.addAll(result);
+                        for (GanHuo ganHuo : result) {
+                            if (!ganHuo.getType().equals("福利")) {
+                                ganHuos.add(ganHuo);
+                            }
+                        }
+//                      ganHuos.addAll(result);
                         adapter.notifyDataSetChanged();
                         if (mSwipeToLoadLayout != null) {
                             mSwipeToLoadLayout.setRefreshing(false);
@@ -89,7 +106,7 @@ public class AndroidFragment extends BaseFragment implements OnRefreshListener, 
         });
         mSwipeToLoadLayout.setOnRefreshListener(this);
         mSwipeToLoadLayout.setOnLoadMoreListener(this);
-        adapter = new AndroidAdapter(getActivity(), ganHuos);
+        adapter = new AllAdapter(getActivity(), ganHuos);
         mListView.setAdapter(adapter);
     }
 
@@ -97,6 +114,13 @@ public class AndroidFragment extends BaseFragment implements OnRefreshListener, 
     public void onRefresh() {
         page = 1;
         getData(true);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+
     }
 
     @Override

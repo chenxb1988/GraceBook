@@ -9,7 +9,7 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.grace.book.R;
-import com.grace.book.adapter.FuliAdapter;
+import com.grace.book.adapter.AndroidAdapter;
 import com.grace.book.base.BaseFragment;
 import com.grace.book.beans.GanHuo;
 import com.grace.book.http.CallBack;
@@ -23,18 +23,17 @@ import butterknife.Bind;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FuLiFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
+public class SelfFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
 
     @Bind(R.id.swipe_target)
     ListView mListView;
     @Bind(R.id.swipeToLoadLayout)
     SwipeToLoadLayout mSwipeToLoadLayout;
-    private FuliAdapter adapter;
+    private AndroidAdapter adapter;
     private List<GanHuo> ganHuos = new ArrayList<>();
 
     private int pageSize = 30;
     private int page = 1;
-
 
     @Override
     protected int getLayoutResource() {
@@ -44,12 +43,14 @@ public class FuLiFragment extends BaseFragment implements OnRefreshListener, OnL
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initView();
-        onRefresh();
+        if (ganHuos.size() == 0) {
+            initView();
+            onRefresh();
+        }
     }
 
     private void getData(final boolean isRefresh) {
-        RequestManager.get(getName(), "http://gank.io/api/data/福利/"
+        RequestManager.get(getName(), "http://gank.io/api/data/iOS/"
                         + String.valueOf(pageSize) + "/"
                         + String.valueOf(page), isRefresh,
                 new CallBack<List<GanHuo>>() {
@@ -89,7 +90,7 @@ public class FuLiFragment extends BaseFragment implements OnRefreshListener, OnL
         });
         mSwipeToLoadLayout.setOnRefreshListener(this);
         mSwipeToLoadLayout.setOnLoadMoreListener(this);
-        adapter = new FuliAdapter(getActivity(), ganHuos);
+        adapter = new AndroidAdapter(getActivity(), ganHuos);
         mListView.setAdapter(adapter);
     }
 

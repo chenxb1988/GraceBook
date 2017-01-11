@@ -9,7 +9,7 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.grace.book.R;
-import com.grace.book.adapter.AllAdapter;
+import com.grace.book.adapter.AndroidAdapter;
 import com.grace.book.base.BaseFragment;
 import com.grace.book.beans.GanHuo;
 import com.grace.book.event.SkinChangeEvent;
@@ -33,7 +33,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, OnL
     ListView mListView;
     @Bind(R.id.swipeToLoadLayout)
     SwipeToLoadLayout mSwipeToLoadLayout;
-    private AllAdapter adapter;
+    private AndroidAdapter adapter;
     private List<GanHuo> ganHuos = new ArrayList<>();
 
     private int page = 1;
@@ -106,7 +106,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, OnL
         });
         mSwipeToLoadLayout.setOnRefreshListener(this);
         mSwipeToLoadLayout.setOnLoadMoreListener(this);
-        adapter = new AllAdapter(getActivity(), ganHuos);
+        adapter = new AndroidAdapter(getActivity(), ganHuos);
         mListView.setAdapter(adapter);
     }
 

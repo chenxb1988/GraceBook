@@ -1,6 +1,7 @@
 package com.grace.book.activitys;
 
 import android.animation.Animator;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -24,8 +25,8 @@ import com.grace.book.R;
 import com.grace.book.base.BaseActivity;
 import com.grace.book.beans.GanHuo;
 import com.grace.book.event.SkinChangeEvent;
-import com.grace.book.fragments.HomeFragment;
 import com.grace.book.fragments.ContactFragment;
+import com.grace.book.fragments.HomeFragment;
 import com.grace.book.fragments.RecordFragment;
 import com.grace.book.fragments.SelfFragment;
 import com.grace.book.http.CallBack;
@@ -208,6 +209,8 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.avatar:
+                Intent intent = LoginActivity.createIntent(this);
+                startActivity(intent);
                 break;
             case R.id.home:
                 mResideLayout.closePane();

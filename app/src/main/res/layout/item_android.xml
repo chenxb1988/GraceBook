@@ -8,7 +8,7 @@
     app:cardUseCompatPadding="true"
     android:orientation="vertical">
 
-    <com.yyydjk.gank.theme.ColorTextView
+    <com.grace.book.theme.ColorTextView
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:padding="10dp"

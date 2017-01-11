@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.yyydjk.gank.theme.ColorRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.grace.book.theme.ColorRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                            android:layout_width="match_parent"
                                            android:layout_height="48dp"
                                            android:background="?attr/colorPrimary">
@@ -35,4 +35,4 @@
         android:layout_alignParentBottom="true"
         android:src="@mipmap/more"
         android:visibility="gone"/>
-</com.yyydjk.gank.theme.ColorRelativeLayout>
+</com.grace.book.theme.ColorRelativeLayout>

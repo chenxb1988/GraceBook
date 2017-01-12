@@ -22,6 +22,7 @@
 
     <string name="not_login">未登录</string>
     <string name="homepage">主页</string>
+    <string name="mall">书城</string>
     <string name="record">我的记录</string>
     <string name="contact">联系人</string>
     <string name="self">个人中心</string>

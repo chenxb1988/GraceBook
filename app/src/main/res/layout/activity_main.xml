@@ -60,6 +60,11 @@
                     android:text="@string/homepage"/>
 
                 <TextView
+                    android:id="@+id/mall"
+                    style="@style/MenuStyle"
+                    android:text="@string/mall"/>
+
+                <TextView
                     android:id="@+id/record"
                     style="@style/MenuStyle"
                     android:text="@string/record"/>

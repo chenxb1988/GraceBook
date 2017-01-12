@@ -27,6 +27,7 @@ import com.grace.book.beans.GanHuo;
 import com.grace.book.event.SkinChangeEvent;
 import com.grace.book.fragments.ContactFragment;
 import com.grace.book.fragments.HomeFragment;
+import com.grace.book.fragments.MallFragment;
 import com.grace.book.fragments.RecordFragment;
 import com.grace.book.fragments.SelfFragment;
 import com.grace.book.http.CallBack;
@@ -64,6 +65,8 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
 
     @Bind(R.id.home)
     TextView mHome;
+    @Bind(R.id.mall)
+    TextView mMall;
     @Bind(R.id.record)
     TextView mRecord;
     @Bind(R.id.contact)
@@ -86,7 +89,7 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
     @Bind(R.id.title)
     TextView mTitle;
 
-    private Fragment currentFragment, mHomeFragment, mRecordFragment, mContactFragment, mSelfFragment;
+    private Fragment currentFragment, mHomeFragment, mMallFragment, mRecordFragment, mContactFragment, mSelfFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +106,7 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
         }
 
         setIconDrawable(mHome, MaterialDesignIconic.Icon.gmi_home);
+        setIconDrawable(mMall, MaterialDesignIconic.Icon.gmi_city);
         setIconDrawable(mRecord, MaterialDesignIconic.Icon.gmi_airline_seat_flat);
         setIconDrawable(mContact, MaterialDesignIconic.Icon.gmi_calendar_note);
         setIconDrawable(mSelf, MaterialDesignIconic.Icon.gmi_account);
@@ -173,6 +177,13 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
         return mHomeFragment;
     }
 
+    private Fragment getMallFragment() {
+        if (null == mMallFragment) {
+            mMallFragment = new MallFragment();
+        }
+        return mMallFragment;
+    }
+
     private Fragment getRecordFragment() {
         if (null == mRecordFragment) {
             mRecordFragment = new RecordFragment();
@@ -204,7 +215,7 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
     }
 
     @OnClick({R.id.avatar,
-            R.id.home, R.id.record, R.id.contact, R.id.self,
+            R.id.home, R.id.mall, R.id.record, R.id.contact, R.id.self,
             R.id.about, R.id.theme, R.id.icon})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -217,6 +228,12 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
                 mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_view_comfy).sizeDp(20));
                 mTitle.setText(R.string.homepage);
                 switchFragment(getHomeFragment());
+                break;
+            case R.id.mall:
+                mResideLayout.closePane();
+                mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_city).sizeDp(20));
+                mTitle.setText(R.string.mall);
+                switchFragment(getMallFragment());
                 break;
             case R.id.record:
                 mResideLayout.closePane();

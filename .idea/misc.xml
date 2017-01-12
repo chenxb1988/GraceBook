@@ -38,19 +38,13 @@
             <id>Android</id>
           </State>
           <State>
-            <id>Android &gt; Lint &gt; Correctness</id>
-          </State>
-          <State>
-            <id>Android &gt; Lint &gt; Security</id>
+            <id>Android Lint</id>
           </State>
           <State>
             <id>Java</id>
           </State>
           <State>
             <id>Java language level migration aidsJava</id>
-          </State>
-          <State>
-            <id>Resource management issuesJava</id>
           </State>
         </expanded-state>
         <selected-state>

@@ -3,128 +3,66 @@ package com.grace.book.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.widget.ListView;
+import android.view.View;
 
-import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
-import com.aspsine.swipetoloadlayout.OnRefreshListener;
-import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.grace.book.R;
-import com.grace.book.adapter.AndroidAdapter;
+import com.grace.book.activitys.MainActivity;
 import com.grace.book.base.BaseFragment;
-import com.grace.book.beans.GanHuo;
-import com.grace.book.event.SkinChangeEvent;
-import com.grace.book.http.CallBack;
-import com.grace.book.http.RequestManager;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.grace.book.theme.ColorBackButton;
+import com.grace.book.utils.ThemeUtils;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
-
-    @Bind(R.id.swipe_target)
-    ListView mListView;
-    @Bind(R.id.swipeToLoadLayout)
-    SwipeToLoadLayout mSwipeToLoadLayout;
-    private AndroidAdapter adapter;
-    private List<GanHuo> ganHuos = new ArrayList<>();
-
-    private int page = 1;
+public class HomeFragment extends BaseFragment {
+    @Bind(R.id.btn_read_book)
+    ColorBackButton mBtnReadBook;
+    @Bind(R.id.btn_read_bible)
+    ColorBackButton mBtnReadBible;
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_android;
+        return R.layout.fragment_home;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        EventBus.getDefault().register(this);
-        if (ganHuos.size() == 0) {
-            initView();
-            onRefresh();
-        }
-    }
-
-    @Subscribe
-    public void onEvent(SkinChangeEvent event) {
-        adapter.notifyDataSetChanged();
-
-    }
-
-    private void getData(final boolean isRefresh) {
-        int pageSize = 30;
-        RequestManager.get(getName(), "http://gank.io/api/data/all/"
-                        + String.valueOf(pageSize) + "/"
-                        + String.valueOf(page), isRefresh,
-                new CallBack<List<GanHuo>>() {
-                    @Override
-                    public void onSuccess(List<GanHuo> result) {
-                        if (isRefresh) {
-                            ganHuos.clear();
-                            page = 2;
-                        } else {
-                            page++;
-                        }
-                        for (GanHuo ganHuo : result) {
-                            if (!ganHuo.getType().equals("福利")) {
-                                ganHuos.add(ganHuo);
-                            }
-                        }
-//                      ganHuos.addAll(result);
-                        adapter.notifyDataSetChanged();
-                        if (mSwipeToLoadLayout != null) {
-                            mSwipeToLoadLayout.setRefreshing(false);
-                            mSwipeToLoadLayout.setLoadingMore(false);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(String message) {
-                        super.onFailure(message);
-                        if (mSwipeToLoadLayout != null) {
-                            mSwipeToLoadLayout.setRefreshing(false);
-                            mSwipeToLoadLayout.setLoadingMore(false);
-                        }
-                    }
-                });
+//        EventBus.getDefault().register(this);
+        initView();
     }
 
     private void initView() {
-        mSwipeToLoadLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeToLoadLayout.setRefreshing(true);
-            }
-        });
-        mSwipeToLoadLayout.setOnRefreshListener(this);
-        mSwipeToLoadLayout.setOnLoadMoreListener(this);
-        adapter = new AndroidAdapter(getActivity(), ganHuos);
-        mListView.setAdapter(adapter);
+        ThemeUtils.addThemeToView(mBtnReadBook);
+        ThemeUtils.addThemeToView(mBtnReadBible);
     }
 
-    @Override
-    public void onRefresh() {
-        page = 1;
-        getData(true);
+    @OnClick({R.id.ll_mall, R.id.ll_record, R.id.ll_contact, R.id.ll_more})
+    public void onClick(View view) {
+        MainActivity activity = (MainActivity) getActivity();
+        switch (view.getId()) {
+            case R.id.ll_mall:
+                activity.switchFragment(1);
+                break;
+            case R.id.ll_record:
+                activity.switchFragment(2);
+                break;
+            case R.id.ll_contact:
+                activity.switchFragment(3);
+                break;
+            case R.id.ll_more:
+                activity.switchFragment(4);
+                break;
+        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
 
-    }
-
-    @Override
-    public void onLoadMore() {
-        getData(false);
     }
 }

@@ -65,7 +65,7 @@ public class ColorTextView extends TextView implements ColorUiInterface {
             ViewAttributeUtil.applyTextLinkColor(this, themeId, attr_textLinkColor);
         }
 
-        int index = getText().toString().indexOf('[');
+        int index = getText().toString().length();
         int color = ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary);
         SpannableString ss = new SpannableString(getText().toString());
         ss.setSpan(new ForegroundColorSpan(color), 0, index, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

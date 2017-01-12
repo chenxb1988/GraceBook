@@ -15,7 +15,7 @@ public class LoginUtils {
         LoginDialog loginDialog = new LoginDialog(activity);
         Window dialogWindow = loginDialog.getWindow();
         dialogWindow.setGravity(Gravity.CENTER);
-        dialogWindow.setWindowAnimations(R.style.dialogWindowAnim);
+//        dialogWindow.setWindowAnimations(R.style.dialogWindowAnim);
         WindowManager windowManager = activity.getWindowManager();
         Display display = windowManager.getDefaultDisplay();
         WindowManager.LayoutParams layoutParams = dialogWindow.getAttributes();

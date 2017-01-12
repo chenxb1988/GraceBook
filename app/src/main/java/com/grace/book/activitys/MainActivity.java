@@ -209,6 +209,8 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
     public void onBackPressed() {
         if (mResideLayout.isOpen()) {
             mResideLayout.closePane();
+        } else if (currentFragment != mHomeFragment) {
+            switchFragment(0);
         } else {
             super.onBackPressed();
         }
@@ -216,53 +218,38 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
 
     @OnClick({R.id.avatar,
             R.id.home, R.id.mall, R.id.record, R.id.contact, R.id.self,
-            R.id.about, R.id.theme, R.id.icon})
+            R.id.theme, R.id.icon})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.avatar:
                 LoginUtils.showLoginDialog(this);
                 break;
             case R.id.home:
-                mResideLayout.closePane();
-                mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_view_comfy).sizeDp(20));
-                mTitle.setText(R.string.homepage);
-                switchFragment(getHomeFragment());
+                switchFragment(0);
                 break;
             case R.id.mall:
-                mResideLayout.closePane();
-                mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_city).sizeDp(20));
-                mTitle.setText(R.string.mall);
-                switchFragment(getMallFragment());
+                switchFragment(1);
                 break;
             case R.id.record:
-                mResideLayout.closePane();
-                mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_mood).sizeDp(20));
-                mTitle.setText(R.string.record);
-                switchFragment(getRecordFragment());
+                switchFragment(2);
                 break;
             case R.id.contact:
-                mResideLayout.closePane();
-                mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_android).sizeDp(20));
-                mTitle.setText(R.string.contact);
-                switchFragment(getContactFragment());
+                switchFragment(3);
                 break;
             case R.id.self:
-                mResideLayout.closePane();
-                mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_apple).sizeDp(20));
-                mTitle.setText(R.string.self);
-                switchFragment(getSelfFragment());
+                switchFragment(4);
                 break;
-            case R.id.about:
-                new MaterialDialog.Builder(this)
-                        .title(R.string.about)
-                        .icon(new IconicsDrawable(this)
-                                .color(ThemeUtils.getThemeColor(this, R.attr.colorPrimary))
-                                .icon(MaterialDesignIconic.Icon.gmi_account)
-                                .sizeDp(20))
-                        .content(R.string.about_me)
-                        .positiveText(R.string.close)
-                        .show();
-                break;
+//            case R.id.about:
+//                new MaterialDialog.Builder(this)
+//                        .title(R.string.about)
+//                        .icon(new IconicsDrawable(this)
+//                                .color(ThemeUtils.getThemeColor(this, R.attr.colorPrimary))
+//                                .icon(MaterialDesignIconic.Icon.gmi_account)
+//                                .sizeDp(20))
+//                        .content(R.string.about_me)
+//                        .positiveText(R.string.close)
+//                        .show();
+//                break;
             case R.id.theme:
                 new ColorChooserDialog.Builder(this, R.string.theme)
                         .customColors(R.array.colors, null)
@@ -274,6 +261,37 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
                 break;
             case R.id.icon:
                 mResideLayout.openPane();
+                break;
+        }
+    }
+
+    public void switchFragment(int index) {
+        mResideLayout.closePane();
+        switch (index) {
+            case 0:
+                mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_view_comfy).sizeDp(20));
+                mTitle.setText(R.string.homepage);
+                switchFragment(getHomeFragment());
+                break;
+            case 1:
+                mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_city).sizeDp(20));
+                mTitle.setText(R.string.mall);
+                switchFragment(getMallFragment());
+                break;
+            case 2:
+                mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_mood).sizeDp(20));
+                mTitle.setText(R.string.record);
+                switchFragment(getRecordFragment());
+                break;
+            case 3:
+                mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_android).sizeDp(20));
+                mTitle.setText(R.string.contact);
+                switchFragment(getContactFragment());
+                break;
+            case 4:
+                mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_apple).sizeDp(20));
+                mTitle.setText(R.string.self);
+                switchFragment(getSelfFragment());
                 break;
         }
     }

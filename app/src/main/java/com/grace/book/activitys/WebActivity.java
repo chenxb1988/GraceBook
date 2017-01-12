@@ -53,6 +53,7 @@ public class WebActivity extends BaseActivity {
 
         initViews();
         init();
+        startTranslationNoShowTranslation();
     }
 
     protected void initViews() {

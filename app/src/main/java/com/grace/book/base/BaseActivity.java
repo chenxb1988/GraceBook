@@ -1,6 +1,7 @@
 package com.grace.book.base;
 
 import android.annotation.TargetApi;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,11 +12,13 @@ import com.grace.book.R;
 import com.grace.book.http.RequestManager;
 import com.grace.book.theme.Theme;
 import com.grace.book.utils.PreUtils;
+import com.library.viewspread.helper.BaseViewHelper;
 
 /**
  * Created by dongjunkun on 2016/2/2.
  */
 public class BaseActivity extends AppCompatActivity {
+    BaseViewHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,16 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
+    protected void startTranslationNoShowTranslation() {
+        helper = new BaseViewHelper
+                .Builder(BaseActivity.this)
+                .isFullWindow(true)//是否全屏显示
+                .isShowTransition(false)//是否显示过渡动画
+                .setDimColor(Color.WHITE)//遮罩颜色
+                .setDimAlpha(200)//遮罩透明度
+                .create();//开始动画
+    }
+
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
         Window win = getWindow();
@@ -100,5 +113,15 @@ public class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         //取消请求
         RequestManager.cancelRequest(getName());
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (helper != null && helper.isShowing()) {
+            helper.backActivity(this);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

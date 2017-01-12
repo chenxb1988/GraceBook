@@ -1,5 +1,6 @@
 package com.grace.book.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,13 +10,14 @@ import android.text.style.ForegroundColorSpan;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.grace.book.R;
+import com.grace.book.activitys.WebActivity;
+import com.grace.book.beans.GanHuo;
+import com.library.viewspread.helper.BaseViewHelper;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
-import com.grace.book.R;
-import com.grace.book.activitys.WebActivity;
-import com.grace.book.beans.GanHuo;
 
 import me.xiaopan.android.content.res.DimenUtils;
 
@@ -31,7 +33,10 @@ public class ActivityUtils {
     public static void launchGanhuoDetail(Context context, GanHuo ganhuo) {
         Intent intent = new Intent(context, WebActivity.class);
         intent.putExtra(GANHUO_EXTRA, ganhuo);
-        context.startActivity(intent);
+
+        new BaseViewHelper
+                .Builder((Activity) context)
+                .startActivity(intent);
     }
 
     public static void setIconByType(String type, ImageView icon) {

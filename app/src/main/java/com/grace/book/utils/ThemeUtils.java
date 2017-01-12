@@ -2,6 +2,12 @@ package com.grace.book.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
+import android.view.View;
+
+import com.grace.book.R;
 
 /**
  * Created by dongjunkun on 2016/2/6.
@@ -13,4 +19,29 @@ public class ThemeUtils {
         typedArray.recycle();
         return color;
     }
+
+    public static void addDrawableStateResource(View view, int idNormal, int idPressed) {
+        StateListDrawable sd = new StateListDrawable();
+        Drawable normal = idNormal == -1 ? null : view.getResources().getDrawable(idNormal);
+        Drawable pressed = idPressed == -1 ? null : view.getResources().getDrawable(idPressed);
+        sd.addState(new int[]{android.R.attr.state_pressed}, pressed);
+        sd.addState(new int[]{}, normal);
+        view.setBackgroundDrawable(sd);
+    }
+
+    public static void addDrawableStateColor(View view, int colorNormal, int colorPressed) {
+        StateListDrawable sd = new StateListDrawable();
+        ColorDrawable normal = new ColorDrawable(colorNormal);
+        ColorDrawable pressed = new ColorDrawable(colorPressed);
+        sd.addState(new int[]{android.R.attr.state_pressed}, pressed);
+        sd.addState(new int[]{}, normal);
+        view.setBackgroundDrawable(sd);
+    }
+
+    public static void addThemeToView(View view) {
+        int colorPrimary = getThemeColor(view.getContext(), R.attr.colorPrimary);
+        int colorPrimaryDark = getThemeColor(view.getContext(), R.attr.colorPrimaryDark);
+        addDrawableStateColor(view, colorPrimary, colorPrimaryDark);
+    }
+
 }

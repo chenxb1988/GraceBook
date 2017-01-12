@@ -28,10 +28,6 @@
         <activity
             android:name=".activitys.WebActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activitys.LoginActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/ActivityDialog" />
     </application>
 
 </manifest>

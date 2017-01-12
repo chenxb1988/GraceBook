@@ -197,5 +197,17 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <style name="dialogWindowAnim" parent="android:Animation" mce_bogus="1">
+        <item name="android:windowEnterAnimation">@anim/pay_entry_bottom</item>
+        <item name="android:windowExitAnimation">@anim/pay_exit_bottom</item>
+    </style>
+
+    <style name="MyDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 
 </resources>

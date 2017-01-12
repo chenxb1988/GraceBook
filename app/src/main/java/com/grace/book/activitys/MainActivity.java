@@ -1,7 +1,6 @@
 package com.grace.book.activitys;
 
 import android.animation.Animator;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -34,6 +33,7 @@ import com.grace.book.http.CallBack;
 import com.grace.book.http.RequestManager;
 import com.grace.book.theme.ColorUiUtil;
 import com.grace.book.theme.Theme;
+import com.grace.book.utils.LoginUtils;
 import com.grace.book.utils.PreUtils;
 import com.grace.book.utils.SystemUtils;
 import com.grace.book.utils.ThemeUtils;
@@ -220,8 +220,7 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.avatar:
-                Intent intent = LoginActivity.createIntent(this);
-                startActivity(intent);
+                LoginUtils.showLoginDialog(this);
                 break;
             case R.id.home:
                 mResideLayout.closePane();

@@ -165,7 +165,11 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
 
     private void switchFragment(Fragment fragment) {
         if (currentFragment == null || !fragment.getClass().getName().equals(currentFragment.getClass().getName())) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                    .replace(R.id.container, fragment)
+                    .commit();
             currentFragment = fragment;
         }
     }

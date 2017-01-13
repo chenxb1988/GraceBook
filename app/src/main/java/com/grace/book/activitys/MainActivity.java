@@ -17,7 +17,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bumptech.glide.Glide;
 import com.grace.book.R;
@@ -104,6 +103,7 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
         } else {
             mStatusBar.setVisibility(View.GONE);
         }
+        startTranslationNoShowTranslation();
 
         setIconDrawable(mHome, MaterialDesignIconic.Icon.gmi_home);
         setIconDrawable(mMall, MaterialDesignIconic.Icon.gmi_city);
@@ -177,7 +177,7 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
         return mHomeFragment;
     }
 
-    private Fragment getMallFragment() {
+    public Fragment getMallFragment() {
         if (null == mMallFragment) {
             mMallFragment = new MallFragment();
         }
@@ -209,7 +209,7 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
     public void onBackPressed() {
         if (mResideLayout.isOpen()) {
             mResideLayout.closePane();
-        } else if (currentFragment != mHomeFragment) {
+        } else if (!(currentFragment instanceof HomeFragment)) {
             switchFragment(0);
         } else {
             super.onBackPressed();

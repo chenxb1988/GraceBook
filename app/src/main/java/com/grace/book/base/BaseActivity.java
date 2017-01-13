@@ -117,7 +117,6 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         if (helper != null && helper.isShowing()) {
             helper.backActivity(this);
         } else {

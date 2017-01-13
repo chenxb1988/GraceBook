@@ -141,6 +141,13 @@ public class BaseViewHelper extends AbstractViewHelper{
 
                 }
             });
+
+        decorView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                decorView.removeView(frmlayout);
+            }
+        }, builder.mTranslationDuration);
     }
 
     /**

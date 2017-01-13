@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,9 +35,21 @@ public class ActivityUtils {
     public static void launchGanhuoDetail(Context context, GanHuo ganhuo) {
         Intent intent = new Intent(context, WebActivity.class);
         intent.putExtra(GANHUO_EXTRA, ganhuo);
+        context.startActivity(intent);
+    }
 
+    public static void launchActivity(Activity activityA, Class<?> activityB, View view){
+        Intent intent = new Intent(activityA, activityB);
         new BaseViewHelper
-                .Builder((Activity) context)
+                .Builder(activityA,view)
+                .startActivity(intent);
+    }
+
+    public static void launchActivity(Activity activityA, Class<?> activityB, View view, Bundle bundle){
+        Intent intent = new Intent(activityA, activityB);
+        intent.putExtras(bundle);
+        new BaseViewHelper
+                .Builder(activityA,view)
                 .startActivity(intent);
     }
 

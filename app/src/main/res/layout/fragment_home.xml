@@ -111,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="读书计划"
+            android:text="AAA计划"
             android:textColor="@color/white" />
 
         <com.grace.book.theme.ColorBackButton
@@ -120,7 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:padding="10dp"
-            android:text="读经计划"
+            android:text="BBB计划"
             android:textColor="@color/white" />
     </LinearLayout>
 </com.grace.book.theme.ColorLinearLayout>

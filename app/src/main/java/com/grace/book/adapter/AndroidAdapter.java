@@ -59,6 +59,7 @@ public class AndroidAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 ActivityUtils.launchGanhuoDetail(context, ganHuo);
+
             }
         });
 //        viewHolder.mText.setText(Html.fromHtml("<a href=\""

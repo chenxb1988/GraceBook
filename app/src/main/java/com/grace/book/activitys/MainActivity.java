@@ -114,7 +114,7 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
         setIconDrawable(mTheme, MaterialDesignIconic.Icon.gmi_palette);
 
         Glide.with(MainActivity.this)
-                .load(R.mipmap.avatar)
+                .load(R.drawable.logo)
                 .placeholder(new IconicsDrawable(this)
                         .icon(FoundationIcons.Icon.fou_photo)
                         .color(Color.GRAY)
@@ -298,6 +298,20 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
                 switchFragment(getSelfFragment());
                 break;
         }
+    }
+
+    public boolean isTouchBanner(float x, float y) {
+        if (mResideLayout.isOpen()) {
+            return false;
+        }
+        if (currentFragment instanceof HomeFragment) {
+            int minY = DimenUtils.dp2px(this, 68);
+            int maxY = DimenUtils.dp2px(this, 268);
+            if (y >= minY && y <= maxY) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

@@ -1,15 +1,12 @@
-<com.grace.book.theme.ColorLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.grace.book.theme.ColorLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.grace.book.theme.ColorBackTextView
+    <com.grace.book.adapter.BannerView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:gravity="center"
-        android:background="?attr/colorPrimary"
-        android:text="BANNER页"
-        android:textColor="@color/white" />
+        android:layout_height="200dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,13 +26,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/logo" />
+                android:layout_margin="5dp"
+                android:src="@drawable/logo"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="书城中心" />
+                android:text="书城中心"/>
         </LinearLayout>
 
         <LinearLayout
@@ -49,13 +47,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/logo" />
+                android:layout_margin="5dp"
+                android:src="@drawable/logo"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="我的记录" />
+                android:text="我的记录"/>
         </LinearLayout>
 
         <LinearLayout
@@ -69,13 +68,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/logo" />
+                android:layout_margin="5dp"
+                android:src="@drawable/logo"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="通讯录" />
+                android:text="通讯录"/>
         </LinearLayout>
 
         <LinearLayout
@@ -89,13 +89,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/logo" />
+                android:layout_margin="5dp"
+                android:src="@drawable/logo"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="更多" />
+                android:text="更多"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -112,7 +113,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="AAA计划"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"/>
 
         <com.grace.book.theme.ColorBackButton
             android:id="@+id/btn_read_bible"
@@ -121,6 +122,6 @@
             android:layout_marginTop="20dp"
             android:padding="10dp"
             android:text="BBB计划"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"/>
     </LinearLayout>
 </com.grace.book.theme.ColorLinearLayout>

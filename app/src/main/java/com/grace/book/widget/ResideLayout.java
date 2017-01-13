@@ -28,6 +28,8 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 
+import com.grace.book.activitys.MainActivity;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -663,8 +665,19 @@ public class ResideLayout extends ViewGroup {
         }
     }
 
+    private boolean isTouchBanner(MotionEvent ev){
+        if(getContext() instanceof MainActivity){
+            MainActivity activity = (MainActivity) getContext();
+            return activity.isTouchBanner(ev.getX(), ev.getY());
+        }
+        return false;
+    }
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (isTouchBanner(ev)) {
+            return false;
+        }
         final int action = MotionEventCompat.getActionMasked(ev);
 
         // Preserve the open state based on the last view that was touched.

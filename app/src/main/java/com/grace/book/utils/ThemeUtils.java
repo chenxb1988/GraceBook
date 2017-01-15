@@ -2,12 +2,12 @@ package com.grace.book.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.view.View;
 
 import com.grace.book.R;
+import com.grace.book.widget.RoundDrawable;
 
 /**
  * Created by dongjunkun on 2016/2/6.
@@ -31,8 +31,8 @@ public class ThemeUtils {
 
     public static void addDrawableStateColor(View view, int colorNormal, int colorPressed) {
         StateListDrawable sd = new StateListDrawable();
-        ColorDrawable normal = new ColorDrawable(colorNormal);
-        ColorDrawable pressed = new ColorDrawable(colorPressed);
+        RoundDrawable normal = new RoundDrawable(colorNormal);
+        RoundDrawable pressed = new RoundDrawable(colorPressed);
         sd.addState(new int[]{android.R.attr.state_pressed}, pressed);
         sd.addState(new int[]{}, normal);
         view.setBackgroundDrawable(sd);

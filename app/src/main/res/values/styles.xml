@@ -16,7 +16,7 @@
         <item name="md_title_color">@color/colorBluePrimary</item>
         <item name="md_link_color">@color/colorBluePrimary</item>
         <item name="md_positive_color">@color/colorBluePrimary</item>
-
+        <item name="colorTextHint">@color/colorBlueHint</item>
     </style>
 
     <!--redTheme-->
@@ -28,6 +28,7 @@
         <item name="md_title_color">@color/colorRedPrimary</item>
         <item name="md_link_color">@color/colorRedPrimary</item>
         <item name="md_positive_color">@color/colorRedPrimary</item>
+        <item name="colorTextHint">@color/colorRedHint</item>
 
     </style>
     <!--brownTheme-->
@@ -39,6 +40,7 @@
         <item name="md_title_color">@color/colorBrownPrimary</item>
         <item name="md_link_color">@color/colorBrownPrimary</item>
         <item name="md_positive_color">@color/colorBrownPrimary</item>
+        <item name="colorTextHint">@color/colorBrownHint</item>
 
     </style>
     <!--greenTheme-->
@@ -50,6 +52,7 @@
         <item name="md_title_color">@color/colorGreenPrimary</item>
         <item name="md_link_color">@color/colorGreenPrimary</item>
         <item name="md_positive_color">@color/colorGreenPrimary</item>
+        <item name="colorTextHint">@color/colorGreenHint</item>
     </style>
     <!--purpleTheme-->
     <style name="PurpleTheme" parent="AppTheme">
@@ -60,6 +63,7 @@
         <item name="md_title_color">@color/colorPurplePrimary</item>
         <item name="md_link_color">@color/colorPurplePrimary</item>
         <item name="md_positive_color">@color/colorPurplePrimary</item>
+        <item name="colorTextHint">@color/colorPurpleHint</item>
     </style>
     <!--tealTheme-->
     <style name="TealTheme" parent="AppTheme">
@@ -70,6 +74,7 @@
         <item name="md_title_color">@color/colorTealPrimary</item>
         <item name="md_link_color">@color/colorTealPrimary</item>
         <item name="md_positive_color">@color/colorTealPrimary</item>
+        <item name="colorTextHint">@color/colorTealHint</item>
     </style>
 
     <!--pinkTheme-->
@@ -81,6 +86,7 @@
         <item name="md_title_color">@color/colorPinkPrimary</item>
         <item name="md_link_color">@color/colorPinkPrimary</item>
         <item name="md_positive_color">@color/colorPinkPrimary</item>
+        <item name="colorTextHint">@color/colorPinkHint</item>
     </style>
 
     <!--deepPurpleTheme-->
@@ -92,6 +98,7 @@
         <item name="md_title_color">@color/colorDeepPurplePrimary</item>
         <item name="md_link_color">@color/colorDeepPurplePrimary</item>
         <item name="md_positive_color">@color/colorDeepPurplePrimary</item>
+        <item name="colorTextHint">@color/colorDeepPurpleHint</item>
     </style>
 
     <!--orange-->
@@ -103,6 +110,7 @@
         <item name="md_title_color">@color/colorOrangePrimary</item>
         <item name="md_link_color">@color/colorOrangePrimary</item>
         <item name="md_positive_color">@color/colorOrangePrimary</item>
+        <item name="colorTextHint">@color/colorOrangeHint</item>
     </style>
 
 
@@ -115,6 +123,7 @@
         <item name="md_title_color">@color/colorIndigoPrimary</item>
         <item name="md_link_color">@color/colorIndigoPrimary</item>
         <item name="md_positive_color">@color/colorIndigoPrimary</item>
+        <item name="colorTextHint">@color/colorIndigoHint</item>
     </style>
 
 
@@ -127,6 +136,7 @@
         <item name="md_title_color">@color/colorCyanPrimary</item>
         <item name="md_link_color">@color/colorCyanPrimary</item>
         <item name="md_positive_color">@color/colorCyanPrimary</item>
+        <item name="colorTextHint">@color/colorCyanHint</item>
     </style>
 
 
@@ -139,6 +149,7 @@
         <item name="md_title_color">@color/colorLightGreenPrimary</item>
         <item name="md_link_color">@color/colorLightGreenPrimary</item>
         <item name="md_positive_color">@color/colorLightGreenPrimary</item>
+        <item name="colorTextHint">@color/colorLightGreenHint</item>
     </style>
 
 
@@ -151,6 +162,7 @@
         <item name="md_title_color">@color/colorLimePrimary</item>
         <item name="md_link_color">@color/colorLimePrimary</item>
         <item name="md_positive_color">@color/colorLimePrimary</item>
+        <item name="colorTextHint">@color/colorLimeHint</item>
     </style>
 
 
@@ -163,6 +175,7 @@
         <item name="md_title_color">@color/colorDeepOrangePrimary</item>
         <item name="md_link_color">@color/colorDeepOrangePrimary</item>
         <item name="md_positive_color">@color/colorDeepOrangePrimary</item>
+        <item name="colorTextHint">@color/colorDeepOrangeHint</item>
     </style>
 
 
@@ -175,6 +188,7 @@
         <item name="md_title_color">@color/colorBlueGreyPrimary</item>
         <item name="md_link_color">@color/colorBlueGreyPrimary</item>
         <item name="md_positive_color">@color/colorBlueGreyPrimary</item>
+        <item name="colorTextHint">@color/colorBlueGreyHint</item>
     </style>
 
 
@@ -197,7 +211,7 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
-    <style name="dialogWindowAnim" parent="android:Animation" mce_bogus="1">
+    <style name="dialogWindowAnim" mce_bogus="1" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/pay_entry_bottom</item>
         <item name="android:windowExitAnimation">@anim/pay_exit_bottom</item>
     </style>
@@ -210,4 +224,10 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
+    <declare-styleable name="AnimCheckBox">
+        <attr name="stroke_width" format="dimension" />
+        <attr name="stroke_color" format="color" />
+        <attr name="circle_color" format="color" />
+        <attr name="checked" format="boolean" />
+    </declare-styleable>
 </resources>

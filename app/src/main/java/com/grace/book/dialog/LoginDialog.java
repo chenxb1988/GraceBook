@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.github.lguipeng.library.animcheckbox.AnimCheckBox;
 import com.grace.book.R;
 import com.grace.book.utils.ThemeUtils;
+import com.grace.book.widget.AnimCheckBox;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

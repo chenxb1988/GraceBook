@@ -60,5 +60,4 @@ dependencies {
 
     compile project(':viewspreadtranslationlibrary')
     compile 'com.android.support:design:23.4.0'
-    compile 'com.github.lguipeng:AnimCheckBox:1.0.1'
 }

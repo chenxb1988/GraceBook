@@ -4,7 +4,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
@@ -25,7 +24,6 @@ import com.grace.book.R;
 import com.grace.book.base.BaseActivity;
 import com.grace.book.beans.GanHuo;
 import com.grace.book.utils.ActivityUtils;
-import com.grace.book.utils.SystemUtils;
 
 import me.xiaopan.android.widget.ToastUtils;
 
@@ -69,13 +67,13 @@ public class WebActivity extends BaseActivity {
     }
 
     protected void init() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            mStatusBar.setVisibility(View.VISIBLE);
-            mStatusBar.getLayoutParams().height = SystemUtils.getStatusHeight(this);
-            mStatusBar.setLayoutParams(mStatusBar.getLayoutParams());
-        } else {
-            mStatusBar.setVisibility(View.GONE);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            mStatusBar.setVisibility(View.VISIBLE);
+//            mStatusBar.getLayoutParams().height = SystemUtils.getStatusHeight(this);
+//            mStatusBar.setLayoutParams(mStatusBar.getLayoutParams());
+//        } else {
+//            mStatusBar.setVisibility(View.GONE);
+//        }
         GanHuo ganhuo = (GanHuo) getIntent().getSerializableExtra(ActivityUtils.GANHUO_EXTRA);
         ActivityUtils.setIconByType(ganhuo.getType(), mIcon);
         mUrl = ganhuo.getUrl();

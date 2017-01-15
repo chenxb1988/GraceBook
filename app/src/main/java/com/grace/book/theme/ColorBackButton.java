@@ -2,14 +2,10 @@ package com.grace.book.theme;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.grace.book.R;
 import com.grace.book.utils.ThemeUtils;
@@ -44,9 +40,6 @@ public class ColorBackButton extends Button implements ColorUiInterface {
     @Override
     public void setTheme(Resources.Theme themeId) {
         Log.d("COLOR", "id = " + getId());
-        attr_drawable = ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary);
-        if (attr_drawable != -1) {
-            setBackgroundColor(attr_drawable);
-        }
+        ThemeUtils.addThemeToView(this);
     }
 }

@@ -31,6 +31,7 @@
     <!--blue-->
     <color name="colorBluePrimary">#2196F3</color>
     <color name="colorBluePrimaryDark">#1976D2</color>
+    <color name="colorBlueHint">#662196F3</color>
     <color name="colorBlueAccent">#FF4081</color>
     <color name="colorBluePrimaryCenter">#062748</color>
     <!--red-->

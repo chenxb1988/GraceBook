@@ -1,64 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/login_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    android:layout_height="match_parent">
 
-    <android.support.design.widget.TextInputLayout
+    <LinearLayout
+        android:id="@+id/login_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="用户名"
-        android:textColorHint="?attr/colorPrimaryDark">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
-        <EditText
-            android:id="@+id/et_username"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/selector_bg_edit"
-            android:drawableLeft="@drawable/login_username"
-            android:drawablePadding="12dp"
-            android:inputType="textPersonName"
-            android:padding="8dp"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="20sp"/>
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginTop="20dp"
+            android:hint="用户名"
+            android:textColorHint="?attr/colorPrimaryDark">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="密码"
-        android:textColorHint="?attr/colorPrimaryDark">
+            <EditText
+                android:id="@+id/et_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_bg_edit"
+                android:drawableLeft="@drawable/login_username"
+                android:drawablePadding="12dp"
+                android:inputType="textPersonName"
+                android:padding="8dp"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="20sp"/>
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/et_password"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/selector_bg_edit"
-            android:drawableLeft="@drawable/login_password"
-            android:drawablePadding="12dp"
-            android:inputType="textPassword"
-            android:padding="8dp"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="20sp"/>
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginTop="20dp"
+            android:hint="密码"
+            android:textColorHint="?attr/colorPrimaryDark">
 
-    <Button
-        android:id="@+id/btn_login"
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_bg_edit"
+                android:drawableLeft="@drawable/login_password"
+                android:drawablePadding="12dp"
+                android:inputType="textPassword"
+                android:padding="8dp"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="20sp"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <com.github.lguipeng.library.animcheckbox.AnimCheckBox
+                android:id="@+id/cb_remember_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="16dp"
+                android:background="@null"
+                app:checked="false"
+                app:circle_color="@color/white"
+                app:stroke_color="?attr/colorPrimary"
+                app:stroke_width="1.5dp"/>
+
+            <TextView
+                android:id="@+id/tv_remember_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="4dp"
+                android:paddingTop="10dp"
+                android:text="记住密码"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/tv_forget_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:text="忘记密码？"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:text="登  陆"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/reset_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="登  陆"
-        android:textColor="@color/white"
-        android:textSize="18sp"/>
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:visibility="gone">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="手机号"
+            android:textColorHint="?attr/colorPrimaryDark">
+
+            <EditText
+                android:id="@+id/et_username_set"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_bg_edit"
+                android:drawableLeft="@drawable/login_username"
+                android:drawablePadding="12dp"
+                android:inputType="textPersonName"
+                android:padding="8dp"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="20sp"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="验证码"
+                android:textColorHint="?attr/colorPrimaryDark">
+
+                <EditText
+                    android:id="@+id/et_ecode_set"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_bg_edit"
+                    android:drawableLeft="@drawable/login_password"
+                    android:drawablePadding="12dp"
+                    android:inputType="textPersonName"
+                    android:padding="8dp"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="20sp"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_getcode"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="1dp"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="获取验证码"
+                android:textColor="@color/white"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="密码"
+            android:textColorHint="?attr/colorPrimaryDark">
+
+            <EditText
+                android:id="@+id/et_password_set"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_bg_edit"
+                android:drawableLeft="@drawable/login_password"
+                android:drawablePadding="12dp"
+                android:inputType="textPassword"
+                android:padding="8dp"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="20sp"/>
+        </android.support.design.widget.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/tv_go_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="right|center_vertical"
+            android:paddingBottom="10dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:text="我有账号，直接登录"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="14sp"/>
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
+            android:text="确 定"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+    </LinearLayout>
+</FrameLayout>

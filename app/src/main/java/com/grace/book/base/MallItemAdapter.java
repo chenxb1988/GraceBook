@@ -1,4 +1,4 @@
-package com.grace.book.todo;
+package com.grace.book.base;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grace.book.R;
+import com.grace.book.beans.MallItem;
 
 import java.util.List;
 
@@ -16,11 +17,11 @@ import java.util.List;
  * Created by gjz on 16/01/2017.
  */
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder>{
-    private List<Item> mItems;
+public class MallItemAdapter extends RecyclerView.Adapter<MallItemAdapter.ItemViewHolder>{
+    private List<MallItem> mItems;
     private GridLayoutManager mLayoutManager;
 
-    public ItemAdapter(List<Item> items, GridLayoutManager layoutManager) {
+    public MallItemAdapter(List<MallItem> items, GridLayoutManager layoutManager) {
         mItems = items;
         mLayoutManager = layoutManager;
     }
@@ -43,7 +44,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             holder.layoutBig.setVisibility(View.GONE);
         }
 
-        Item item = mItems.get(position % 4);
+        MallItem item = mItems.get(position);
         holder.titleSmall.setText(item.getTitle());
         holder.titleBig.setText(item.getTitle());
         holder.ivSmall.setImageResource(item.getImgResId());
@@ -53,7 +54,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     @Override
     public int getItemCount() {
-        return 30;
+        return mItems.size();
     }
 
     class ItemViewHolder extends RecyclerView.ViewHolder {

@@ -1,16 +1,16 @@
-package com.grace.book.todo;
+package com.grace.book.beans;
 
 /**
  * Created by gjz on 18/01/2017.
  */
 
-public class Item {
+public class MallItem {
     private int imgResId;
     private String title;
     private int likes;
     private int comments;
 
-    public Item(int imgResId, String title, int likes, int comments) {
+    public MallItem(int imgResId, String title, int likes, int comments) {
         this.imgResId = imgResId;
         this.title = title;
         this.likes = likes;

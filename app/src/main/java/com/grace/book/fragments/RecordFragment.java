@@ -1,7 +1,6 @@
 package com.grace.book.fragments;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.ListView;
 
@@ -41,12 +40,9 @@ public class RecordFragment extends BaseFragment implements OnRefreshListener, O
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (ganHuos.size() == 0) {
-            initView();
-            onRefresh();
-        }
+    public void initFragment() {
+        initView();
+        onRefresh();
     }
 
     private void getData(final boolean isRefresh) {

@@ -20,6 +20,7 @@
     </array>
 
     <!--basic color-->
+    <color name="transparent">#00000000</color>
     <color name="white">#ffffff</color>
     <color name="black">#040404</color>
     <color name="colorTextIcon">#ffffff</color>

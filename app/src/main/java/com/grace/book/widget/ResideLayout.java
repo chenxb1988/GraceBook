@@ -668,7 +668,7 @@ public class ResideLayout extends ViewGroup {
     private boolean isTouchBanner(MotionEvent ev){
         if(getContext() instanceof MainActivity){
             MainActivity activity = (MainActivity) getContext();
-            return activity.isTouchBanner(ev.getX(), ev.getY());
+            return activity.rejectSlide(ev.getX(), ev.getY());
         }
         return false;
     }

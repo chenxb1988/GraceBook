@@ -1,4 +1,4 @@
-package com.grace.book.adapter;
+package com.grace.book.widget;
 
 import android.content.Context;
 import android.os.Handler;

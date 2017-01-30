@@ -23,11 +23,11 @@ import com.grace.book.R;
 import com.grace.book.base.BaseActivity;
 import com.grace.book.beans.GanHuo;
 import com.grace.book.event.SkinChangeEvent;
-import com.grace.book.fragments.ContactFragment;
-import com.grace.book.fragments.HomeFragment;
-import com.grace.book.fragments.MallFragment;
-import com.grace.book.fragments.RecordFragment;
-import com.grace.book.fragments.SelfFragment;
+import com.grace.book.fragments.HomeContactFragment;
+import com.grace.book.fragments.HomeMainFragment;
+import com.grace.book.fragments.HomeMallFragment;
+import com.grace.book.fragments.HomeRecordFragment;
+import com.grace.book.fragments.HomeSelfFragment;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.RequestManager;
 import com.grace.book.theme.ColorUiUtil;
@@ -150,7 +150,7 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
         }
         mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_home).sizeDp(20));
         mTitle.setText(R.string.homepage);
-        switchFragment(new HomeFragment());
+        switchFragment(new HomeMainFragment());
 
     }
 
@@ -176,35 +176,35 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
 
     private Fragment getHomeFragment() {
         if (null == mHomeFragment) {
-            mHomeFragment = new HomeFragment();
+            mHomeFragment = new HomeMainFragment();
         }
         return mHomeFragment;
     }
 
     public Fragment getMallFragment() {
         if (null == mMallFragment) {
-            mMallFragment = new MallFragment();
+            mMallFragment = new HomeMallFragment();
         }
         return mMallFragment;
     }
 
     private Fragment getRecordFragment() {
         if (null == mRecordFragment) {
-            mRecordFragment = new RecordFragment();
+            mRecordFragment = new HomeRecordFragment();
         }
         return mRecordFragment;
     }
 
     private Fragment getContactFragment() {
         if (null == mContactFragment) {
-            mContactFragment = new ContactFragment();
+            mContactFragment = new HomeContactFragment();
         }
         return mContactFragment;
     }
 
     private Fragment getSelfFragment() {
         if (null == mSelfFragment) {
-            mSelfFragment = new SelfFragment();
+            mSelfFragment = new HomeSelfFragment();
         }
         return mSelfFragment;
     }
@@ -213,7 +213,7 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
     public void onBackPressed() {
         if (mResideLayout.isOpen()) {
             mResideLayout.closePane();
-        } else if (!(currentFragment instanceof HomeFragment)) {
+        } else if (!(currentFragment instanceof HomeMainFragment)) {
             switchFragment(0);
         } else {
             super.onBackPressed();
@@ -300,16 +300,19 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
         }
     }
 
-    public boolean isTouchBanner(float x, float y) {
+    public boolean rejectSlide(float x, float y) {
         if (mResideLayout.isOpen()) {
             return false;
         }
-        if (currentFragment instanceof HomeFragment) {
+        if (currentFragment instanceof HomeMainFragment) {
             int minY = DimenUtils.dp2px(this, 68);
             int maxY = DimenUtils.dp2px(this, 268);
             if (y >= minY && y <= maxY) {
                 return true;
             }
+        }
+        if(currentFragment instanceof HomeRecordFragment) {
+            return !((HomeRecordFragment) currentFragment).isOnFirstTab();
         }
         return false;
     }

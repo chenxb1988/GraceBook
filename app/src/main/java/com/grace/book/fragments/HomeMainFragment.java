@@ -1,7 +1,6 @@
 package com.grace.book.fragments;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
@@ -17,7 +16,7 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends BaseFragment {
+public class HomeMainFragment extends BaseFragment {
     @Bind(R.id.btn_read_book)
     ColorBackButton mBtnReadBook;
     @Bind(R.id.btn_read_bible)
@@ -29,13 +28,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-//        EventBus.getDefault().register(this);
-        initView();
-    }
-
-    private void initView() {
+    public void initFragment() {
         ThemeUtils.addThemeToView(mBtnReadBook);
         ThemeUtils.addThemeToView(mBtnReadBible);
     }

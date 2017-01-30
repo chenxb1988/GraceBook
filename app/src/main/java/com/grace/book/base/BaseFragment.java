@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment extends Fragment {
 
     protected View rootView;
+    private boolean hasInit;
 
     @Nullable
     @Override
@@ -33,6 +34,17 @@ public abstract class BaseFragment extends Fragment {
         ButterKnife.bind(this, rootView);
         return rootView;
     }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (!hasInit) {
+            initFragment();
+        }
+        hasInit = true;
+    }
+
+    protected abstract void initFragment();
 
     protected abstract int getLayoutResource();
 

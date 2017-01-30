@@ -1,7 +1,6 @@
 package com.grace.book.fragments;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,7 +31,7 @@ import butterknife.Bind;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MallFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
+public class HomeMallFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
 
     @Bind(R.id.swipe_target)
     RecyclerView recyclerView;
@@ -49,17 +48,14 @@ public class MallFragment extends BaseFragment implements OnRefreshListener, OnL
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_mall;
+        return R.layout.fragment_home_mall;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void initFragment() {
         EventBus.getDefault().register(this);
-        if (items.size() == 0) {
-            initView();
-            onRefresh();
-        }
+        initView();
+        onRefresh();
     }
 
     @Subscribe

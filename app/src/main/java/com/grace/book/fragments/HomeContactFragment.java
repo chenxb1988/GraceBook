@@ -1,7 +1,6 @@
 package com.grace.book.fragments;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.ListView;
 
@@ -23,7 +22,7 @@ import butterknife.Bind;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ContactFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
+public class HomeContactFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
 
     @Bind(R.id.swipe_target)
     ListView mListView;
@@ -41,12 +40,9 @@ public class ContactFragment extends BaseFragment implements OnRefreshListener, 
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (ganHuos.size() == 0) {
-            initView();
-            onRefresh();
-        }
+    public void initFragment() {
+        initView();
+        onRefresh();
     }
 
     private void getData(final boolean isRefresh) {

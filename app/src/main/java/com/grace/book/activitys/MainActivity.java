@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -164,14 +165,20 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
     }
 
     private void switchFragment(Fragment fragment) {
-        if (currentFragment == null || !fragment.getClass().getName().equals(currentFragment.getClass().getName())) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                    .replace(R.id.container, fragment)
-                    .commit();
-            currentFragment = fragment;
+        FragmentTransaction mTransaction = getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        if (currentFragment == null) {
+            mTransaction.replace(R.id.container, fragment).commit();
+        } else if (!fragment.getClass().getName().equals(currentFragment.getClass().getName())) {
+            mTransaction.hide(currentFragment);
+            if (!fragment.isAdded()) {
+                mTransaction.add(R.id.container, fragment).commitAllowingStateLoss();
+            } else {
+                mTransaction.show(fragment).commitAllowingStateLoss();
+            }
         }
+        currentFragment = fragment;
     }
 
     private Fragment getHomeFragment() {
@@ -311,7 +318,7 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
                 return true;
             }
         }
-        if(currentFragment instanceof HomeRecordFragment) {
+        if (currentFragment instanceof HomeRecordFragment) {
             return !((HomeRecordFragment) currentFragment).isOnFirstTab();
         }
         return false;

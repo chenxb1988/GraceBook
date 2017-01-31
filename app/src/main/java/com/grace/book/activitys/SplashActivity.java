@@ -30,20 +30,13 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
 
-        mIvSplash.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ActivityUtils.launchActivity(SplashActivity.this, MainActivity.class, mIvSplash);
-                finish();
-            }
-        }, 5000);
-
         mSvgView.setOnStateChangeListener(new AnimatedSvgView.OnStateChangeListener() {
 
             @Override
             public void onStateChange(int state) {
                 if (state == AnimatedSvgView.STATE_FINISHED) {
-                    mSvgView.start();
+                    ActivityUtils.launchActivity(SplashActivity.this, MainActivity.class, mIvSplash);
+                    finish();
                 }
             }
         });

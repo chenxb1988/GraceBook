@@ -2,15 +2,13 @@ package com.grace.book.fragments;
 
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.grace.book.R;
-import com.grace.book.adapter.TabFragmentPageAdapter;
 import com.grace.book.base.BaseFragment;
 import com.grace.book.widget.PagerSlidingTabStrip;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 
@@ -24,7 +22,6 @@ public class HomeRecordFragment extends BaseFragment {
     ViewPager mViewPager;
 
     private TabFragmentPageAdapter mPagerAdapter;
-    private List<BaseFragment> mFragments;
 
     private String mTitles[] = {"tab1", "tab2", "tab3", "tab4"};
     private int mPosition;
@@ -36,14 +33,9 @@ public class HomeRecordFragment extends BaseFragment {
 
     @Override
     public void initFragment() {
-        mFragments = new ArrayList<>();
-        mFragments.add(new RecordFragment());
-        mFragments.add(new RecordFragment());
-        mFragments.add(new RecordFragment());
-        mFragments.add(new RecordFragment());
-
-        mPagerAdapter = new TabFragmentPageAdapter(getChildFragmentManager(), mFragments, mTitles);
+        mPagerAdapter = new TabFragmentPageAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
+        mViewPager.setOffscreenPageLimit(mTitles.length);
         mTabs.setViewPager(mViewPager);
         mTabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -63,7 +55,35 @@ public class HomeRecordFragment extends BaseFragment {
         });
     }
 
-    public boolean isOnFirstTab(){
+    public boolean isOnFirstTab() {
         return mPosition == 0;
     }
+
+    class TabFragmentPageAdapter extends FragmentPagerAdapter {
+        private Fragment[] mFragments;
+
+        public TabFragmentPageAdapter(FragmentManager fm) {
+            super(fm);
+            mFragments = new BaseFragment[mTitles.length];
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            if (mFragments[position] == null) {
+                mFragments[position] = RecordFragment.newInstance();
+            }
+            return mFragments[position];
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mTitles[position % mTitles.length];
+        }
+
+        @Override
+        public int getCount() {
+            return mTitles.length;
+        }
+    }
+
 }

@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment extends Fragment {
 
     protected View rootView;
-    private boolean hasInit;
+    protected boolean hasInit;
 
     @Nullable
     @Override

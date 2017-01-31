@@ -6,6 +6,7 @@ import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -70,20 +71,21 @@ public class BannerView extends RelativeLayout {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT
                 , LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(20, 20, 20, 20);
-        for (int i = 0; i < banners.length; i++) {
+        for (int i = banners.length - 1; i < banners.length * 2 + 1; i++) {
             ImageView imageView = new ImageView(mContext);
             imageView.setLayoutParams(params);
-            imageView.setImageResource(banners[i]);
+            imageView.setImageResource(banners[i % banners.length]);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
-            imageView.setOnClickListener(new View.OnClickListener() {
+            imageView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                 }
             });
             mViews.add(imageView);
-
+        }
+        for (int i = 0; i < banners.length; i++) {
             ImageView dot = new ImageView(mContext);
             dot.setImageResource(mPoints.size() == 0 ? R.drawable.ic_point_select : R.drawable.ic_point_normal);
             mPoints.add(dot);
@@ -104,8 +106,15 @@ public class BannerView extends RelativeLayout {
 
             @Override
             public void onPageSelected(int position) {
+                if (position == 0) {
+                    position = banners.length;
+                    mViewPager.setCurrentItem(position, false);
+                } else if (position == banners.length + 1) {
+                    position = 1;
+                    mViewPager.setCurrentItem(position, false);
+                }
                 currentIndex = position;
-                setCurrentDot(position);
+                setCurrentDot(currentIndex);
             }
 
             @Override
@@ -113,7 +122,7 @@ public class BannerView extends RelativeLayout {
 
             }
         });
-        mViewPager.setOnTouchListener(new View.OnTouchListener() {
+        mViewPager.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -128,7 +137,7 @@ public class BannerView extends RelativeLayout {
                 return false;
             }
         });
-        mViewPager.setCurrentItem(currentIndex);
+        mViewPager.setCurrentItem(banners.length);
 
         startTimer();
     }
@@ -158,6 +167,7 @@ public class BannerView extends RelativeLayout {
     }
 
     private void setCurrentDot(int position) {
+        position = position % banners.length;
         for (int i = 0; i < mPoints.size(); i++) {
             if (i == position) {
                 setDotEnable(mPoints.get(i), true);
@@ -205,13 +215,14 @@ public class BannerView extends RelativeLayout {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    mViewPager.setCurrentItem((currentIndex + 1) % banners.length);
+                    mViewPager.setCurrentItem(currentIndex + 1);
                     break;
             }
         }
     };
 
     class PromotionAdapter extends PagerAdapter {
+        private SparseArray<View> mToDestroy = new SparseArray<View>();
 
         @Override
         public int getCount() {
@@ -225,13 +236,32 @@ public class BannerView extends RelativeLayout {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            container.addView(mViews.get(position), 0);
+//            View toDestroy = mToDestroy.get(position);
+//            if (toDestroy != null) {
+//                mToDestroy.remove(position);
+//                return toDestroy;
+//            }
+//            position = position % banners.length;
+            if (mViews.get(position).getParent() == null) {
+                container.addView(mViews.get(position), 0);
+            }
             return mViews.get(position);
         }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
+//            if (position == 1 || position == banners.length) {
+//                mToDestroy.put(position, (View) object);
+//            } else {
+//                position = position % banners.length;
             container.removeView(mViews.get(position));
+//            }
+        }
+
+        @Override
+        public void notifyDataSetChanged() {
+            mToDestroy.clear();
+            super.notifyDataSetChanged();
         }
     }
 }

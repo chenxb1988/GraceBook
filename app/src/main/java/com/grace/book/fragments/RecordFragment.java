@@ -34,6 +34,10 @@ public class RecordFragment extends BaseFragment implements OnRefreshListener, O
     private int pageSize = 30;
     private int page = 1;
 
+    public static RecordFragment newInstance() {
+        return new RecordFragment();
+    }
+
     @Override
     protected int getLayoutResource() {
         return R.layout.fragment_android;

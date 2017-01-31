@@ -2,6 +2,8 @@ package com.grace.book.utils;
 
 import android.app.Activity;
 import android.graphics.Rect;
+import android.os.Build;
+import android.view.View;
 
 /**
  * Created by dongjunkun on 2015/11/24.
@@ -29,5 +31,15 @@ public class SystemUtils {
             }
         }
         return statusHeight;
+    }
+
+    public static void setStatusBar(Activity activity, View statusBar) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            statusBar.setVisibility(View.VISIBLE);
+            statusBar.getLayoutParams().height = getStatusHeight(activity);
+            statusBar.setLayoutParams(statusBar.getLayoutParams());
+        } else {
+            statusBar.setVisibility(View.GONE);
+        }
     }
 }

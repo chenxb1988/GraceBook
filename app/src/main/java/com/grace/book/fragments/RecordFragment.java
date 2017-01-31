@@ -40,7 +40,7 @@ public class RecordFragment extends BaseFragment implements OnRefreshListener, O
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_android;
+        return R.layout.fragment_record;
     }
 
     @Override

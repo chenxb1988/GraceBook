@@ -1,14 +1,21 @@
 package com.grace.book.fragments;
 
 
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.grace.book.R;
 import com.grace.book.base.BaseFragment;
+import com.grace.book.utils.SystemUtils;
 import com.grace.book.widget.PagerSlidingTabStrip;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 
 import butterknife.Bind;
 
@@ -16,6 +23,13 @@ import butterknife.Bind;
  * A simple {@link Fragment} subclass.
  */
 public class HomeRecordFragment extends BaseFragment {
+    @Bind(R.id.status_bar)
+    View mStatusBar;
+    @Bind(R.id.icon)
+    ImageView mIcon;
+    @Bind(R.id.title)
+    TextView mTitle;
+
     @Bind(R.id.tabs)
     PagerSlidingTabStrip mTabs;
     @Bind(R.id.view_pager)
@@ -33,6 +47,10 @@ public class HomeRecordFragment extends BaseFragment {
 
     @Override
     public void initFragment() {
+        SystemUtils.setStatusBar(getActivity(), mStatusBar);
+        mIcon.setImageDrawable(new IconicsDrawable(getActivity()).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_calendar_note).sizeDp(20));
+        mTitle.setText(R.string.record);
+
         mPagerAdapter = new TabFragmentPageAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setOffscreenPageLimit(mTitles.length);

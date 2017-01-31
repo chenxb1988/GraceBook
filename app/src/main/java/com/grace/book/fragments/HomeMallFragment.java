@@ -1,11 +1,15 @@
 package com.grace.book.fragments;
 
 
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
@@ -18,7 +22,10 @@ import com.grace.book.beans.MallItem;
 import com.grace.book.event.SkinChangeEvent;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.RequestManager;
+import com.grace.book.utils.SystemUtils;
 import com.grace.book.widget.SwitchButton;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -32,6 +39,12 @@ import butterknife.Bind;
  * A simple {@link Fragment} subclass.
  */
 public class HomeMallFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
+    @Bind(R.id.status_bar)
+    View mStatusBar;
+    @Bind(R.id.icon)
+    ImageView mIcon;
+    @Bind(R.id.title)
+    TextView mTitle;
 
     @Bind(R.id.swipe_target)
     RecyclerView recyclerView;
@@ -53,6 +66,10 @@ public class HomeMallFragment extends BaseFragment implements OnRefreshListener,
 
     @Override
     public void initFragment() {
+        SystemUtils.setStatusBar(getActivity(), mStatusBar);
+        mIcon.setImageDrawable(new IconicsDrawable(getActivity()).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_city).sizeDp(20));
+        mTitle.setText(R.string.mall);
+
         EventBus.getDefault().register(this);
         initView();
         onRefresh();

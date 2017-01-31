@@ -24,6 +24,7 @@ import com.grace.book.R;
 import com.grace.book.base.BaseActivity;
 import com.grace.book.beans.GanHuo;
 import com.grace.book.utils.ActivityUtils;
+import com.grace.book.utils.SystemUtils;
 
 import me.xiaopan.android.widget.ToastUtils;
 
@@ -51,7 +52,6 @@ public class WebActivity extends BaseActivity {
 
         initViews();
         init();
-        startTranslationNoShowTranslation();
     }
 
     protected void initViews() {
@@ -67,13 +67,8 @@ public class WebActivity extends BaseActivity {
     }
 
     protected void init() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            mStatusBar.setVisibility(View.VISIBLE);
-//            mStatusBar.getLayoutParams().height = SystemUtils.getStatusHeight(this);
-//            mStatusBar.setLayoutParams(mStatusBar.getLayoutParams());
-//        } else {
-//            mStatusBar.setVisibility(View.GONE);
-//        }
+        SystemUtils.setStatusBar(this, mStatusBar);
+
         GanHuo ganhuo = (GanHuo) getIntent().getSerializableExtra(ActivityUtils.GANHUO_EXTRA);
         ActivityUtils.setIconByType(ganhuo.getType(), mIcon);
         mUrl = ganhuo.getUrl();

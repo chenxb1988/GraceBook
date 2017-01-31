@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -35,7 +33,6 @@ import com.grace.book.theme.ColorUiUtil;
 import com.grace.book.theme.Theme;
 import com.grace.book.utils.LoginUtils;
 import com.grace.book.utils.PreUtils;
-import com.grace.book.utils.SystemUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.widget.ResideLayout;
 import com.mikepenz.foundation_icons_typeface_library.FoundationIcons;
@@ -56,12 +53,8 @@ import me.xiaopan.android.preference.PreferencesUtils;
 
 public class MainActivity extends BaseActivity implements ColorChooserDialog.ColorCallback {
 
-    @Bind(R.id.menu)
-    RelativeLayout mMenu;
     @Bind(R.id.resideLayout)
     ResideLayout mResideLayout;
-    @Bind(R.id.status_bar)
-    View mStatusBar;
 
     @Bind(R.id.home)
     TextView mHome;
@@ -84,10 +77,6 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
     ImageView mAvatar;
     @Bind(R.id.username)
     TextView mUserName;
-    @Bind(R.id.icon)
-    ImageView mIcon;
-    @Bind(R.id.title)
-    TextView mTitle;
 
     private Fragment currentFragment, mHomeFragment, mMallFragment, mRecordFragment, mContactFragment, mSelfFragment;
 
@@ -97,19 +86,12 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            mStatusBar.setVisibility(View.VISIBLE);
-            mStatusBar.getLayoutParams().height = SystemUtils.getStatusHeight(this);
-            mStatusBar.setLayoutParams(mStatusBar.getLayoutParams());
-        } else {
-            mStatusBar.setVisibility(View.GONE);
-        }
         startTranslationNoShowTranslation();
 
         setIconDrawable(mHome, MaterialDesignIconic.Icon.gmi_home);
         setIconDrawable(mMall, MaterialDesignIconic.Icon.gmi_city);
-        setIconDrawable(mRecord, MaterialDesignIconic.Icon.gmi_airline_seat_flat);
-        setIconDrawable(mContact, MaterialDesignIconic.Icon.gmi_calendar_note);
+        setIconDrawable(mRecord, MaterialDesignIconic.Icon.gmi_calendar_note);
+        setIconDrawable(mContact, MaterialDesignIconic.Icon.gmi_accounts_list);
         setIconDrawable(mSelf, MaterialDesignIconic.Icon.gmi_account);
 
         setIconDrawable(mTheme, MaterialDesignIconic.Icon.gmi_palette);
@@ -149,8 +131,6 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
             mResideLayout.openPane();
             PreferencesUtils.putBoolean(this, "isFirst", false);
         }
-        mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_home).sizeDp(20));
-        mTitle.setText(R.string.homepage);
         switchFragment(new HomeMainFragment());
 
     }
@@ -229,7 +209,7 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
 
     @OnClick({R.id.avatar,
             R.id.home, R.id.mall, R.id.record, R.id.contact, R.id.self,
-            R.id.theme, R.id.icon})
+            R.id.theme})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.avatar:
@@ -280,28 +260,18 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
         mResideLayout.closePane();
         switch (index) {
             case 0:
-                mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_view_comfy).sizeDp(20));
-                mTitle.setText(R.string.homepage);
                 switchFragment(getHomeFragment());
                 break;
             case 1:
-                mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_city).sizeDp(20));
-                mTitle.setText(R.string.mall);
                 switchFragment(getMallFragment());
                 break;
             case 2:
-                mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_mood).sizeDp(20));
-                mTitle.setText(R.string.record);
                 switchFragment(getRecordFragment());
                 break;
             case 3:
-                mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_android).sizeDp(20));
-                mTitle.setText(R.string.contact);
                 switchFragment(getContactFragment());
                 break;
             case 4:
-                mIcon.setImageDrawable(new IconicsDrawable(this).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_apple).sizeDp(20));
-                mTitle.setText(R.string.self);
                 switchFragment(getSelfFragment());
                 break;
         }

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -5,59 +6,67 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/tool_bar_layout"/>
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_margin="10dp"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="列表"/>
-
-        <com.grace.book.widget.SwitchButton
-            android:id="@+id/switch_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            app:kswTintColor="?attr/colorPrimary"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="网格"/>
-    </LinearLayout>
-
-    <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
-        android:id="@+id/swipeToLoadLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
-        app:default_to_loading_more_scrolling_duration="500"
-        app:default_to_refreshing_scrolling_duration="1000"
-        app:load_more_complete_delay_duration="0"
-        app:load_more_final_drag_offset="@dimen/load_more_final_offset_google"
-        app:load_more_trigger_offset="@dimen/load_more_trigger_offset_google"
-        app:refresh_complete_delay_duration="0"
-        app:refresh_final_drag_offset="@dimen/refresh_final_offset_google"
-        app:refresh_trigger_offset="@dimen/refresh_trigger_offset_google"
-        app:swipe_style="above">
+        android:orientation="vertical">
 
-        <include
-            android:id="@id/swipe_refresh_header"
-            layout="@layout/layout_google_hook_header"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="10dp"
+            android:gravity="center">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/swipe_target"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="列表"/>
+
+            <com.grace.book.widget.SwitchButton
+                android:id="@+id/switch_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                app:kswTintColor="?attr/colorPrimary"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="网格"/>
+        </LinearLayout>
+
+        <com.aspsine.swipetoloadlayout.SwipeToLoadLayout
+            android:id="@+id/swipeToLoadLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@null"/>
+            android:background="@android:color/white"
+            app:default_to_loading_more_scrolling_duration="500"
+            app:default_to_refreshing_scrolling_duration="1000"
+            app:load_more_complete_delay_duration="0"
+            app:load_more_final_drag_offset="@dimen/load_more_final_offset_google"
+            app:load_more_trigger_offset="@dimen/load_more_trigger_offset_google"
+            app:refresh_complete_delay_duration="0"
+            app:refresh_final_drag_offset="@dimen/refresh_final_offset_google"
+            app:refresh_trigger_offset="@dimen/refresh_trigger_offset_google"
+            app:swipe_style="above">
 
-        <include
-            android:id="@id/swipe_load_more_footer"
-            layout="@layout/layout_google_footer"/>
-    </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+            <include
+                android:id="@id/swipe_refresh_header"
+                layout="@layout/layout_google_hook_header"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/swipe_target"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"/>
+
+            <include
+                android:id="@id/swipe_load_more_footer"
+                layout="@layout/layout_google_footer"/>
+        </com.aspsine.swipetoloadlayout.SwipeToLoadLayout>
+    </LinearLayout>
 </LinearLayout>

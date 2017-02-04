@@ -641,8 +641,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView implements ColorU
 
     @Override
     public void setTheme(Resources.Theme themeId) {
-        textSelectColor = ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary);
-        indicatorColor = ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary);
+        textSelectColor = ThemeUtils.getThemePrimaryColor(getContext());
+        indicatorColor = ThemeUtils.getThemePrimaryColor(getContext());
         updateTabStyles();
     }
 }

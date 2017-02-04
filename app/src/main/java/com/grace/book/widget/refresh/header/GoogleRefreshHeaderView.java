@@ -37,7 +37,7 @@ public class GoogleRefreshHeaderView extends FrameLayout implements
         super(context, attrs, defStyleAttr);
         ringProgressDrawable = new RingProgressDrawable(context);
         Resources res = getResources();
-        ringProgressDrawable.setColors(ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary));
+        ringProgressDrawable.setColors(ThemeUtils.getThemePrimaryColor(getContext()));
         mTriggerOffset = context.getResources().getDimensionPixelOffset(R.dimen.refresh_trigger_offset_google);
     }
 
@@ -87,6 +87,6 @@ public class GoogleRefreshHeaderView extends FrameLayout implements
 
     @Override
     public void setTheme(Resources.Theme themeId) {
-        ringProgressDrawable.setColors(ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary));
+        ringProgressDrawable.setColors(ThemeUtils.getThemePrimaryColor(getContext()));
     }
 }

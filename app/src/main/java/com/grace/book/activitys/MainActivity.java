@@ -296,7 +296,7 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
 
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int selectedColor) {
-        if (selectedColor == ThemeUtils.getThemeColor(this, R.attr.colorPrimary))
+        if (selectedColor == ThemeUtils.getThemePrimaryColor(this))
             return;
         EventBus.getDefault().post(new SkinChangeEvent());
 

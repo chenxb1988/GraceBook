@@ -36,7 +36,7 @@ public class GoogleLoadMoreFooterView extends FrameLayout implements SwipeTrigge
         super(context, attrs, defStyleAttr);
         ringProgressDrawable = new RingProgressDrawable(context);
         Resources res = getResources();
-        ringProgressDrawable.setColors(ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary));
+        ringProgressDrawable.setColors(ThemeUtils.getThemePrimaryColor(getContext()));
         mTriggerOffset = context.getResources().getDimensionPixelOffset(R.dimen.load_more_trigger_offset_google);
     }
 
@@ -86,6 +86,6 @@ public class GoogleLoadMoreFooterView extends FrameLayout implements SwipeTrigge
 
     @Override
     public void setTheme(Resources.Theme themeId) {
-        ringProgressDrawable.setColors(ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary));
+        ringProgressDrawable.setColors(ThemeUtils.getThemePrimaryColor(getContext()));
     }
 }

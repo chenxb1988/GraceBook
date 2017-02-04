@@ -5,10 +5,8 @@ import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
-import com.grace.book.R;
 import com.grace.book.utils.ThemeUtils;
 
 
@@ -25,12 +23,12 @@ public class ColorBackTextView extends TextView implements ColorUiInterface {
 
     public ColorBackTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.attr_drawable = ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary);
+        this.attr_drawable = ThemeUtils.getThemePrimaryColor(getContext());
     }
 
     public ColorBackTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.attr_drawable = ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary);
+        this.attr_drawable = ThemeUtils.getThemePrimaryColor(getContext());
     }
 
     @Override
@@ -41,7 +39,7 @@ public class ColorBackTextView extends TextView implements ColorUiInterface {
     @Override
     public void setTheme(Resources.Theme themeId) {
         Log.d("COLOR", "id = " + getId());
-        attr_drawable = ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary);
+        attr_drawable = ThemeUtils.getThemePrimaryColor(getContext());
         if (attr_drawable != -1) {
             setBackgroundColor(attr_drawable);
         }

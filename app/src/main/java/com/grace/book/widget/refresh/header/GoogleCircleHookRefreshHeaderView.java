@@ -49,7 +49,7 @@ public class GoogleCircleHookRefreshHeaderView extends FrameLayout implements
 //                R.color.colorRedPrimary,
 //                R.color.colorIndigoPrimary,
 //                R.color.colorLimePrimary);
-        progressView.setColorSchemeColors(ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary));
+        progressView.setColorSchemeColors(ThemeUtils.getThemePrimaryColor(getContext()));
         progressView.setStartEndTrim(0, (float) 0.75);
     }
 
@@ -92,6 +92,6 @@ public class GoogleCircleHookRefreshHeaderView extends FrameLayout implements
 
     @Override
     public void setTheme(Resources.Theme themeId) {
-        progressView.setColorSchemeColors(ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary));
+        progressView.setColorSchemeColors(ThemeUtils.getThemePrimaryColor(getContext()));
     }
 }

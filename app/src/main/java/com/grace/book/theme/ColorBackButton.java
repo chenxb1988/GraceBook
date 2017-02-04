@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.grace.book.R;
 import com.grace.book.utils.ThemeUtils;
 
 
@@ -24,12 +23,12 @@ public class ColorBackButton extends Button implements ColorUiInterface {
 
     public ColorBackButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.attr_drawable = ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary);
+        this.attr_drawable = ThemeUtils.getThemePrimaryColor(getContext());
     }
 
     public ColorBackButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.attr_drawable = ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary);
+        this.attr_drawable = ThemeUtils.getThemePrimaryColor(getContext());
     }
 
     @Override

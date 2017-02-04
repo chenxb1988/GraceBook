@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.grace.book.theme.ColorTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tv_tinted_spinner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:ellipsize="marquee"
+    android:gravity="center"
+    android:paddingBottom="@dimen/dp_12"
+    android:paddingTop="@dimen/dp_12"
+    android:singleLine="true"
+    android:textSize="15sp"
+    tools:text="Item"
+    tools:textColor="?attr/colorPrimary"/>

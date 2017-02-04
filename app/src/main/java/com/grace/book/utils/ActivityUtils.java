@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.grace.book.R;
 import com.grace.book.activitys.WebActivity;
 import com.grace.book.beans.GanHuo;
 import com.library.viewspread.helper.BaseViewHelper;
@@ -23,7 +22,7 @@ import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic
 
 import me.xiaopan.android.content.res.DimenUtils;
 
-import static com.grace.book.utils.ThemeUtils.getThemeColor;
+import static com.grace.book.utils.ThemeUtils.getThemePrimaryColor;
 
 /**
  * Created by chenxb on 16/6/8.
@@ -84,7 +83,7 @@ public class ActivityUtils {
     }
 
     public static void setTitleByTheme(TextView view, String text1, String text2) {
-        int color = ThemeUtils.getThemeColor(view.getContext(), R.attr.colorPrimary);
+        int color = getThemePrimaryColor(view.getContext());
         SpannableString ss = new SpannableString(text1 + text2);
         ss.setSpan(new ForegroundColorSpan(color), 0, text1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         view.setText(ss);
@@ -120,7 +119,7 @@ public class ActivityUtils {
     private static void setIconDrawable(TextView view, IIcon icon) {
         view.setCompoundDrawablesWithIntrinsicBounds(new IconicsDrawable(view.getContext())
                         .icon(icon)
-                        .color(getThemeColor(view.getContext(), R.attr.colorPrimary))
+                        .color(getThemePrimaryColor(view.getContext()))
                         .sizeDp(14),
                 null, null, null);
         view.setCompoundDrawablePadding(DimenUtils.dp2px(view.getContext(), 5));

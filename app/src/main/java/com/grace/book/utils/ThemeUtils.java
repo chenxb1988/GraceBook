@@ -20,6 +20,10 @@ public class ThemeUtils {
         return color;
     }
 
+    public static int getThemePrimaryColor(Context context){
+        return getThemeColor(context, R.attr.colorPrimary);
+    }
+
     public static void addDrawableStateResource(View view, int idNormal, int idPressed) {
         StateListDrawable sd = new StateListDrawable();
         Drawable normal = idNormal == -1 ? null : view.getResources().getDrawable(idNormal);
@@ -39,7 +43,7 @@ public class ThemeUtils {
     }
 
     public static void addThemeToView(View view) {
-        int colorPrimary = getThemeColor(view.getContext(), R.attr.colorPrimary);
+        int colorPrimary = getThemePrimaryColor(view.getContext());
         int colorPrimaryDark = getThemeColor(view.getContext(), R.attr.colorPrimaryDark);
         addDrawableStateColor(view, colorPrimary, colorPrimaryDark);
     }

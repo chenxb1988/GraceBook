@@ -13,8 +13,13 @@ import com.grace.book.base.BaseFragment;
 import com.grace.book.theme.ColorBackButton;
 import com.grace.book.utils.SystemUtils;
 import com.grace.book.utils.ThemeUtils;
+import com.grace.book.widget.spinner.NiceSpinner;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -23,6 +28,9 @@ import butterknife.OnClick;
  * A simple {@link Fragment} subclass.
  */
 public class HomeMainFragment extends BaseFragment {
+    @Bind(R.id.section_spinner)
+    NiceSpinner mNiceSpinner;
+
     @Bind(R.id.status_bar)
     View mStatusBar;
     @Bind(R.id.icon)
@@ -48,6 +56,9 @@ public class HomeMainFragment extends BaseFragment {
 
         ThemeUtils.addThemeToView(mBtnReadBook);
         ThemeUtils.addThemeToView(mBtnReadBible);
+
+        List<String> dataset = new LinkedList<>(Arrays.asList("One", "Two", "Three", "Four", "Five"));
+        mNiceSpinner.attachDataSource(dataset);
     }
 
     @OnClick({R.id.ll_mall, R.id.ll_record, R.id.ll_contact, R.id.ll_more})

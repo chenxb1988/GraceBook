@@ -957,7 +957,7 @@ public class SwitchButton extends CompoundButton implements ColorUiInterface {
 
     @Override
     public void setTheme(Resources.Theme themeId) {
-        int colorPrimary = ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary);
+        int colorPrimary = ThemeUtils.getThemePrimaryColor(getContext());
         setTintColor(colorPrimary);
     }
 }

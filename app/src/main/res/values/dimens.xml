@@ -15,4 +15,6 @@
     <dimen name="load_more_final_offset_google">100dp</dimen>
     <dimen name="load_more_drawable_size_google">36dp</dimen>
 
+    <dimen name="dp_24">24dp</dimen>
+    <dimen name="dp_12">12dp</dimen>
 </resources>

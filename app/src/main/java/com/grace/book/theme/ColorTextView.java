@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.grace.book.R;
 import com.grace.book.utils.ThemeUtils;
 
 
@@ -66,7 +65,7 @@ public class ColorTextView extends TextView implements ColorUiInterface {
         }
 
         int index = getText().toString().length();
-        int color = ThemeUtils.getThemeColor(getContext(), R.attr.colorPrimary);
+        int color = ThemeUtils.getThemePrimaryColor(getContext());
         SpannableString ss = new SpannableString(getText().toString());
         ss.setSpan(new ForegroundColorSpan(color), 0, index, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         setText(ss);

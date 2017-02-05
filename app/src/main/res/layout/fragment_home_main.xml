@@ -22,13 +22,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp_2">
+                android:paddingBottom="@dimen/dp_2"
+                android:paddingTop="@dimen/dp_2">
 
                 <ImageView
                     android:id="@+id/avatar"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_marginLeft="@dimen/dp_12"
                     android:layout_marginRight="@dimen/dp_6"/>
 
                 <com.grace.book.widget.spinner.NiceSpinner
@@ -36,21 +37,18 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/shape_rectangle_white"/>
+                    android:background="@drawable/shape_rectangle_bg"/>
 
-                <com.grace.book.theme.ColorBackButton
-                    android:id="@+id/btn_message"
+                <com.grace.book.widget.theme.ColorIconTextView
+                    android:id="@+id/icon_message"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/dp_6"
-                    android:layout_marginTop="@dimen/dp_2"
                     android:layout_marginBottom="@dimen/dp_2"
-                    android:text="消息"
-                    android:textSize="12sp"
-                    android:textColor="@color/white"/>
+                    android:layout_marginLeft="@dimen/dp_6"
+                    android:layout_marginTop="@dimen/dp_2"/>
             </LinearLayout>
 
-            <com.grace.book.theme.ColorLinearLayout
+            <com.grace.book.widget.theme.ColorLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -154,7 +152,7 @@
                     android:orientation="vertical"
                     android:padding="20dp">
 
-                    <com.grace.book.theme.ColorBackButton
+                    <com.grace.book.widget.theme.ColorBackButton
                         android:id="@+id/btn_read_book"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -162,7 +160,7 @@
                         android:text="AAA计划"
                         android:textColor="@color/white"/>
 
-                    <com.grace.book.theme.ColorBackButton
+                    <com.grace.book.widget.theme.ColorBackButton
                         android:id="@+id/btn_read_bible"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -171,7 +169,7 @@
                         android:text="BBB计划"
                         android:textColor="@color/white"/>
                 </LinearLayout>
-            </com.grace.book.theme.ColorLinearLayout>
+            </com.grace.book.widget.theme.ColorLinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

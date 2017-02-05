@@ -41,7 +41,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.grace.book.R;
-import com.grace.book.theme.ColorUiInterface;
+import com.grace.book.widget.theme.ColorUiInterface;
 import com.grace.book.utils.ThemeUtils;
 
 import java.util.Locale;

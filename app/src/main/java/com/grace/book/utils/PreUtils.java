@@ -4,7 +4,7 @@ package com.grace.book.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.grace.book.theme.Theme;
+import com.grace.book.widget.theme.Theme;
 
 
 public class PreUtils {

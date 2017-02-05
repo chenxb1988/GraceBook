@@ -1,11 +1,11 @@
-package com.grace.book.theme;
+package com.grace.book.widget.theme;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 
 import com.grace.book.utils.ThemeUtils;
 
@@ -13,20 +13,20 @@ import com.grace.book.utils.ThemeUtils;
 /**
  * Created by chengli on 15/6/8.
  */
-public class ColorBackButton extends Button implements ColorUiInterface {
+public class ColorBackTextView extends TextView implements com.grace.book.widget.theme.ColorUiInterface {
 
     private int attr_drawable = -1;
 
-    public ColorBackButton(Context context) {
+    public ColorBackTextView(Context context) {
         super(context);
     }
 
-    public ColorBackButton(Context context, AttributeSet attrs) {
+    public ColorBackTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.attr_drawable = ThemeUtils.getThemePrimaryColor(getContext());
     }
 
-    public ColorBackButton(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ColorBackTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.attr_drawable = ThemeUtils.getThemePrimaryColor(getContext());
     }
@@ -39,6 +39,9 @@ public class ColorBackButton extends Button implements ColorUiInterface {
     @Override
     public void setTheme(Resources.Theme themeId) {
         Log.d("COLOR", "id = " + getId());
-        ThemeUtils.addThemeToView(this);
+        attr_drawable = ThemeUtils.getThemePrimaryColor(getContext());
+        if (attr_drawable != -1) {
+            setBackgroundColor(attr_drawable);
+        }
     }
 }

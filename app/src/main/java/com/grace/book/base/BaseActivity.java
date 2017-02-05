@@ -10,7 +10,7 @@ import android.view.WindowManager;
 
 import com.grace.book.R;
 import com.grace.book.http.RequestManager;
-import com.grace.book.theme.Theme;
+import com.grace.book.widget.theme.Theme;
 import com.grace.book.utils.PreUtils;
 import com.library.viewspread.helper.BaseViewHelper;
 

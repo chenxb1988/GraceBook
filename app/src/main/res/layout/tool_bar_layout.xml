@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.grace.book.theme.ColorView
+    <com.grace.book.widget.theme.ColorView
         android:id="@+id/status_bar"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:background="?attr/colorPrimary"/>
 
-    <com.grace.book.theme.ColorRelativeLayout
+    <com.grace.book.widget.theme.ColorRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="?attr/colorPrimary">
@@ -43,6 +43,6 @@
             android:background="@null"
             android:src="@drawable/more"
             android:visibility="gone"/>
-    </com.grace.book.theme.ColorRelativeLayout>
+    </com.grace.book.widget.theme.ColorRelativeLayout>
 
 </merge>

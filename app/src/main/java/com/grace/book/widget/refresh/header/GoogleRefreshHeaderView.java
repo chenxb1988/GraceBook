@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.aspsine.swipetoloadlayout.SwipeRefreshTrigger;
 import com.aspsine.swipetoloadlayout.SwipeTrigger;
 import com.grace.book.R;
-import com.grace.book.theme.ColorUiInterface;
+import com.grace.book.widget.theme.ColorUiInterface;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.widget.refresh.drawable.google.RingProgressDrawable;
 

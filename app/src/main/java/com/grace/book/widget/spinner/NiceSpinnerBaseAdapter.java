@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.grace.book.R;
-import com.grace.book.theme.ColorTextView;
+import com.grace.book.widget.theme.ColorTextView;
 import com.grace.book.utils.ThemeUtils;
 
 /**

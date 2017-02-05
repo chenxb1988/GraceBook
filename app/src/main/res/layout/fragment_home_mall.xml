@@ -20,7 +20,7 @@
             android:layout_margin="10dp"
             android:gravity="center">
 
-            <com.grace.book.theme.ColorTextView
+            <com.grace.book.widget.theme.ColorTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="列表"
@@ -34,7 +34,7 @@
                 android:layout_marginRight="8dp"
                 app:kswTintColor="?attr/colorPrimary"/>
 
-            <com.grace.book.theme.ColorTextView
+            <com.grace.book.widget.theme.ColorTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="网格"

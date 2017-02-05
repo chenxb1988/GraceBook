@@ -25,7 +25,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 
 import com.grace.book.R;
-import com.grace.book.theme.ColorTextView;
+import com.grace.book.widget.theme.ColorTextView;
 import com.grace.book.utils.DimenUtils;
 import com.grace.book.utils.ThemeUtils;
 

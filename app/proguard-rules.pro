@@ -115,17 +115,17 @@
 -keep class com.grace.book.activitys.MainActivity { <init>(...); }
 
 # view res/layout/fragment_android.xml #generated:22
--keep class com.grace.book.theme.ColorListView { <init>(...); }
+-keep class com.grace.book.widget.theme.ColorListView { <init>(...); }
 
 # view res/layout/activity_main.xml #generated:10
 # view res/layout/tool_bar_layout.xml #generated:2
--keep class com.grace.book.theme.ColorRelativeLayout { <init>(...); }
+-keep class com.grace.book.widget.theme.ColorRelativeLayout { <init>(...); }
 
 # view res/layout/item_android.xml #generated:8
--keep class com.grace.book.theme.ColorTextView { <init>(...); }
+-keep class com.grace.book.widget.theme.ColorTextView { <init>(...); }
 
 # view res/layout/activity_main.xml #generated:144
--keep class com.grace.book.theme.ColorView { <init>(...); }
+-keep class com.grace.book.widget.theme.ColorView { <init>(...); }
 
 # view res/layout/activity_main.xml #generated:2
 -keep class com.grace.book.widget.ResideLayout { <init>(...); }

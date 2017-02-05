@@ -26,15 +26,15 @@ import com.grace.book.fragments.HomeMainFragment;
 import com.grace.book.fragments.HomeMallFragment;
 import com.grace.book.fragments.HomeRecordFragment;
 import com.grace.book.fragments.HomeSelfFragment;
-import com.grace.book.theme.ColorUiUtil;
-import com.grace.book.theme.Theme;
+import com.grace.book.widget.theme.ColorUiUtil;
+import com.grace.book.widget.theme.Theme;
+import com.grace.book.utils.DrawableUtils;
 import com.grace.book.utils.LoginUtils;
 import com.grace.book.utils.PreUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.widget.ResideLayout;
 import com.mikepenz.foundation_icons_typeface_library.FoundationIcons;
 import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 
 import org.greenrobot.eventbus.EventBus;
@@ -45,6 +45,8 @@ import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import me.xiaopan.android.content.res.DimenUtils;
 import me.xiaopan.android.preference.PreferencesUtils;
+
+import static com.grace.book.utils.DrawableUtils.setIconDrawable;
 
 public class MainActivity extends BaseActivity implements ColorChooserDialog.ColorCallback {
 
@@ -83,11 +85,11 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
 
         startTranslationNoShowTranslation();
 
-        setIconDrawable(mHome, MaterialDesignIconic.Icon.gmi_home);
-        setIconDrawable(mMall, MaterialDesignIconic.Icon.gmi_city);
-        setIconDrawable(mRecord, MaterialDesignIconic.Icon.gmi_calendar_note);
-        setIconDrawable(mContact, MaterialDesignIconic.Icon.gmi_accounts_list);
-        setIconDrawable(mSelf, MaterialDesignIconic.Icon.gmi_account);
+        DrawableUtils.setIconDrawable(mHome, MaterialDesignIconic.Icon.gmi_home);
+        DrawableUtils.setIconDrawable(mMall, MaterialDesignIconic.Icon.gmi_city);
+        DrawableUtils.setIconDrawable(mRecord, MaterialDesignIconic.Icon.gmi_calendar_note);
+        DrawableUtils.setIconDrawable(mContact, MaterialDesignIconic.Icon.gmi_accounts_list);
+        DrawableUtils.setIconDrawable(mSelf, MaterialDesignIconic.Icon.gmi_account);
 
         setIconDrawable(mTheme, MaterialDesignIconic.Icon.gmi_palette);
 
@@ -130,14 +132,6 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
 
     }
 
-    private void setIconDrawable(TextView view, IIcon icon) {
-        view.setCompoundDrawablesWithIntrinsicBounds(new IconicsDrawable(this)
-                        .icon(icon)
-                        .color(Color.WHITE)
-                        .sizeDp(16),
-                null, null, null);
-        view.setCompoundDrawablePadding(DimenUtils.dp2px(this, 10));
-    }
 
     private void switchFragment(Fragment fragment) {
         FragmentTransaction mTransaction = getSupportFragmentManager()

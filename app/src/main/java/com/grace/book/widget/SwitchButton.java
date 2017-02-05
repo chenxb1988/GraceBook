@@ -30,7 +30,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.CompoundButton;
 
 import com.grace.book.R;
-import com.grace.book.theme.ColorUiInterface;
+import com.grace.book.widget.theme.ColorUiInterface;
 import com.grace.book.utils.ColorUtils;
 import com.grace.book.utils.ThemeUtils;
 

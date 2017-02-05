@@ -11,10 +11,11 @@ import com.bumptech.glide.Glide;
 import com.grace.book.R;
 import com.grace.book.activitys.MainActivity;
 import com.grace.book.base.BaseFragment;
-import com.grace.book.theme.ColorBackButton;
 import com.grace.book.utils.SystemUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.widget.spinner.NiceSpinner;
+import com.grace.book.widget.theme.ColorBackButton;
+import com.grace.book.widget.theme.ColorIconTextView;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 
@@ -42,8 +43,8 @@ public class HomeMainFragment extends BaseFragment {
     @Bind(R.id.title)
     TextView mTitle;
 
-    @Bind(R.id.btn_message)
-    ColorBackButton mBtnMessage;
+    @Bind(R.id.icon_message)
+    ColorIconTextView mIconMessage;
     @Bind(R.id.btn_read_book)
     ColorBackButton mBtnReadBook;
     @Bind(R.id.btn_read_bible)
@@ -51,7 +52,7 @@ public class HomeMainFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.fragment_home;
+        return R.layout.fragment_home_main;
     }
 
     @Override
@@ -62,7 +63,7 @@ public class HomeMainFragment extends BaseFragment {
 
         ThemeUtils.addThemeToView(mBtnReadBook);
         ThemeUtils.addThemeToView(mBtnReadBible);
-        ThemeUtils.addThemeToView(mBtnMessage);
+        mIconMessage.setIIcon(MaterialDesignIconic.Icon.gmi_email, 24);
 
         Glide.with(getActivity())
                 .load(R.drawable.logo)

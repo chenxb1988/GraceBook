@@ -14,7 +14,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-public class AESUtil {
+public class AESUtils {
 
     private static final byte[] AES_IV = {0x38, 0x31, 0x37, 0x34, 0x36, 0x33,
             0x35, 0x33, 0x32, 0x31, 0x34, 0x38, 0x37, 0x36, 0x35, 0x32};

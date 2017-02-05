@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".activitys.MainActivity">
 
-    <com.grace.book.theme.ColorRelativeLayout
+    <com.grace.book.widget.theme.ColorRelativeLayout
         android:id="@+id/menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -103,7 +103,7 @@
 
         </LinearLayout>
 
-    </com.grace.book.theme.ColorRelativeLayout>
+    </com.grace.book.widget.theme.ColorRelativeLayout>
 
     <FrameLayout
         android:id="@+id/container"

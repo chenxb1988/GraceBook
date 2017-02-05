@@ -11,7 +11,7 @@
         android:layout_height="1dp"
         android:background="#10000000"/>
 
-    <com.grace.book.theme.ColorTextView
+    <com.grace.book.widget.theme.ColorTextView
         android:id="@+id/tv_tinted_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

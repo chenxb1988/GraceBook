@@ -3,6 +3,7 @@ package com.grace.book.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import butterknife.ButterKnife;
  * Created by dongjunkun on 2016/2/2.
  */
 public abstract class BaseFragment extends Fragment {
-
+    protected String STATE_SAVE_IS_HIDDEN = "state_save_is_hidden";
     protected View rootView;
     protected boolean hasInit;
 
@@ -42,6 +43,18 @@ public abstract class BaseFragment extends Fragment {
             initFragment();
         }
         hasInit = true;
+
+        if (savedInstanceState != null) {
+            boolean isSupportHidden = savedInstanceState.getBoolean(STATE_SAVE_IS_HIDDEN);
+
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            if (isSupportHidden) {
+                ft.hide(this);
+            } else {
+                ft.show(this);
+            }
+            ft.commit();
+        }
     }
 
     protected abstract void initFragment();
@@ -58,5 +71,10 @@ public abstract class BaseFragment extends Fragment {
         ButterKnife.unbind(this);
         //取消请求
         RequestManager.cancelRequest(getName());
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden());
     }
 }

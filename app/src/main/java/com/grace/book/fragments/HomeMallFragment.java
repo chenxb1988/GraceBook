@@ -16,7 +16,7 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.grace.book.R;
 import com.grace.book.base.BaseFragment;
-import com.grace.book.base.MallItemAdapter;
+import com.grace.book.adapter.MallItemAdapter;
 import com.grace.book.beans.GanHuo;
 import com.grace.book.beans.MallItem;
 import com.grace.book.event.SkinChangeEvent;

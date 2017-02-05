@@ -1,4 +1,4 @@
-package com.grace.book.base;
+package com.grace.book.adapter;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +28,7 @@ public class MallItemAdapter extends RecyclerView.Adapter<MallItemAdapter.ItemVi
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_list_item, parent, false);
         return new ItemViewHolder(view);
     }
 

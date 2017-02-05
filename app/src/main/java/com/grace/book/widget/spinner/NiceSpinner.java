@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -25,6 +26,7 @@ import android.widget.PopupWindow;
 
 import com.grace.book.R;
 import com.grace.book.theme.ColorTextView;
+import com.grace.book.utils.DimenUtils;
 import com.grace.book.utils.ThemeUtils;
 
 import java.util.List;
@@ -110,15 +112,16 @@ public class NiceSpinner extends ColorTextView {
     private void init(final Context context, AttributeSet attrs) {
         Resources resources = getResources();
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.NiceSpinner);
-        int defaultPadding = resources.getDimensionPixelSize(R.dimen.dp_12);
+        int defaultPadding = resources.getDimensionPixelSize(R.dimen.dp_6);
 
         setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
-        setPadding(resources.getDimensionPixelSize(R.dimen.dp_24), defaultPadding, defaultPadding,
-            defaultPadding);
+        setPadding(resources.getDimensionPixelSize(R.dimen.dp_12), 0, defaultPadding,
+                0);
         setClickable(true);
 
         backgroundSelector = typedArray.getResourceId(R.styleable.NiceSpinner_backgroundSelector, R.drawable.selector);
-        setBackgroundResource(backgroundSelector);
+//        setBackgroundResource(backgroundSelector);
+
         textColor = ThemeUtils.getThemePrimaryColor(context);
         setTextColor(textColor);
 
@@ -181,20 +184,24 @@ public class NiceSpinner extends ColorTextView {
             }
         });
 
-        isArrowHide = typedArray.getBoolean(R.styleable.NiceSpinner_hideArrow, false);
-        if (!isArrowHide) {
-            Drawable basicDrawable = ContextCompat.getDrawable(context, R.drawable.arrow);
-            int resId = typedArray.getColor(R.styleable.NiceSpinner_arrowTint, -1);
-            if (basicDrawable != null) {
-                drawable = DrawableCompat.wrap(basicDrawable);
-                if (resId != -1) {
-                    DrawableCompat.setTint(drawable, resId);
-                }
-            }
-            setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
-        }
+        setThemeWidget(context);
 
         typedArray.recycle();
+    }
+
+    private void setThemeWidget(Context context) {
+        Drawable basicDrawable = ContextCompat.getDrawable(context, R.drawable.arrow);
+        int resId = ThemeUtils.getThemePrimaryColor(context);
+        if (basicDrawable != null) {
+            drawable = DrawableCompat.wrap(basicDrawable);
+            if (resId != -1) {
+                DrawableCompat.setTint(drawable, resId);
+            }
+        }
+        setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
+
+        GradientDrawable bgShape = (GradientDrawable) getBackground();
+        bgShape.setStroke(DimenUtils.dp2px(context, 1), ThemeUtils.getThemeColor(context, R.attr.colorTextHint));
     }
 
     public int getSelectedIndex() {
@@ -203,7 +210,7 @@ public class NiceSpinner extends ColorTextView {
 
     /**
      * Set the default spinner item using its index
-     * 
+     *
      * @param position the item's position
      */
     public void setSelectedIndex(int position) {
@@ -240,7 +247,6 @@ public class NiceSpinner extends ColorTextView {
         // If the adapter needs to be settled again, ensure to reset the selected index as well
         selectedIndex = 0;
         listView.setAdapter(adapter);
-        setText(adapter.getItemInDataset(selectedIndex).toString());
     }
 
     @Override
@@ -289,4 +295,11 @@ public class NiceSpinner extends ColorTextView {
             DrawableCompat.setTint(drawable, ContextCompat.getColor(getContext(), resId));
         }
     }
+
+    @Override
+    public void setTheme(Resources.Theme themeId) {
+        super.setTheme(themeId);
+        setThemeWidget(getContext());
+    }
+
 }

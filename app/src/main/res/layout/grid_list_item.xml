@@ -8,9 +8,9 @@
 
     <include
         android:id="@+id/layout_big"
-        layout="@layout/item_big" />
+        layout="@layout/grid_list_item_big" />
 
     <include
         android:id="@+id/layout_small"
-        layout="@layout/item_small" />
+        layout="@layout/grid_list_item_small" />
 </FrameLayout>

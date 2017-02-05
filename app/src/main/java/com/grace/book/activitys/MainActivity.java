@@ -20,15 +20,12 @@ import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bumptech.glide.Glide;
 import com.grace.book.R;
 import com.grace.book.base.BaseActivity;
-import com.grace.book.beans.GanHuo;
 import com.grace.book.event.SkinChangeEvent;
 import com.grace.book.fragments.HomeContactFragment;
 import com.grace.book.fragments.HomeMainFragment;
 import com.grace.book.fragments.HomeMallFragment;
 import com.grace.book.fragments.HomeRecordFragment;
 import com.grace.book.fragments.HomeSelfFragment;
-import com.grace.book.http.CallBack;
-import com.grace.book.http.RequestManager;
 import com.grace.book.theme.ColorUiUtil;
 import com.grace.book.theme.Theme;
 import com.grace.book.utils.LoginUtils;
@@ -41,8 +38,6 @@ import com.mikepenz.iconics.typeface.IIcon;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -109,23 +104,23 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
                 .dontAnimate()
                 .into(mAvatar);
 
-        RequestManager.get(getName(), "http://gank.io/api/data/福利/1/1", true, new CallBack<List<GanHuo>>() {
-            @Override
-            public void onSuccess(List<GanHuo> result) {
-                Glide.with(MainActivity.this)
-                        .load(result.get(0).getUrl())
-                        .placeholder(new IconicsDrawable(MainActivity.this)
-                                .icon(FoundationIcons.Icon.fou_photo)
-                                .color(Color.GRAY)
-                                .backgroundColor(Color.WHITE)
-                                .roundedCornersDp(40)
-                                .paddingDp(15)
-                                .sizeDp(75))
-                        .bitmapTransform(new CropCircleTransformation(MainActivity.this))
-                        .dontAnimate()
-                        .into(mAvatar);
-            }
-        });
+//        RequestManager.get(getName(), "http://gank.io/api/data/福利/1/1", true, new CallBack<List<GanHuo>>() {
+//            @Override
+//            public void onSuccess(List<GanHuo> result) {
+//                Glide.with(MainActivity.this)
+//                        .load(result.get(0).getUrl())
+//                        .placeholder(new IconicsDrawable(MainActivity.this)
+//                                .icon(FoundationIcons.Icon.fou_photo)
+//                                .color(Color.GRAY)
+//                                .backgroundColor(Color.WHITE)
+//                                .roundedCornersDp(40)
+//                                .paddingDp(15)
+//                                .sizeDp(75))
+//                        .bitmapTransform(new CropCircleTransformation(MainActivity.this))
+//                        .dontAnimate()
+//                        .into(mAvatar);
+//            }
+//        });
 
         if (PreferencesUtils.getBoolean(this, "isFirst", true)) {
             mResideLayout.openPane();

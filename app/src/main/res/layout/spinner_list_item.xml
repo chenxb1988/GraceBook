@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.grace.book.theme.ColorTextView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tv_tinted_spinner"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:ellipsize="marquee"
-    android:gravity="center"
-    android:paddingBottom="@dimen/dp_12"
-    android:paddingTop="@dimen/dp_12"
-    android:singleLine="true"
-    android:textSize="15sp"
-    tools:text="Item"
-    tools:textColor="?attr/colorPrimary"/>
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#10000000"/>
+
+    <com.grace.book.theme.ColorTextView
+        android:id="@+id/tv_tinted_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:ellipsize="marquee"
+        android:paddingLeft="@dimen/dp_12"
+        android:gravity="left|center_vertical"
+        android:paddingBottom="@dimen/dp_12"
+        android:paddingTop="@dimen/dp_12"
+        android:singleLine="true"
+        android:textSize="15sp"
+        tools:text="Item"
+        tools:textColor="?attr/colorPrimary"/>
+</LinearLayout>

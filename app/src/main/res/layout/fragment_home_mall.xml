@@ -20,10 +20,11 @@
             android:layout_margin="10dp"
             android:gravity="center">
 
-            <TextView
+            <com.grace.book.theme.ColorTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="列表"/>
+                android:text="列表"
+                android:textColor="?attr/colorPrimary"/>
 
             <com.grace.book.widget.SwitchButton
                 android:id="@+id/switch_list"
@@ -33,10 +34,11 @@
                 android:layout_marginRight="8dp"
                 app:kswTintColor="?attr/colorPrimary"/>
 
-            <TextView
+            <com.grace.book.theme.ColorTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="网格"/>
+                android:text="网格"
+                android:textColor="?attr/colorPrimary"/>
         </LinearLayout>
 
         <com.aspsine.swipetoloadlayout.SwipeToLoadLayout

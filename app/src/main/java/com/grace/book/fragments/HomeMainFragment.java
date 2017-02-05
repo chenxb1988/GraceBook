@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.grace.book.R;
 import com.grace.book.activitys.MainActivity;
 import com.grace.book.base.BaseFragment;
@@ -23,11 +24,14 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomeMainFragment extends BaseFragment {
+    @Bind(R.id.avatar)
+    ImageView mAvatar;
     @Bind(R.id.section_spinner)
     NiceSpinner mNiceSpinner;
 
@@ -38,6 +42,8 @@ public class HomeMainFragment extends BaseFragment {
     @Bind(R.id.title)
     TextView mTitle;
 
+    @Bind(R.id.btn_message)
+    ColorBackButton mBtnMessage;
     @Bind(R.id.btn_read_book)
     ColorBackButton mBtnReadBook;
     @Bind(R.id.btn_read_bible)
@@ -56,9 +62,16 @@ public class HomeMainFragment extends BaseFragment {
 
         ThemeUtils.addThemeToView(mBtnReadBook);
         ThemeUtils.addThemeToView(mBtnReadBible);
+        ThemeUtils.addThemeToView(mBtnMessage);
 
+        Glide.with(getActivity())
+                .load(R.drawable.logo)
+                .bitmapTransform(new CropCircleTransformation(getActivity()))
+                .dontAnimate()
+                .into(mAvatar);
         List<String> dataset = new LinkedList<>(Arrays.asList("One", "Two", "Three", "Four", "Five"));
         mNiceSpinner.attachDataSource(dataset);
+        mNiceSpinner.setText("选择");
     }
 
     @OnClick({R.id.ll_mall, R.id.ll_record, R.id.ll_contact, R.id.ll_more})

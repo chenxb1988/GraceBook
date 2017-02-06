@@ -1,4 +1,4 @@
-package com.grace.book.beans;
+package com.grace.book.entity;
 
 import java.io.Serializable;
 

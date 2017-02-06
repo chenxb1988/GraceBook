@@ -10,7 +10,7 @@ import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.grace.book.R;
 import com.grace.book.adapter.AndroidAdapter;
 import com.grace.book.base.BaseFragment;
-import com.grace.book.beans.GanHuo;
+import com.grace.book.entity.GanHuo;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.RequestManager;
 

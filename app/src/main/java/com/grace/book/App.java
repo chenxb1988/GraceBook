@@ -12,11 +12,13 @@ import com.orhanobut.logger.Logger;
 public class App extends Application {
 
     private static Context context;
+    private static App instance;
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        instance = this;
 
         Logger.init("hhh")
                 .methodOffset(2)
@@ -28,5 +30,9 @@ public class App extends Application {
 
     public static Context getContext() {
         return context;
+    }
+
+    public static App getInstance() {
+        return instance;
     }
 }

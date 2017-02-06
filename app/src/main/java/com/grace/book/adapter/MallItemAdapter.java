@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grace.book.R;
-import com.grace.book.beans.MallItem;
+import com.grace.book.entity.BookSummaryList;
 
 import java.util.List;
 
@@ -18,10 +18,10 @@ import java.util.List;
  */
 
 public class MallItemAdapter extends RecyclerView.Adapter<MallItemAdapter.ItemViewHolder>{
-    private List<MallItem> mItems;
+    private List<BookSummaryList.BookSummary> mItems;
     private GridLayoutManager mLayoutManager;
 
-    public MallItemAdapter(List<MallItem> items, GridLayoutManager layoutManager) {
+    public MallItemAdapter(List<BookSummaryList.BookSummary> items, GridLayoutManager layoutManager) {
         mItems = items;
         mLayoutManager = layoutManager;
     }
@@ -44,12 +44,12 @@ public class MallItemAdapter extends RecyclerView.Adapter<MallItemAdapter.ItemVi
             holder.layoutBig.setVisibility(View.GONE);
         }
 
-        MallItem item = mItems.get(position);
-        holder.titleSmall.setText(item.getTitle());
-        holder.titleBig.setText(item.getTitle());
-        holder.ivSmall.setImageResource(item.getImgResId());
-        holder.ivBig.setImageResource(item.getImgResId());
-        holder.info.setText(item.getLikes() + " likes  ·  " + item.getComments() + " comments");
+        BookSummaryList.BookSummary item = mItems.get(position);
+        holder.titleSmall.setText(item.getBookName());
+        holder.titleBig.setText(item.getBookName());
+        holder.ivSmall.setImageResource(R.drawable.logo);
+        holder.ivBig.setImageResource(R.drawable.logo);
+        holder.info.setText(item.getComment());
     }
 
     @Override

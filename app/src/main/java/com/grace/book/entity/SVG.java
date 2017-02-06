@@ -15,7 +15,7 @@
  *
  */
 
-package com.grace.book.beans;
+package com.grace.book.entity;
 
 /**
  * Some SVGs to play with

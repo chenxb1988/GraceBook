@@ -15,13 +15,13 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.grace.book.R;
-import com.grace.book.base.BaseFragment;
 import com.grace.book.adapter.MallItemAdapter;
-import com.grace.book.beans.GanHuo;
-import com.grace.book.beans.MallItem;
+import com.grace.book.base.BaseFragment;
+import com.grace.book.entity.BookSummaryList;
 import com.grace.book.event.SkinChangeEvent;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.RequestManager;
+import com.grace.book.http.request.BookListRequest;
 import com.grace.book.utils.SystemUtils;
 import com.grace.book.widget.SwitchButton;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -55,9 +55,10 @@ public class HomeMallFragment extends BaseFragment implements OnRefreshListener,
 
     private MallItemAdapter itemAdapter;
     private GridLayoutManager gridLayoutManager;
-    private List<MallItem> items = new ArrayList<>();
+    private List<BookSummaryList.BookSummary> items = new ArrayList<>();
 
     private int page = 1;
+    private int pageSize = 10;
 
     @Override
     protected int getLayoutResource() {
@@ -81,38 +82,35 @@ public class HomeMallFragment extends BaseFragment implements OnRefreshListener,
 
     }
 
-    //TODO
-    private void addTestItems(int page) {
-        items.add(new MallItem(R.drawable.logo, "Image 1" + page, 20, 33));
-        items.add(new MallItem(R.drawable.logo, "Image 2" + page, 10, 54));
-        items.add(new MallItem(R.drawable.logo, "Image 3" + page, 27, 20));
-        items.add(new MallItem(R.drawable.logo, "Image 4" + page, 45, 67));
-    }
-
     private void getData(final boolean isRefresh) {
-        int pageSize = 4;
-        RequestManager.get(getName(), "http://gank.io/api/data/all/"
-                        + String.valueOf(pageSize) + "/"
-                        + String.valueOf(page), isRefresh,
-                new CallBack<List<GanHuo>>() {
+        BookListRequest request = new BookListRequest();
+        request.setChurchId("2673e224363301f5");
+        request.setPageIndex(page + "");
+        request.setPageSize(pageSize + "");
+        request.setTypeId("*");
+
+        RequestManager.post(getName(), "http://120.27.201.161:4042/api/BookInfo/List",
+                request, isRefresh,
+                new CallBack<BookSummaryList>() {
                     @Override
-                    public void onSuccess(List<GanHuo> result) {
+                    public void onSuccess(BookSummaryList result) {
                         if (isRefresh) {
                             items.clear();
                             page = 2;
                         } else {
                             page++;
                         }
-                        addTestItems(page);
+                        items.addAll(result.getRecords());
                         itemAdapter.notifyDataSetChanged();
 
                         if (mSwipeToLoadLayout != null) {
                             mSwipeToLoadLayout.setRefreshing(false);
                             mSwipeToLoadLayout.setLoadingMore(false);
+                            if (result.getRecords().size() < pageSize) {
+                                // 如果最后一页,取消上拉加载更多
+                                mSwipeToLoadLayout.setLoadMoreEnabled(false);
+                            }
                         }
-
-                        // 如果最后一页,取消上拉加载更多
-//                        mSwipeToLoadLayout.setLoadMoreEnabled(false);
                     }
 
                     @Override
@@ -127,8 +125,6 @@ public class HomeMallFragment extends BaseFragment implements OnRefreshListener,
     }
 
     private void initView() {
-        addTestItems(1);
-
         mSwipeToLoadLayout.post(new Runnable() {
             @Override
             public void run() {

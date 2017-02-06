@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grace.book.activitys.WebActivity;
-import com.grace.book.beans.GanHuo;
+import com.grace.book.entity.GanHuo;
 import com.library.viewspread.helper.BaseViewHelper;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.iconics.IconicsDrawable;

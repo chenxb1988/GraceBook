@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.grace.book.R;
 import com.grace.book.base.BaseActivity;
-import com.grace.book.beans.GanHuo;
+import com.grace.book.entity.GanHuo;
 import com.grace.book.utils.ActivityUtils;
 import com.grace.book.utils.SystemUtils;
 

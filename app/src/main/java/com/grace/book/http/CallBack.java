@@ -1,6 +1,9 @@
 package com.grace.book.http;
 
+import android.widget.Toast;
+
 import com.google.gson.internal.$Gson$Types;
+import com.grace.book.App;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -27,6 +30,6 @@ public abstract class CallBack<T> {
     public abstract void onSuccess(T result);
 
     public void onFailure(String message) {
-//        Toast.makeText(App.getContext(), message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(App.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

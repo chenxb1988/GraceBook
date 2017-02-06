@@ -6,17 +6,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.grace.book.R;
 import com.grace.book.adapter.MallItemAdapter;
-import com.grace.book.base.BaseFragment;
+import com.grace.book.base.BaseLoadingWithTitleFragment;
 import com.grace.book.entity.BookSummaryList;
 import com.grace.book.event.SkinChangeEvent;
 import com.grace.book.http.CallBack;
@@ -38,14 +35,7 @@ import butterknife.Bind;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeMallFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
-    @Bind(R.id.status_bar)
-    View mStatusBar;
-    @Bind(R.id.icon)
-    ImageView mIcon;
-    @Bind(R.id.title)
-    TextView mTitle;
-
+public class HomeMallFragment extends BaseLoadingWithTitleFragment implements OnRefreshListener, OnLoadMoreListener {
     @Bind(R.id.swipe_target)
     RecyclerView recyclerView;
     @Bind(R.id.swipeToLoadLayout)
@@ -61,12 +51,9 @@ public class HomeMallFragment extends BaseFragment implements OnRefreshListener,
     private int pageSize = 10;
 
     @Override
-    protected int getLayoutResource() {
-        return R.layout.fragment_home_mall;
-    }
-
-    @Override
     public void initFragment() {
+        setLoadingContentView(R.layout.fragment_home_mall);
+
         SystemUtils.setStatusBar(getActivity(), mStatusBar);
         mIcon.setImageDrawable(new IconicsDrawable(getActivity()).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_city).sizeDp(20));
         mTitle.setText(R.string.mall);
@@ -83,6 +70,7 @@ public class HomeMallFragment extends BaseFragment implements OnRefreshListener,
     }
 
     private void getData(final boolean isRefresh) {
+        showLoadingView();
         BookListRequest request = new BookListRequest();
         request.setChurchId("2673e224363301f5");
         request.setPageIndex(page + "");
@@ -94,12 +82,13 @@ public class HomeMallFragment extends BaseFragment implements OnRefreshListener,
                 new CallBack<BookSummaryList>() {
                     @Override
                     public void onSuccess(BookSummaryList result) {
+                        if (result == null || result.getRecords() == null) {
+                            return;
+                        }
                         if (isRefresh) {
                             items.clear();
-                            page = 2;
-                        } else {
-                            page++;
                         }
+
                         items.addAll(result.getRecords());
                         itemAdapter.notifyDataSetChanged();
 
@@ -110,6 +99,11 @@ public class HomeMallFragment extends BaseFragment implements OnRefreshListener,
                                 // 如果最后一页,取消上拉加载更多
                                 mSwipeToLoadLayout.setLoadMoreEnabled(false);
                             }
+                        }
+                        if (items.size() > 0) {
+                            showContentView();
+                        } else {
+                            showEmptyView();
                         }
                     }
 
@@ -214,6 +208,12 @@ public class HomeMallFragment extends BaseFragment implements OnRefreshListener,
 
     @Override
     public void onLoadMore() {
+        page++;
         getData(false);
+    }
+
+    @Override
+    protected void loadData() {
+        getData(true);
     }
 }

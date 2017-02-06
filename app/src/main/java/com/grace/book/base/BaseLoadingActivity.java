@@ -35,9 +35,9 @@ public abstract class BaseLoadingActivity extends BaseActivity {
         setContentView(getContentLayout());
 
         mContentView = (ViewGroup) findViewById(R.id.content);
-        mProgressBar = findViewById(R.id.common_list_pb);
-        mErrorView = findViewById(R.id.common_list_error);
-        mEmptyView = findViewById(R.id.common_list_empty);
+        mProgressBar = findViewById(R.id.common_progress_view);
+        mErrorView = findViewById(R.id.common_error_view);
+        mEmptyView = findViewById(R.id.common_empty_view);
         mViews = new View[]{mContentView, mProgressBar, mErrorView, mEmptyView};
 
         mErrorView.setOnClickListener(new View.OnClickListener() {

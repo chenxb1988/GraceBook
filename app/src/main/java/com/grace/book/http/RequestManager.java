@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import me.xiaopan.android.net.NetworkUtils;
+import me.xiaopan.java.lang.StringUtils;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Interceptor;
@@ -48,7 +49,7 @@ public class RequestManager {
         //读取缓存数据
         final DBManager dbManager = new DBManager();
         String data = dbManager.getData(url);
-        if (!"".equals(data)) {
+        if (!StringUtils.isEmpty(data)) {
             //解析json数据并返回成功回调
             callBack.onSuccess(new Gson().fromJson(data, callBack.type));
         }
@@ -99,16 +100,15 @@ public class RequestManager {
         //读取缓存数据
         final DBManager dbManager = new DBManager();
         String data = dbManager.getData(url);
-        if (!"".equals(data)) {
+        if (!StringUtils.isEmpty(data)) {
             //解析json数据并返回成功回调
-            callBack.onSuccess(new Gson().fromJson(data, callBack.type));
+            callBack.onSuccess(Gson.fromJson(data, callBack.type));
         }
 
         //判断网络是否已连接，连接则往下走，未连接则返回失败回调，并终止请求
         if (!NetworkUtils.isConnectedByState(App.getContext())) {
-            callBack.onFailure("network not contented!!");
+            callBack.onFailure("网络未连接!!");
             return;
-
         }
 
         RequestBody body = RequestBody.create(MediaType.parse("application/json"), Gson.toJson(requestInfo).toString());

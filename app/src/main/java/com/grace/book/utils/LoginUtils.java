@@ -1,17 +1,25 @@
 package com.grace.book.utils;
 
-import android.app.Activity;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.grace.book.R;
+import com.grace.book.base.BaseActivity;
 import com.grace.book.dialog.LoginDialog;
 
-public class LoginUtils {
+import me.xiaopan.java.lang.StringUtils;
 
-    public static void showLoginDialog(Activity activity) {
+public class LoginUtils {
+    public static boolean isLogin(BaseActivity activity) {
+        if (StringUtils.isEmpty(SharedUtils.getString(ConstData.TOKEN, ""))) {
+            showLoginDialog(activity);
+            return false;
+        }
+        return true;
+    }
+
+    public static void showLoginDialog(BaseActivity activity) {
         LoginDialog loginDialog = new LoginDialog(activity);
         Window dialogWindow = loginDialog.getWindow();
         dialogWindow.setGravity(Gravity.CENTER);

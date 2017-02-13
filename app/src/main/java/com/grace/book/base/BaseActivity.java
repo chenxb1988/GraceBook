@@ -11,7 +11,7 @@ import android.view.WindowManager;
 import com.grace.book.R;
 import com.grace.book.http.RequestManager;
 import com.grace.book.widget.theme.Theme;
-import com.grace.book.utils.PreUtils;
+import com.grace.book.utils.SharedUtils;
 import com.library.viewspread.helper.BaseViewHelper;
 
 /**
@@ -30,7 +30,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void onPreCreate() {
-        Theme theme = PreUtils.getCurrentTheme(this);
+        Theme theme = SharedUtils.getCurrentTheme(this);
         switch (theme) {
             case Blue:
                 setTheme(R.style.BlueTheme);
@@ -104,7 +104,7 @@ public class BaseActivity extends AppCompatActivity {
         win.setAttributes(winParams);
     }
 
-    protected String getName() {
+    public String getName() {
         return BaseActivity.class.getName();
     }
 

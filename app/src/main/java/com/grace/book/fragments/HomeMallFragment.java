@@ -17,6 +17,7 @@ import com.grace.book.base.BaseLoadingWithTitleFragment;
 import com.grace.book.entity.BookSummaryList;
 import com.grace.book.event.SkinChangeEvent;
 import com.grace.book.http.CallBack;
+import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
 import com.grace.book.http.request.BookListRequest;
 import com.grace.book.utils.SystemUtils;
@@ -77,7 +78,7 @@ public class HomeMallFragment extends BaseLoadingWithTitleFragment implements On
         request.setPageSize(pageSize + "");
         request.setTypeId("*");
 
-        RequestManager.post(getName(), "http://120.27.201.161:4042/api/BookInfo/List",
+        RequestManager.post(getName(), HttpData.BOOK_LIST,
                 request, isRefresh,
                 new CallBack<BookSummaryList>() {
                     @Override
@@ -93,7 +94,7 @@ public class HomeMallFragment extends BaseLoadingWithTitleFragment implements On
                         itemAdapter.notifyDataSetChanged();
 
                         if (mSwipeToLoadLayout != null) {
-                            mSwipeToLoadLayout.setRefreshing(false);
+                            mSwipeToLoadLayout.setRefreshing(true);
                             mSwipeToLoadLayout.setLoadingMore(false);
                             if (result.getRecords().size() < pageSize) {
                                 // 如果最后一页,取消上拉加载更多

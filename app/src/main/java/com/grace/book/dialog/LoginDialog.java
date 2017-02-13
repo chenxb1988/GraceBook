@@ -1,18 +1,27 @@
 package com.grace.book.dialog;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.grace.book.R;
+import com.grace.book.base.BaseActivity;
+import com.grace.book.entity.LoginInfo;
+import com.grace.book.http.CallBack;
+import com.grace.book.http.HttpData;
+import com.grace.book.http.RequestManager;
+import com.grace.book.http.request.LoginRequest;
+import com.grace.book.utils.ConstData;
+import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.widget.AnimCheckBox;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.xiaopan.java.lang.StringUtils;
 
 /**
  * Created by chenxb
@@ -22,6 +31,11 @@ import butterknife.OnClick;
 public class LoginDialog extends Dialog {
     @Bind(R.id.login_layout)
     LinearLayout mLlLogin;
+    @Bind(R.id.et_username)
+    EditText mEtUsername;
+    @Bind(R.id.et_password)
+    EditText mEtPassword;
+
     @Bind(R.id.reset_layout)
     LinearLayout mLlReset;
     @Bind(R.id.btn_login)
@@ -33,8 +47,11 @@ public class LoginDialog extends Dialog {
     @Bind(R.id.cb_remember_pwd)
     AnimCheckBox mCbRemberPwd;
 
-    public LoginDialog(Context context) {
-        super(context, R.style.MyDialog);
+    private BaseActivity mActivity;
+
+    public LoginDialog(BaseActivity activity) {
+        super(activity, R.style.MyDialog);
+        mActivity = activity;
         setContentView(R.layout.layout_login);
         ButterKnife.bind(this);
         showLogin();
@@ -43,7 +60,7 @@ public class LoginDialog extends Dialog {
         ThemeUtils.addThemeToView(mConfirmBtn);
     }
 
-    @OnClick({R.id.tv_remember_pwd, R.id.tv_forget_password, R.id.tv_go_login})
+    @OnClick({R.id.tv_remember_pwd, R.id.tv_forget_password, R.id.tv_go_login, R.id.btn_login})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_remember_pwd:
@@ -54,6 +71,31 @@ public class LoginDialog extends Dialog {
                 break;
             case R.id.tv_go_login:
                 showLogin();
+                break;
+            case R.id.btn_login:
+                String mobile = mEtUsername.getText().toString();
+                if (StringUtils.isEmpty(mobile)) {
+                    mEtUsername.setError("请输入手机号!");
+                    break;
+                }
+                String password = mEtPassword.getText().toString();
+                if (StringUtils.isEmpty(password)) {
+                    mEtPassword.setError("请输入手机号!");
+                    break;
+                }
+
+                LoginRequest request = new LoginRequest();
+                request.setMobile("18868808315");
+                request.setPassword("r2N7aKOsCAFAO/v0Ge3MKQ==");
+
+                RequestManager.post(mActivity.getName(), HttpData.LOGIN, request, new CallBack<LoginInfo>() {
+                    @Override
+                    public void onSuccess(LoginInfo result) {
+                        String token = result.getAuthToken();
+                        SharedUtils.putString(ConstData.TOKEN, token);
+                        dismiss();
+                    }
+                });
                 break;
         }
     }

@@ -30,7 +30,7 @@ import com.grace.book.widget.theme.ColorUiUtil;
 import com.grace.book.widget.theme.Theme;
 import com.grace.book.utils.DrawableUtils;
 import com.grace.book.utils.LoginUtils;
-import com.grace.book.utils.PreUtils;
+import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.widget.ResideLayout;
 import com.mikepenz.foundation_icons_typeface_library.FoundationIcons;
@@ -291,63 +291,63 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
 
         if (selectedColor == getResources().getColor(R.color.colorBluePrimary)) {
             setTheme(R.style.BlueTheme);
-            PreUtils.setCurrentTheme(this, Theme.Blue);
+            SharedUtils.setCurrentTheme(Theme.Blue);
 
         } else if (selectedColor == getResources().getColor(R.color.colorRedPrimary)) {
             setTheme(R.style.RedTheme);
-            PreUtils.setCurrentTheme(this, Theme.Red);
+            SharedUtils.setCurrentTheme(Theme.Red);
 
         } else if (selectedColor == getResources().getColor(R.color.colorBrownPrimary)) {
             setTheme(R.style.BrownTheme);
-            PreUtils.setCurrentTheme(this, Theme.Brown);
+            SharedUtils.setCurrentTheme(Theme.Brown);
 
         } else if (selectedColor == getResources().getColor(R.color.colorGreenPrimary)) {
             setTheme(R.style.GreenTheme);
-            PreUtils.setCurrentTheme(this, Theme.Green);
+            SharedUtils.setCurrentTheme(Theme.Green);
 
         } else if (selectedColor == getResources().getColor(R.color.colorPurplePrimary)) {
             setTheme(R.style.PurpleTheme);
-            PreUtils.setCurrentTheme(this, Theme.Purple);
+            SharedUtils.setCurrentTheme(Theme.Purple);
 
         } else if (selectedColor == getResources().getColor(R.color.colorTealPrimary)) {
             setTheme(R.style.TealTheme);
-            PreUtils.setCurrentTheme(this, Theme.Teal);
+            SharedUtils.setCurrentTheme(Theme.Teal);
 
         } else if (selectedColor == getResources().getColor(R.color.colorPinkPrimary)) {
             setTheme(R.style.PinkTheme);
-            PreUtils.setCurrentTheme(this, Theme.Pink);
+            SharedUtils.setCurrentTheme(Theme.Pink);
 
         } else if (selectedColor == getResources().getColor(R.color.colorDeepPurplePrimary)) {
             setTheme(R.style.DeepPurpleTheme);
-            PreUtils.setCurrentTheme(this, Theme.DeepPurple);
+            SharedUtils.setCurrentTheme(Theme.DeepPurple);
 
         } else if (selectedColor == getResources().getColor(R.color.colorOrangePrimary)) {
             setTheme(R.style.OrangeTheme);
-            PreUtils.setCurrentTheme(this, Theme.Orange);
+            SharedUtils.setCurrentTheme(Theme.Orange);
 
         } else if (selectedColor == getResources().getColor(R.color.colorIndigoPrimary)) {
             setTheme(R.style.IndigoTheme);
-            PreUtils.setCurrentTheme(this, Theme.Indigo);
+            SharedUtils.setCurrentTheme(Theme.Indigo);
 
         } else if (selectedColor == getResources().getColor(R.color.colorLightGreenPrimary)) {
             setTheme(R.style.LightGreenTheme);
-            PreUtils.setCurrentTheme(this, Theme.LightGreen);
+            SharedUtils.setCurrentTheme(Theme.LightGreen);
 
         } else if (selectedColor == getResources().getColor(R.color.colorDeepOrangePrimary)) {
             setTheme(R.style.DeepOrangeTheme);
-            PreUtils.setCurrentTheme(this, Theme.DeepOrange);
+            SharedUtils.setCurrentTheme(Theme.DeepOrange);
 
         } else if (selectedColor == getResources().getColor(R.color.colorLimePrimary)) {
             setTheme(R.style.LimeTheme);
-            PreUtils.setCurrentTheme(this, Theme.Lime);
+            SharedUtils.setCurrentTheme(Theme.Lime);
 
         } else if (selectedColor == getResources().getColor(R.color.colorBlueGreyPrimary)) {
             setTheme(R.style.BlueGreyTheme);
-            PreUtils.setCurrentTheme(this, Theme.BlueGrey);
+            SharedUtils.setCurrentTheme(Theme.BlueGrey);
 
         } else if (selectedColor == getResources().getColor(R.color.colorCyanPrimary)) {
             setTheme(R.style.CyanTheme);
-            PreUtils.setCurrentTheme(this, Theme.Cyan);
+            SharedUtils.setCurrentTheme(Theme.Cyan);
 
         }
         final View rootView = getWindow().getDecorView();

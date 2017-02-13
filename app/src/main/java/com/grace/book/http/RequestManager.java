@@ -88,7 +88,7 @@ public class RequestManager {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        handleResponse(json, callBack, dbManager, url, isCache);
+                        handleResponse(json, callBack, dbManager, url, "", isCache);
                     }
                 });
 
@@ -96,10 +96,16 @@ public class RequestManager {
         });
     }
 
-    public static void post(Object tag, final String url, BaseRequest requestInfo, final boolean isCache, final CallBack callBack) {
+    public static void post(Object tag, String api, BaseRequest requestInfo, final CallBack callBack) {
+        post(tag, api, requestInfo, true, callBack);
+    }
+
+    public static void post(Object tag, String api, BaseRequest requestInfo, final boolean isCache, final CallBack callBack) {
         //读取缓存数据
         final DBManager dbManager = new DBManager();
-        String data = dbManager.getData(url);
+        final String bodyStr = Gson.toJson(requestInfo).toString();
+        final String url = HttpData.URL + api;
+        String data = dbManager.getData(url + bodyStr);
         if (!StringUtils.isEmpty(data)) {
             //解析json数据并返回成功回调
             callBack.onSuccess(Gson.fromJson(data, callBack.type));
@@ -111,7 +117,7 @@ public class RequestManager {
             return;
         }
 
-        RequestBody body = RequestBody.create(MediaType.parse("application/json"), Gson.toJson(requestInfo).toString());
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), bodyStr);
 
         //初始化请求对象
         Request request = new Request.Builder()
@@ -143,7 +149,7 @@ public class RequestManager {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        handleResponse(json, callBack, dbManager, url, isCache);
+                        handleResponse(json, callBack, dbManager, url, bodyStr, isCache);
                     }
                 });
 
@@ -159,7 +165,7 @@ public class RequestManager {
      * @param dbManager
      * @param url
      */
-    private static void handleResponse(String json, CallBack callBack, DBManager dbManager, String url, boolean isCache) {
+    private static void handleResponse(String json, CallBack callBack, DBManager dbManager, String url, String body, boolean isCache) {
         try {
             //转化为json对象
             JSONObject jsonObject = new JSONObject(json);
@@ -177,7 +183,7 @@ public class RequestManager {
             String results = jsonObject.getString(CONTENT);
             if (isCache) {
                 //插入缓存数据库
-                dbManager.insertData(url, results);
+                dbManager.insertData(url + body, results);
             }
 
             //返回成功回调

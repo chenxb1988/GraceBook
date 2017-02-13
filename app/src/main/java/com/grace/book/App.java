@@ -3,6 +3,7 @@ package com.grace.book;
 import android.app.Application;
 import android.content.Context;
 
+import com.grace.book.utils.SharedUtils;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
 
@@ -19,6 +20,7 @@ public class App extends Application {
         super.onCreate();
         context = getApplicationContext();
         instance = this;
+        SharedUtils.init(this);
 
         Logger.init("hhh")
                 .methodOffset(2)

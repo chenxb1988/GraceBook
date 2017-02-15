@@ -20,24 +20,27 @@ import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bumptech.glide.Glide;
 import com.grace.book.R;
 import com.grace.book.base.BaseActivity;
+import com.grace.book.entity.LoginInfo;
+import com.grace.book.event.LoginEvent;
 import com.grace.book.event.SkinChangeEvent;
 import com.grace.book.fragments.HomeContactFragment;
 import com.grace.book.fragments.HomeMainFragment;
 import com.grace.book.fragments.HomeMallFragment;
 import com.grace.book.fragments.HomeRecordFragment;
 import com.grace.book.fragments.HomeSelfFragment;
-import com.grace.book.widget.theme.ColorUiUtil;
-import com.grace.book.widget.theme.Theme;
 import com.grace.book.utils.DrawableUtils;
 import com.grace.book.utils.LoginUtils;
 import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.widget.ResideLayout;
+import com.grace.book.widget.theme.ColorUiUtil;
+import com.grace.book.widget.theme.Theme;
 import com.mikepenz.foundation_icons_typeface_library.FoundationIcons;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -82,6 +85,7 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
 
         startTranslationNoShowTranslation();
 
@@ -132,6 +136,29 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onLoginEvent(LoginEvent event) {
+        LoginInfo loginInfo = event.getLoginInfo();
+        mUserName.setText(loginInfo.getUserName());
+        Glide.with(MainActivity.this)
+                .load(loginInfo.getAvatar())
+                .placeholder(new IconicsDrawable(this)
+                        .icon(FoundationIcons.Icon.fou_photo)
+                        .color(Color.GRAY)
+                        .backgroundColor(Color.WHITE)
+                        .roundedCornersDp(40)
+                        .paddingDp(15)
+                        .sizeDp(75))
+                .bitmapTransform(new CropCircleTransformation(this))
+                .dontAnimate()
+                .into(mAvatar);
+    }
 
     private void switchFragment(Fragment fragment) {
         FragmentTransaction mTransaction = getSupportFragmentManager()
@@ -202,7 +229,9 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.avatar:
-                LoginUtils.showLoginDialog(this);
+                if (LoginUtils.isLogin(this)) {
+
+                }
                 break;
             case R.id.home:
                 switchFragment(0);
@@ -243,6 +272,10 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
                 mResideLayout.openPane();
                 break;
         }
+    }
+
+    public void openResideLayout() {
+        mResideLayout.openPane();
     }
 
     public void switchFragment(int index) {

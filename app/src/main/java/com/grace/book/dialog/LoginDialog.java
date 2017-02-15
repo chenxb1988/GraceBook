@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import com.grace.book.R;
 import com.grace.book.base.BaseActivity;
 import com.grace.book.entity.LoginInfo;
+import com.grace.book.event.LoginEvent;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
@@ -17,6 +18,8 @@ import com.grace.book.utils.ConstData;
 import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.widget.AnimCheckBox;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -93,6 +96,9 @@ public class LoginDialog extends Dialog {
                     public void onSuccess(LoginInfo result) {
                         String token = result.getAuthToken();
                         SharedUtils.putString(ConstData.TOKEN, token);
+                        SharedUtils.putString(ConstData.USER_ID, result.getUserId());
+                        SharedUtils.putString(ConstData.USER_NAME, result.getUserName());
+                        EventBus.getDefault().post(new LoginEvent(result));
                         dismiss();
                     }
                 });

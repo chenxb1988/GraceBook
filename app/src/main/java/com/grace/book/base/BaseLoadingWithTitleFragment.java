@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grace.book.R;
+import com.grace.book.activitys.MainActivity;
 
 
 /**
@@ -24,6 +25,24 @@ public abstract class BaseLoadingWithTitleFragment extends BaseLoadingFragment {
         mStatusBar = rootView.findViewById(R.id.status_bar);
         mIcon = (ImageView) rootView.findViewById(R.id.icon);
         mTitle = (TextView) rootView.findViewById(R.id.title);
+
+        mIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() instanceof MainActivity) {
+                    ((MainActivity) getActivity()).openResideLayout();
+                }
+            }
+        });
+        mTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() instanceof MainActivity) {
+                    ((MainActivity) getActivity()).openResideLayout();
+                }
+            }
+        });
+
         super.setLoadingContentView(layout);
     }
 }

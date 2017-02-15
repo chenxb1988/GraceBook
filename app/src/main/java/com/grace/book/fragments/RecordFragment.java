@@ -9,7 +9,7 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.grace.book.R;
 import com.grace.book.adapter.AndroidAdapter;
-import com.grace.book.base.BaseFragment;
+import com.grace.book.base.BaseLoadingNoTitleFragment;
 import com.grace.book.entity.GanHuo;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.RequestManager;
@@ -22,7 +22,7 @@ import butterknife.Bind;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecordFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
+public class RecordFragment extends BaseLoadingNoTitleFragment implements OnRefreshListener, OnLoadMoreListener {
 
     @Bind(R.id.swipe_target)
     ListView mListView;
@@ -39,12 +39,9 @@ public class RecordFragment extends BaseFragment implements OnRefreshListener, O
     }
 
     @Override
-    protected int getLayoutResource() {
-        return R.layout.fragment_record;
-    }
-
-    @Override
     public void initFragment() {
+        setLoadingContentView(R.layout.fragment_android);
+
         initView();
         onRefresh();
     }
@@ -62,6 +59,7 @@ public class RecordFragment extends BaseFragment implements OnRefreshListener, O
                         } else {
                             page++;
                         }
+                        showContentView();
                         ganHuos.addAll(result);
                         adapter.notifyDataSetChanged();
                         if (mSwipeToLoadLayout != null) {
@@ -73,6 +71,7 @@ public class RecordFragment extends BaseFragment implements OnRefreshListener, O
                     @Override
                     public void onFailure(String message) {
                         super.onFailure(message);
+                        showErrorView();
                         if (mSwipeToLoadLayout != null) {
                             mSwipeToLoadLayout.setRefreshing(false);
                             mSwipeToLoadLayout.setLoadingMore(false);
@@ -103,5 +102,10 @@ public class RecordFragment extends BaseFragment implements OnRefreshListener, O
     @Override
     public void onLoadMore() {
         getData(false);
+    }
+
+    @Override
+    protected void loadData() {
+        onRefresh();
     }
 }

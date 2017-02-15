@@ -3,17 +3,14 @@ package com.grace.book.fragments;
 
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.grace.book.R;
 import com.grace.book.adapter.AndroidAdapter;
-import com.grace.book.base.BaseFragment;
+import com.grace.book.base.BaseLoadingWithTitleFragment;
 import com.grace.book.entity.GanHuo;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.RequestManager;
@@ -29,13 +26,7 @@ import butterknife.Bind;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeSelfFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
-    @Bind(R.id.status_bar)
-    View mStatusBar;
-    @Bind(R.id.icon)
-    ImageView mIcon;
-    @Bind(R.id.title)
-    TextView mTitle;
+public class HomeSelfFragment extends BaseLoadingWithTitleFragment implements OnRefreshListener, OnLoadMoreListener {
 
     @Bind(R.id.swipe_target)
     ListView mListView;
@@ -48,12 +39,9 @@ public class HomeSelfFragment extends BaseFragment implements OnRefreshListener,
     private int page = 1;
 
     @Override
-    protected int getLayoutResource() {
-        return R.layout.fragment_android;
-    }
-
-    @Override
     public void initFragment() {
+        setLoadingContentView(R.layout.fragment_android);
+
         SystemUtils.setStatusBar(getActivity(), mStatusBar);
         mIcon.setImageDrawable(new IconicsDrawable(getActivity()).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_account).sizeDp(20));
         mTitle.setText(R.string.self);
@@ -75,6 +63,7 @@ public class HomeSelfFragment extends BaseFragment implements OnRefreshListener,
                         } else {
                             page++;
                         }
+                        showContentView();
                         ganHuos.addAll(result);
                         adapter.notifyDataSetChanged();
                         if (mSwipeToLoadLayout != null) {
@@ -116,5 +105,10 @@ public class HomeSelfFragment extends BaseFragment implements OnRefreshListener,
     @Override
     public void onLoadMore() {
         getData(false);
+    }
+
+    @Override
+    protected void loadData() {
+        onRefresh();
     }
 }

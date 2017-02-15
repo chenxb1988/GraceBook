@@ -94,7 +94,7 @@ public class HomeMallFragment extends BaseLoadingWithTitleFragment implements On
                         itemAdapter.notifyDataSetChanged();
 
                         if (mSwipeToLoadLayout != null) {
-                            mSwipeToLoadLayout.setRefreshing(true);
+                            mSwipeToLoadLayout.setRefreshing(false);
                             mSwipeToLoadLayout.setLoadingMore(false);
                             if (result.getRecords().size() < pageSize) {
                                 // 如果最后一页,取消上拉加载更多

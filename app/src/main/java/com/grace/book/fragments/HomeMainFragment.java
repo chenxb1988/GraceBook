@@ -5,12 +5,11 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.grace.book.R;
 import com.grace.book.activitys.MainActivity;
-import com.grace.book.base.BaseFragment;
+import com.grace.book.base.BaseLoadingWithTitleFragment;
 import com.grace.book.utils.SystemUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.widget.spinner.NiceSpinner;
@@ -30,18 +29,11 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeMainFragment extends BaseFragment {
+public class HomeMainFragment extends BaseLoadingWithTitleFragment {
     @Bind(R.id.avatar)
     ImageView mAvatar;
     @Bind(R.id.section_spinner)
     NiceSpinner mNiceSpinner;
-
-    @Bind(R.id.status_bar)
-    View mStatusBar;
-    @Bind(R.id.icon)
-    ImageView mIcon;
-    @Bind(R.id.title)
-    TextView mTitle;
 
     @Bind(R.id.icon_message)
     ColorIconTextView mIconMessage;
@@ -51,12 +43,9 @@ public class HomeMainFragment extends BaseFragment {
     ColorBackButton mBtnReadBible;
 
     @Override
-    protected int getLayoutResource() {
-        return R.layout.fragment_home_main;
-    }
-
-    @Override
     public void initFragment() {
+        setLoadingContentView(R.layout.fragment_home_main);
+
         SystemUtils.setStatusBar(getActivity(), mStatusBar);
         mIcon.setImageDrawable(new IconicsDrawable(getActivity()).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_home).sizeDp(20));
         mTitle.setText(R.string.homepage);
@@ -65,6 +54,7 @@ public class HomeMainFragment extends BaseFragment {
         ThemeUtils.addThemeToView(mBtnReadBible);
         mIconMessage.setIIcon(MaterialDesignIconic.Icon.gmi_email, 24);
 
+        showContentView();
         Glide.with(getActivity())
                 .load(R.drawable.logo)
                 .bitmapTransform(new CropCircleTransformation(getActivity()))
@@ -98,6 +88,11 @@ public class HomeMainFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
 //        EventBus.getDefault().unregister(this);
+
+    }
+
+    @Override
+    protected void loadData() {
 
     }
 }

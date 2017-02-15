@@ -6,12 +6,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.grace.book.R;
 import com.grace.book.base.BaseFragment;
+import com.grace.book.base.BaseLoadingWithTitleFragment;
 import com.grace.book.utils.SystemUtils;
 import com.grace.book.widget.PagerSlidingTabStrip;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -22,13 +20,7 @@ import butterknife.Bind;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeRecordFragment extends BaseFragment {
-    @Bind(R.id.status_bar)
-    View mStatusBar;
-    @Bind(R.id.icon)
-    ImageView mIcon;
-    @Bind(R.id.title)
-    TextView mTitle;
+public class HomeRecordFragment extends BaseLoadingWithTitleFragment {
 
     @Bind(R.id.tabs)
     PagerSlidingTabStrip mTabs;
@@ -41,12 +33,10 @@ public class HomeRecordFragment extends BaseFragment {
     private int mPosition;
 
     @Override
-    protected int getLayoutResource() {
-        return R.layout.fragment_home_record;
-    }
-
-    @Override
     public void initFragment() {
+        setLoadingContentView(R.layout.fragment_home_record);
+
+        showContentView();
         SystemUtils.setStatusBar(getActivity(), mStatusBar);
         mIcon.setImageDrawable(new IconicsDrawable(getActivity()).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_calendar_note).sizeDp(20));
         mTitle.setText(R.string.record);
@@ -75,6 +65,11 @@ public class HomeRecordFragment extends BaseFragment {
 
     public boolean isOnFirstTab() {
         return mPosition == 0;
+    }
+
+    @Override
+    protected void loadData() {
+
     }
 
     class TabFragmentPageAdapter extends FragmentPagerAdapter {

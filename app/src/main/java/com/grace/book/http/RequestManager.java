@@ -88,7 +88,7 @@ public class RequestManager {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        handleResponse(json, callBack, dbManager, url, "", isCache);
+                        handleResponse(json, callBack, dbManager, url, isCache);
                     }
                 });
 
@@ -155,6 +155,50 @@ public class RequestManager {
 
             }
         });
+    }
+
+    private static final String ERROR = "error";
+    private static final String RESULTS = "results";
+
+    /**
+     * 处理请求结果
+     *
+     * @param json
+     * @param callBack
+     * @param dbManager
+     * @param url
+     */
+    private static void handleResponse(String json, CallBack callBack, DBManager dbManager, String url, boolean isCache) {
+        try {
+            //转化为json对象
+            JSONObject jsonObject = new JSONObject(json);
+            //判断error字段是否存在，不存在返回失败信息并结束请求
+            if (jsonObject.isNull(ERROR)) {
+                callBack.onFailure("error key not exists!!");
+                return;
+            }
+            //判断后台返回结果，true表示失败，false表示成功，失败则返回错误回调并结束请求
+            if (jsonObject.getBoolean(ERROR)) {
+                callBack.onFailure("request failure!!");
+                return;
+            }
+            //判断results字段是否存在，不存在返回时报回调并结束请求
+            if (jsonObject.isNull(RESULTS)) {
+                callBack.onFailure("results key not exists!!");
+                return;
+            }
+            //获取results的值
+            String results = jsonObject.getString(RESULTS);
+            if (isCache) {
+                //插入缓存数据库
+                dbManager.insertData(url, results);
+            }
+
+            //返回成功回调
+            callBack.onSuccess(new Gson().fromJson(results, callBack.type));
+        } catch (JSONException e) {
+            callBack.onFailure(e.getLocalizedMessage());
+        }
     }
 
     /**

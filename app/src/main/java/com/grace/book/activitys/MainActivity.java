@@ -28,6 +28,7 @@ import com.grace.book.fragments.HomeMainFragment;
 import com.grace.book.fragments.HomeMallFragment;
 import com.grace.book.fragments.HomeRecordFragment;
 import com.grace.book.fragments.HomeSelfFragment;
+import com.grace.book.utils.ConstData;
 import com.grace.book.utils.DrawableUtils;
 import com.grace.book.utils.LoginUtils;
 import com.grace.book.utils.SharedUtils;
@@ -48,6 +49,7 @@ import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import me.xiaopan.android.content.res.DimenUtils;
 import me.xiaopan.android.preference.PreferencesUtils;
+import me.xiaopan.java.lang.StringUtils;
 
 import static com.grace.book.utils.DrawableUtils.setIconDrawable;
 
@@ -97,18 +99,35 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
 
         setIconDrawable(mTheme, MaterialDesignIconic.Icon.gmi_palette);
 
-        Glide.with(MainActivity.this)
-                .load(R.drawable.logo)
-                .placeholder(new IconicsDrawable(this)
-                        .icon(FoundationIcons.Icon.fou_photo)
-                        .color(Color.GRAY)
-                        .backgroundColor(Color.WHITE)
-                        .roundedCornersDp(40)
-                        .paddingDp(15)
-                        .sizeDp(75))
-                .bitmapTransform(new CropCircleTransformation(this))
-                .dontAnimate()
-                .into(mAvatar);
+        if (StringUtils.isEmpty(SharedUtils.getString(ConstData.TOKEN))) {
+            Glide.with(MainActivity.this)
+                    .load(R.drawable.logo)
+                    .placeholder(new IconicsDrawable(this)
+                            .icon(FoundationIcons.Icon.fou_photo)
+                            .color(Color.GRAY)
+                            .backgroundColor(Color.WHITE)
+                            .roundedCornersDp(40)
+                            .paddingDp(15)
+                            .sizeDp(75))
+                    .bitmapTransform(new CropCircleTransformation(this))
+                    .dontAnimate()
+                    .into(mAvatar);
+            mUserName.setText("未登录");
+        } else {
+            Glide.with(MainActivity.this)
+                    .load(SharedUtils.getString(ConstData.USER_AVATAR))
+                    .placeholder(new IconicsDrawable(this)
+                            .icon(FoundationIcons.Icon.fou_photo)
+                            .color(Color.GRAY)
+                            .backgroundColor(Color.WHITE)
+                            .roundedCornersDp(40)
+                            .paddingDp(15)
+                            .sizeDp(75))
+                    .bitmapTransform(new CropCircleTransformation(this))
+                    .dontAnimate()
+                    .into(mAvatar);
+            mUserName.setText(SharedUtils.getString(ConstData.USER_NAME));
+        }
 
 //        RequestManager.get(getName(), "http://gank.io/api/data/福利/1/1", true, new CallBack<List<GanHuo>>() {
 //            @Override

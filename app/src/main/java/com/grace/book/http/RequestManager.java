@@ -51,7 +51,7 @@ public class RequestManager {
         String data = dbManager.getData(url);
         if (!StringUtils.isEmpty(data)) {
             //解析json数据并返回成功回调
-            callBack.onSuccess(new Gson().fromJson(data, callBack.type));
+            callBack.onSuccess(Gson.fromJson(data, callBack.type));
         }
 
         //判断网络是否已连接，连接则往下走，未连接则返回失败回调，并终止请求

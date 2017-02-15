@@ -15,6 +15,7 @@ import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
 import com.grace.book.http.request.LoginRequest;
 import com.grace.book.utils.ConstData;
+import com.grace.book.utils.DialogUtils;
 import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.widget.AnimCheckBox;
@@ -83,21 +84,19 @@ public class LoginDialog extends Dialog {
                 }
                 String password = mEtPassword.getText().toString();
                 if (StringUtils.isEmpty(password)) {
-                    mEtPassword.setError("请输入手机号!");
+                    mEtPassword.setError("请输入密码!");
                     break;
                 }
-
+                DialogUtils.showProgress(mActivity, "正在登陆...");
                 LoginRequest request = new LoginRequest();
-                request.setMobile("18868808315");
+                request.setMobile("18868808315");//TODO cxb
                 request.setPassword("r2N7aKOsCAFAO/v0Ge3MKQ==");
 
                 RequestManager.post(mActivity.getName(), HttpData.LOGIN, request, new CallBack<LoginInfo>() {
                     @Override
                     public void onSuccess(LoginInfo result) {
-                        String token = result.getAuthToken();
-                        SharedUtils.putString(ConstData.TOKEN, token);
-                        SharedUtils.putString(ConstData.USER_ID, result.getUserId());
-                        SharedUtils.putString(ConstData.USER_NAME, result.getUserName());
+                        DialogUtils.dismissProgress();
+                        SharedUtils.saveUserData(result);
                         EventBus.getDefault().post(new LoginEvent(result));
                         dismiss();
                     }

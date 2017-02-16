@@ -30,6 +30,7 @@ import static com.grace.book.utils.ThemeUtils.getThemePrimaryColor;
 
 public class ActivityUtils {
     public static final String GANHUO_EXTRA = "ganhuo";
+    public static final String BUNDLE_EXTRA = "bundle_extra";
 
     public static void launchGanhuoDetail(Context context, GanHuo ganhuo) {
         Intent intent = new Intent(context, WebActivity.class);
@@ -37,18 +38,30 @@ public class ActivityUtils {
         context.startActivity(intent);
     }
 
-    public static void launchActivity(Activity activityA, Class<?> activityB, View view){
+    public static void launchActivity(Activity activityA, Class<?> activityB) {
+        launchActivity(activityA, activityB, null);
+    }
+
+    public static void launchActivity(Activity activityA, Class<?> activityB, Bundle bundle) {
+        Intent intent = new Intent(activityA, activityB);
+        if (null != bundle) {
+            intent.putExtra(BUNDLE_EXTRA, bundle);
+        }
+        activityA.startActivity(intent);
+    }
+
+    public static void launchActivityWithAnim(Activity activityA, Class<?> activityB, View view) {
         Intent intent = new Intent(activityA, activityB);
         new BaseViewHelper
-                .Builder(activityA,view)
+                .Builder(activityA, view)
                 .startActivity(intent);
     }
 
-    public static void launchActivity(Activity activityA, Class<?> activityB, View view, Bundle bundle){
+    public static void launchActivityWithAnim(Activity activityA, Class<?> activityB, View view, Bundle bundle) {
         Intent intent = new Intent(activityA, activityB);
         intent.putExtras(bundle);
         new BaseViewHelper
-                .Builder(activityA,view)
+                .Builder(activityA, view)
                 .startActivity(intent);
     }
 

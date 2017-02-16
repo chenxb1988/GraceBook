@@ -15,7 +15,6 @@ import android.view.View;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -38,7 +37,7 @@ public class WebActivity extends BaseActivity {
     private ProgressBar mProgressBar;
 
     View mStatusBar;
-    ImageButton mMenu;
+    ImageView mMenu;
     ImageView mIcon;
     TextView mTitle;
 
@@ -62,7 +61,7 @@ public class WebActivity extends BaseActivity {
         mTitle = (TextView) findViewById(R.id.title);
         mTitle.setSingleLine();
         mIcon = (ImageView) findViewById(R.id.icon);
-        mMenu = (ImageButton) findViewById(R.id.menu);
+        mMenu = (ImageView) findViewById(R.id.iv_right);
         mMenu.setVisibility(View.VISIBLE);
     }
 

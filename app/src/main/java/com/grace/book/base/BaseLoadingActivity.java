@@ -40,12 +40,22 @@ public abstract class BaseLoadingActivity extends BaseActivity {
         mEmptyView = findViewById(R.id.common_empty_view);
         mViews = new View[]{mContentView, mProgressBar, mErrorView, mEmptyView};
 
-        mErrorView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadData();
-            }
-        });
+        if (mErrorView != null) {
+            mErrorView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loadData();
+                }
+            });
+        }
+        if (mEmptyView != null) {
+            mEmptyView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loadData();
+                }
+            });
+        }
     }
 
     protected int getContentLayout() {

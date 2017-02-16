@@ -8,7 +8,7 @@
     tools:context=".activitys.MainActivity">
 
     <com.grace.book.widget.theme.ColorRelativeLayout
-        android:id="@+id/menu"
+        android:id="@+id/iv_right"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/menuBackground">
@@ -38,7 +38,7 @@
                 android:singleLine="true"
                 android:text="@string/not_login"
                 android:textColor="@android:color/white"
-                android:textSize="16sp"/>
+                android:textSize="@dimen/textsize_normal"/>
 
         </LinearLayout>
 

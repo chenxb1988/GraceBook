@@ -232,4 +232,11 @@
         <item name="android:layout_width">32dp</item>
         <item name="android:layout_height">32dp</item>
     </style>
+
+    <style name="settingStyle">
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">5dp</item>
+    </style>
 </resources>

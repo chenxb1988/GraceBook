@@ -54,14 +54,6 @@ public abstract class BaseLoadingFragment extends BaseFragment {
                 }
             });
         }
-        if (mProgressView != null) {
-            mProgressView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    loadData();
-                }
-            });
-        }
         return rootView;
     }
 

@@ -35,7 +35,7 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void onStateChange(int state) {
                 if (state == AnimatedSvgView.STATE_FINISHED) {
-                    ActivityUtils.launchActivity(SplashActivity.this, MainActivity.class, mIvSplash);
+                    ActivityUtils.launchActivityWithAnim(SplashActivity.this, MainActivity.class, mIvSplash);
                     finish();
                 }
             }

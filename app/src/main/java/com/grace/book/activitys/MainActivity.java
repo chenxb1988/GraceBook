@@ -28,6 +28,7 @@ import com.grace.book.fragments.HomeMainFragment;
 import com.grace.book.fragments.HomeMallFragment;
 import com.grace.book.fragments.HomeRecordFragment;
 import com.grace.book.fragments.HomeSelfFragment;
+import com.grace.book.utils.ActivityUtils;
 import com.grace.book.utils.DrawableUtils;
 import com.grace.book.utils.LoginUtils;
 import com.grace.book.utils.SharedUtils;
@@ -230,7 +231,7 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
         switch (view.getId()) {
             case R.id.avatar:
                 if (LoginUtils.isLogin(this)) {
-
+                    ActivityUtils.launchActivity(MainActivity.this, UserInfoActivity.class);
                 }
                 break;
             case R.id.home:

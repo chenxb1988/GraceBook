@@ -22,6 +22,7 @@
     <!--basic color-->
     <color name="transparent">#00000000</color>
     <color name="white">#ffffff</color>
+    <color name="white_press">#e7e7e7</color>
     <color name="black">#040404</color>
     <color name="colorTextIcon">#ffffff</color>
     <color name="colorPrimaryText">#212121</color>
@@ -128,6 +129,5 @@
     <color name="colorBlueGreyPrimaryDark">#455A64</color>
     <color name="colorBlueGreyAccent">#FF4081</color>
     <color name="colorBlueGreyPrimaryCenter">#27373e</color>
-
 
 </resources>

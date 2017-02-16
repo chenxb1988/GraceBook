@@ -6,13 +6,14 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.grace.book.App;
+import com.grace.book.entity.LoginInfo;
 import com.grace.book.widget.theme.Theme;
 
 
 public class SharedUtils {
     private static SharedPreferences mSharePreferences;
     private static SharedPreferences.Editor mEditor;
-    
+
     public static void init(App app) {
         mSharePreferences = PreferenceManager.getDefaultSharedPreferences(app.getApplicationContext());
         mEditor = mSharePreferences.edit();
@@ -73,6 +74,10 @@ public class SharedUtils {
         return editor.commit();
     }
 
+    public static String getString(final String key) {
+        return mSharePreferences.getString(key, "");
+    }
+
     public static String getString(final String key, final String defaultValue) {
         return mSharePreferences.getString(key, defaultValue);
     }
@@ -100,5 +105,19 @@ public class SharedUtils {
 
     public static void setCurrentTheme(Theme currentTheme) {
         SharedUtils.putString("app_theme", currentTheme.name());
+    }
+
+    public static void saveUserData(LoginInfo loginInfo) {
+        SharedUtils.putString(ConstData.TOKEN, loginInfo.getAuthToken());
+        SharedUtils.putString(ConstData.USER_ID, loginInfo.getUserId());
+        SharedUtils.putString(ConstData.USER_NAME, loginInfo.getUserName());
+        SharedUtils.putString(ConstData.USER_AVATAR, loginInfo.getAvatar());
+    }
+
+    public static void clearUserData() {
+        SharedUtils.putString(ConstData.TOKEN, "");
+        SharedUtils.putString(ConstData.USER_ID, "");
+        SharedUtils.putString(ConstData.USER_NAME, "");
+        SharedUtils.putString(ConstData.USER_AVATAR, "");
     }
 }

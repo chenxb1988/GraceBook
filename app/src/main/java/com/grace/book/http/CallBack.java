@@ -29,7 +29,9 @@ public abstract class CallBack<T> {
 
     public abstract void onSuccess(T result);
 
-    public void onFailure(String message) {
+    public abstract void onFailure(String message);
+
+    public void showFailMsg(String message) {
         Toast.makeText(App.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

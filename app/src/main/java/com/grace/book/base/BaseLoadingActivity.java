@@ -8,20 +8,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grace.book.R;
+import com.grace.book.utils.SystemUtils;
 
-import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 /**
  * 基类-加载内容页面
  */
 public abstract class BaseLoadingActivity extends BaseActivity {
-    @Bind(R.id.status_bar)
-    View mStatusBar;
-    @Bind(R.id.icon)
-    ImageView mIcon;
-    @Bind(R.id.title)
-    TextView mTitle;
+    protected View mStatusBar;
+    protected ImageView mIcon;
+    protected TextView mTitle;
 
     ViewGroup mContentView;
     View mProgressBar;
@@ -33,6 +31,11 @@ public abstract class BaseLoadingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentLayout());
+
+        mStatusBar = findViewById(R.id.status_bar);
+        mIcon = (ImageView) findViewById(R.id.icon);
+        mTitle = (TextView) findViewById(R.id.title);
+        SystemUtils.setStatusBar(this, mStatusBar);
 
         mContentView = (ViewGroup) findViewById(R.id.content);
         mProgressBar = findViewById(R.id.common_progress_view);
@@ -66,6 +69,7 @@ public abstract class BaseLoadingActivity extends BaseActivity {
 
     protected void setLoadingContentView(int layout) {
         LayoutInflater.from(this).inflate(layout, mContentView);
+        ButterKnife.bind(this);
     }
 
     public void showContentView() {
@@ -96,4 +100,15 @@ public abstract class BaseLoadingActivity extends BaseActivity {
         }
     }
 
+    public void setTitle(String title) {
+        if (mTitle != null) {
+            mTitle.setText(title);
+        }
+    }
+
+    public void setTitle(int id) {
+        if (mTitle != null) {
+            mTitle.setText(id);
+        }
+    }
 }

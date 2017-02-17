@@ -14,7 +14,6 @@ import com.grace.book.http.CallBack;
 import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
 import com.grace.book.http.request.LoginRequest;
-import com.grace.book.utils.ConstData;
 import com.grace.book.utils.DialogUtils;
 import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ThemeUtils;
@@ -98,6 +97,13 @@ public class LoginDialog extends Dialog {
                         DialogUtils.dismissProgress();
                         SharedUtils.saveUserData(result);
                         EventBus.getDefault().post(new LoginEvent(result));
+                        dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        showFailMsg(message);
+                        DialogUtils.dismissProgress();
                         dismiss();
                     }
                 });

@@ -70,7 +70,7 @@ public class RecordFragment extends BaseLoadingNoTitleFragment implements OnRefr
 
                     @Override
                     public void onFailure(String message) {
-                        super.onFailure(message);
+                        showFailMsg(message);
                         showErrorView();
                         if (mSwipeToLoadLayout != null) {
                             mSwipeToLoadLayout.setRefreshing(false);

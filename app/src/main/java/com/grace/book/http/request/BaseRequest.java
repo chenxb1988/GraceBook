@@ -2,8 +2,7 @@ package com.grace.book.http.request;
 
 import android.os.Build;
 
-import com.grace.book.App;
-import com.grace.book.utils.AppHelper;
+import com.grace.book.utils.ConstData;
 
 /**
  * Created by chenxb
@@ -20,8 +19,8 @@ public class BaseRequest {
     public BaseRequest() {
         os = "Android";
         osVersion = Build.VERSION.RELEASE;
-        appVersion = AppHelper.getVersionName(App.getInstance());
-        deviceId = AppHelper.getDeviceId(App.getInstance());
+        appVersion = ConstData.APP_VERSION;
+        deviceId = ConstData.DEVICE_ID;
         deviceToken = "";
     }
 

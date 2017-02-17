@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
 
         setIconDrawable(mTheme, MaterialDesignIconic.Icon.gmi_palette);
 
-        if (StringUtils.isEmpty(SharedUtils.getString(ConstData.TOKEN))) {
+        if (StringUtils.isEmpty(SharedUtils.getUserToken())) {
             Glide.with(MainActivity.this)
                     .load(R.drawable.logo)
                     .placeholder(new IconicsDrawable(this)

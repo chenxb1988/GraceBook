@@ -120,4 +120,21 @@ public class SharedUtils {
         SharedUtils.putString(ConstData.USER_NAME, "");
         SharedUtils.putString(ConstData.USER_AVATAR, "");
     }
+
+    public static String getUserToken() {
+        return SharedUtils.getString(ConstData.TOKEN, "");
+    }
+
+    public static String getUserId() {
+        return SharedUtils.getString(ConstData.USER_ID, "");
+    }
+
+    public static String getUserName() {
+        return SharedUtils.getString(ConstData.USER_NAME, "");
+    }
+
+    public static String getUserAvatar() {
+        return SharedUtils.getString(ConstData.USER_AVATAR, "");
+    }
+
 }

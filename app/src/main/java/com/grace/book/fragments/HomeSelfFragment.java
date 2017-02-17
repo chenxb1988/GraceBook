@@ -74,7 +74,7 @@ public class HomeSelfFragment extends BaseLoadingWithTitleFragment implements On
 
                     @Override
                     public void onFailure(String message) {
-                        super.onFailure(message);
+                        showFailMsg(message);
                         if (mSwipeToLoadLayout != null) {
                             mSwipeToLoadLayout.setRefreshing(false);
                             mSwipeToLoadLayout.setLoadingMore(false);

@@ -12,7 +12,7 @@ import me.xiaopan.java.lang.StringUtils;
 
 public class LoginUtils {
     public static boolean isLogin(BaseActivity activity) {
-        if (StringUtils.isEmpty(SharedUtils.getString(ConstData.TOKEN, ""))) {
+        if (StringUtils.isEmpty(SharedUtils.getUserToken())) {
             showLoginDialog(activity);
             return false;
         }

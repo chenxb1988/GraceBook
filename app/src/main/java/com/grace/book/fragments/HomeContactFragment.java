@@ -74,7 +74,7 @@ public class HomeContactFragment extends BaseLoadingWithTitleFragment implements
 
                     @Override
                     public void onFailure(String message) {
-                        super.onFailure(message);
+                        showFailMsg(message);
                         if (mSwipeToLoadLayout != null) {
                             mSwipeToLoadLayout.setRefreshing(false);
                             mSwipeToLoadLayout.setLoadingMore(false);

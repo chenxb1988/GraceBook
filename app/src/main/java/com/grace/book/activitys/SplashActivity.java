@@ -7,6 +7,7 @@ import com.grace.book.R;
 import com.grace.book.base.BaseActivity;
 import com.grace.book.entity.SVG;
 import com.grace.book.utils.ActivityUtils;
+import com.grace.book.utils.ConstData;
 import com.grace.book.widget.AnimatedSvgView;
 
 import butterknife.Bind;
@@ -29,6 +30,7 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
+        ConstData.initData();
 
         mSvgView.setOnStateChangeListener(new AnimatedSvgView.OnStateChangeListener() {
 

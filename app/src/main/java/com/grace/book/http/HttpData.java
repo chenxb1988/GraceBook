@@ -9,4 +9,5 @@ public class HttpData {
 
     public static String LOGIN = "UserInfo/Login";
     public static String BOOK_LIST = "BookInfo/List";
+    public static String USER_INFO = "userinfo/get";
 }

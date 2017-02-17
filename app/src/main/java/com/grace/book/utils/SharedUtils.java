@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.grace.book.App;
-import com.grace.book.entity.LoginInfo;
+import com.grace.book.http.response.LoginInfo;
 import com.grace.book.widget.theme.Theme;
 
 

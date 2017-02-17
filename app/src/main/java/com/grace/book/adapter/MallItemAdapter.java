@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grace.book.R;
-import com.grace.book.entity.BookSummaryList;
+import com.grace.book.http.response.BookSummaryList;
 
 import java.util.List;
 

@@ -20,7 +20,8 @@ import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bumptech.glide.Glide;
 import com.grace.book.R;
 import com.grace.book.base.BaseActivity;
-import com.grace.book.entity.LoginInfo;
+import com.grace.book.event.LogoutEvent;
+import com.grace.book.http.response.LoginInfo;
 import com.grace.book.event.LoginEvent;
 import com.grace.book.event.SkinChangeEvent;
 import com.grace.book.fragments.HomeContactFragment;
@@ -168,6 +169,23 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
         mUserName.setText(loginInfo.getUserName());
         Glide.with(MainActivity.this)
                 .load(loginInfo.getAvatar())
+                .placeholder(new IconicsDrawable(this)
+                        .icon(FoundationIcons.Icon.fou_photo)
+                        .color(Color.GRAY)
+                        .backgroundColor(Color.WHITE)
+                        .roundedCornersDp(40)
+                        .paddingDp(15)
+                        .sizeDp(75))
+                .bitmapTransform(new CropCircleTransformation(this))
+                .dontAnimate()
+                .into(mAvatar);
+    }
+
+    @Subscribe
+    public void onLogoutEvent(LogoutEvent event) {
+        mUserName.setText("未登录");
+        Glide.with(MainActivity.this)
+                .load(R.drawable.logo)
                 .placeholder(new IconicsDrawable(this)
                         .icon(FoundationIcons.Icon.fou_photo)
                         .color(Color.GRAY)

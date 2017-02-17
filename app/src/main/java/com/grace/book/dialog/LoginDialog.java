@@ -8,12 +8,13 @@ import android.widget.LinearLayout;
 
 import com.grace.book.R;
 import com.grace.book.base.BaseActivity;
-import com.grace.book.entity.LoginInfo;
+import com.grace.book.http.response.LoginInfo;
 import com.grace.book.event.LoginEvent;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
 import com.grace.book.http.request.LoginRequest;
+import com.grace.book.utils.ConstData;
 import com.grace.book.utils.DialogUtils;
 import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ThemeUtils;
@@ -61,6 +62,17 @@ public class LoginDialog extends Dialog {
         ThemeUtils.addThemeToView(mLoginBtn);
         ThemeUtils.addThemeToView(mGetCodeBtn);
         ThemeUtils.addThemeToView(mConfirmBtn);
+
+        if (StringUtils.isEmpty(SharedUtils.getString(ConstData.MOBILE))) {
+            mCbRemberPwd.setChecked(false);
+            mEtUsername.setText("");
+            mEtPassword.setText("");
+        } else {
+            mCbRemberPwd.setChecked(true, false);
+            mEtUsername.setText(SharedUtils.getString(ConstData.MOBILE));
+            mEtPassword.setText(SharedUtils.getString(ConstData.PASSWORD));
+        }
+
     }
 
     @OnClick({R.id.tv_remember_pwd, R.id.tv_forget_password, R.id.tv_go_login, R.id.btn_login})
@@ -94,6 +106,14 @@ public class LoginDialog extends Dialog {
                 RequestManager.post(mActivity.getName(), HttpData.LOGIN, request, new CallBack<LoginInfo>() {
                     @Override
                     public void onSuccess(LoginInfo result) {
+                        if (mCbRemberPwd.isChecked()) {
+                            SharedUtils.putString(ConstData.MOBILE, mEtUsername.getText().toString());
+                            SharedUtils.putString(ConstData.PASSWORD, mEtPassword.getText().toString());
+                        } else {
+                            SharedUtils.putString(ConstData.MOBILE, "");
+                            SharedUtils.putString(ConstData.PASSWORD, "");
+                        }
+
                         DialogUtils.dismissProgress();
                         SharedUtils.saveUserData(result);
                         EventBus.getDefault().post(new LoginEvent(result));

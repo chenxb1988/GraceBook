@@ -14,7 +14,7 @@ import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.grace.book.R;
 import com.grace.book.adapter.MallItemAdapter;
 import com.grace.book.base.BaseLoadingWithTitleFragment;
-import com.grace.book.entity.BookSummaryList;
+import com.grace.book.http.response.BookSummaryList;
 import com.grace.book.event.SkinChangeEvent;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.HttpData;

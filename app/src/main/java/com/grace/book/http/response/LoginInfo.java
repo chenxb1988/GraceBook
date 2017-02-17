@@ -1,10 +1,10 @@
-package com.grace.book.entity;
+package com.grace.book.http.response;
 
 /**
  * Created by chenxb on 17/2/13.
  */
 
-public class LoginInfo extends BaseEntity {
+public class LoginInfo extends BaseResponse {
     private String Os;
     private String OsVersion;
     private String DeviceId;

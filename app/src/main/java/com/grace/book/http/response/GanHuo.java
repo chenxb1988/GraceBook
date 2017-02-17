@@ -1,4 +1,4 @@
-package com.grace.book.entity;
+package com.grace.book.http.response;
 
 import java.io.Serializable;
 

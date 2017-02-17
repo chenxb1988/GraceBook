@@ -1,4 +1,4 @@
-package com.grace.book.entity;
+package com.grace.book.http.response;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import java.util.List;
  * 17/2/6.
  */
 
-public class BookSummaryList extends BaseEntity {
+public class BookSummaryList extends BaseResponse {
     private int TotalRecords;
     private int TotalPage;
     private List<BookSummary> Records;

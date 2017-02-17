@@ -15,7 +15,7 @@
  *
  */
 
-package com.grace.book.entity;
+package com.grace.book.http.response;
 
 /**
  * Some SVGs to play with

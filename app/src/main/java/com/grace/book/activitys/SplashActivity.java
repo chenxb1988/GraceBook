@@ -5,7 +5,7 @@ import android.widget.ImageView;
 
 import com.grace.book.R;
 import com.grace.book.base.BaseActivity;
-import com.grace.book.entity.SVG;
+import com.grace.book.http.response.SVG;
 import com.grace.book.utils.ActivityUtils;
 import com.grace.book.utils.ConstData;
 import com.grace.book.widget.AnimatedSvgView;

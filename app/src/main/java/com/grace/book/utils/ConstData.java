@@ -12,6 +12,9 @@ public class ConstData {
     public static final String USER_NAME = "user_name";
     public static final String USER_AVATAR = "user_avatar";
 
+    public static final String MOBILE = "mobile";
+    public static final String PASSWORD = "password";
+
     public static String APP_VERSION;
     public static String DEVICE_ID;
 

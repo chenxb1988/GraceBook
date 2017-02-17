@@ -1,6 +1,6 @@
 package com.grace.book.event;
 
-import com.grace.book.entity.LoginInfo;
+import com.grace.book.http.response.LoginInfo;
 
 /**
  * Created by chenxb

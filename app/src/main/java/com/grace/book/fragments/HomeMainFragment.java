@@ -6,10 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.grace.book.R;
 import com.grace.book.activitys.MainActivity;
 import com.grace.book.base.BaseLoadingWithTitleFragment;
+import com.grace.book.utils.ImageLoaderUtils;
 import com.grace.book.utils.SystemUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.widget.spinner.NiceSpinner;
@@ -24,7 +24,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,11 +54,7 @@ public class HomeMainFragment extends BaseLoadingWithTitleFragment {
         mIconMessage.setIIcon(MaterialDesignIconic.Icon.gmi_email, 24);
 
         showContentView();
-        Glide.with(getActivity())
-                .load(R.drawable.logo)
-                .bitmapTransform(new CropCircleTransformation(getActivity()))
-                .dontAnimate()
-                .into(mAvatar);
+        ImageLoaderUtils.setCircleImageSource(mAvatar, R.drawable.logo);
         List<String> dataset = new LinkedList<>(Arrays.asList("One", "Two", "Three", "Four", "Five"));
         mNiceSpinner.attachDataSource(dataset);
         mNiceSpinner.setText("选择");

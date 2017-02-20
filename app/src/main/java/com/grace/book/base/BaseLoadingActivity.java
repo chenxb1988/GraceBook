@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 public abstract class BaseLoadingActivity extends BaseActivity {
     protected View mStatusBar;
     protected ImageView mIcon;
-    protected TextView mTitle;
+    protected TextView mTitle, mRightText;
 
     ViewGroup mContentView;
     View mProgressBar;
@@ -35,6 +35,7 @@ public abstract class BaseLoadingActivity extends BaseActivity {
         mStatusBar = findViewById(R.id.status_bar);
         mIcon = (ImageView) findViewById(R.id.icon);
         mTitle = (TextView) findViewById(R.id.title);
+        mRightText = (TextView) findViewById(R.id.tv_right);
         SystemUtils.setStatusBar(this, mStatusBar);
 
         mContentView = (ViewGroup) findViewById(R.id.content);
@@ -110,5 +111,41 @@ public abstract class BaseLoadingActivity extends BaseActivity {
         if (mTitle != null) {
             mTitle.setText(id);
         }
+    }
+
+    public void setTitle(int id, int rid) {
+        if (mTitle != null) {
+            mTitle.setText(id);
+        }
+        if (mRightText != null) {
+            mRightText.setText(rid);
+            mRightText.setVisibility(View.VISIBLE);
+            mRightText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickRightText();
+                }
+            });
+        }
+    }
+
+    public void setTitle(String title, String right) {
+        if (mTitle != null) {
+            mTitle.setText(title);
+        }
+        if (mRightText != null) {
+            mRightText.setText(right);
+            mRightText.setVisibility(View.VISIBLE);
+            mRightText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickRightText();
+                }
+            });
+        }
+    }
+
+    public void onClickRightText() {
+
     }
 }

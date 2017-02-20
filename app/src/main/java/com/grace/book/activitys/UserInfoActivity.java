@@ -1,28 +1,40 @@
 package com.grace.book.activitys;
 
+import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grace.book.R;
 import com.grace.book.base.BaseLoadingActivity;
 import com.grace.book.event.LogoutEvent;
-import com.grace.book.http.response.BaseResponse;
-import com.grace.book.http.response.UserInfo;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
 import com.grace.book.http.request.BaseTokenRequest;
 import com.grace.book.http.request.UserInfoRequest;
+import com.grace.book.http.response.BaseResponse;
+import com.grace.book.http.response.UserInfo;
+import com.grace.book.utils.ActivityUtils;
 import com.grace.book.utils.DialogUtils;
-import com.grace.book.utils.DrawableUtils;
+import com.grace.book.utils.ImageLoaderUtils;
 import com.grace.book.utils.SharedUtils;
+import com.grace.book.utils.ToastUtils;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import me.xiaopan.java.lang.StringUtils;
 
 /**
  * Created by chenxb
@@ -32,15 +44,29 @@ import butterknife.OnClick;
 public class UserInfoActivity extends BaseLoadingActivity {
     @Bind(R.id.tv_name)
     TextView mTvName;
-    @Bind(R.id.tv_logout)
-    TextView mTvLogout;
+    @Bind(R.id.tv_gentle)
+    TextView mTvGentle;
+    @Bind(R.id.tv_group)
+    TextView mTvGroup;
+    @Bind(R.id.tv_birthday)
+    TextView mTvBirthday;
+    @Bind(R.id.tv_mail)
+    TextView mTvMail;
+    @Bind(R.id.tv_mobile)
+    TextView mTvMobile;
+    @Bind(R.id.iv_avatar)
+    ImageView ivAvatar;
+    @Bind(R.id.tv_fellow)
+    TextView tvFellow;
+
+    private UserInfo mUserInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setLoadingContentView(R.layout.activity_user_info);
-        DrawableUtils.setIconDrawable(mTitle, MaterialDesignIconic.Icon.gmi_account);
-        setTitle("个人信息");
+        ImageLoaderUtils.setIconDrawable(mTitle, MaterialDesignIconic.Icon.gmi_account);
+        setTitle("个人信息", "编辑");
 
         loadData();
     }
@@ -57,7 +83,7 @@ public class UserInfoActivity extends BaseLoadingActivity {
             @Override
             public void onSuccess(UserInfo result) {
                 showContentView();
-                mTvName.setText(result.getRealName());
+                setUserInfo(result);
             }
 
             @Override
@@ -67,7 +93,7 @@ public class UserInfoActivity extends BaseLoadingActivity {
         });
     }
 
-    @OnClick({R.id.tv_logout})
+    @OnClick({R.id.tv_logout, R.id.tv_mobile, R.id.tv_mail, R.id.tv_birthday})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_logout:
@@ -88,7 +114,58 @@ public class UserInfoActivity extends BaseLoadingActivity {
                     }
                 });
                 break;
+            case R.id.tv_mobile:
+                String mobile = mTvMobile.getText().toString();
+                if (!StringUtils.isEmpty(mobile)) {
+                    copy(mobile);
+                    ToastUtils.showSuccessToasty(UserInfoActivity.this, "手机号已复制到粘贴板");
+                    Intent intentPhone = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mobile));
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    startActivity(intentPhone);
+                }
+                break;
+            case R.id.tv_mail:
+                String mail = mTvMail.getText().toString();
+                if (!StringUtils.isEmpty(mail)) {
+                    copy(mail);
+                    ToastUtils.showSuccessToasty(UserInfoActivity.this, "邮箱已复制到粘贴板");
+                }
+                break;
+            case R.id.tv_birthday:
+                String birthday = mTvBirthday.getText().toString();
+                if (!StringUtils.isEmpty(birthday)) {
+                    copy(birthday);
+                    ToastUtils.showSuccessToasty(UserInfoActivity.this, "生日已复制到粘贴板");
+                }
+                break;
         }
     }
 
+    private void setUserInfo(UserInfo info) {
+        mUserInfo = info;
+        ImageLoaderUtils.setUserAvatarUrl(ivAvatar, info.getAvatar());
+        mTvName.setText(info.getRealName());
+        mTvGentle.setText(info.getGender() == 0 ? "姊妹" : "弟兄");
+        mTvGroup.setText(info.getGroupName());
+        mTvBirthday.setText(info.getBirthday());
+        mTvMobile.setText(info.getMobile());
+        mTvMail.setText(info.getEmail());
+    }
+
+    public void copy(String content) {
+        ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        cmb.setPrimaryClip(ClipData.newPlainText(null, content));
+    }
+
+    @Override
+    public void onClickRightText() {
+        if (mUserInfo == null) {
+            return;
+        }
+        Intent intent = new Intent(UserInfoActivity.this, UserEditActivity.class);
+        intent.putExtra("user", mUserInfo);
+        UserInfoActivity.this.startActivity(intent);
+    }
 }

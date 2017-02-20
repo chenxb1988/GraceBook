@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.grace.book.utils.DrawableUtils;
+import com.grace.book.utils.ImageLoaderUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.mikepenz.iconics.typeface.IIcon;
 
@@ -36,7 +36,7 @@ public class ColorIconTextView extends TextView implements ColorUiInterface {
         this.iicon = iicon;
         this.height = height;
         int color = ThemeUtils.getThemePrimaryColor(getContext());
-        DrawableUtils.setIconDrawable(this, iicon, color, height);
+        ImageLoaderUtils.setIconDrawable(this, iicon, color, height);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class ColorIconTextView extends TextView implements ColorUiInterface {
         Log.d("COLOR", "id = " + getId());
         if (iicon != null) {
             int color = ThemeUtils.getThemePrimaryColor(getContext());
-            DrawableUtils.setIconDrawable(this, iicon, color, height);
+            ImageLoaderUtils.setIconDrawable(this, iicon, color, height);
         }
     }
 }

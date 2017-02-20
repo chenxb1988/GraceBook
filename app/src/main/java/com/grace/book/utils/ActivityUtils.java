@@ -39,14 +39,7 @@ public class ActivityUtils {
     }
 
     public static void launchActivity(Activity activityA, Class<?> activityB) {
-        launchActivity(activityA, activityB, null);
-    }
-
-    public static void launchActivity(Activity activityA, Class<?> activityB, Bundle bundle) {
         Intent intent = new Intent(activityA, activityB);
-        if (null != bundle) {
-            intent.putExtra(BUNDLE_EXTRA, bundle);
-        }
         activityA.startActivity(intent);
     }
 

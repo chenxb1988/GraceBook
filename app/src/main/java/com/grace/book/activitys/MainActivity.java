@@ -20,18 +20,18 @@ import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bumptech.glide.Glide;
 import com.grace.book.R;
 import com.grace.book.base.BaseActivity;
-import com.grace.book.event.LogoutEvent;
-import com.grace.book.http.response.LoginInfo;
 import com.grace.book.event.LoginEvent;
+import com.grace.book.event.LogoutEvent;
 import com.grace.book.event.SkinChangeEvent;
 import com.grace.book.fragments.HomeContactFragment;
 import com.grace.book.fragments.HomeMainFragment;
 import com.grace.book.fragments.HomeMallFragment;
 import com.grace.book.fragments.HomeRecordFragment;
 import com.grace.book.fragments.HomeSelfFragment;
+import com.grace.book.http.response.LoginInfo;
 import com.grace.book.utils.ActivityUtils;
 import com.grace.book.utils.ConstData;
-import com.grace.book.utils.DrawableUtils;
+import com.grace.book.utils.ImageLoaderUtils;
 import com.grace.book.utils.LoginUtils;
 import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ThemeUtils;
@@ -53,7 +53,7 @@ import me.xiaopan.android.content.res.DimenUtils;
 import me.xiaopan.android.preference.PreferencesUtils;
 import me.xiaopan.java.lang.StringUtils;
 
-import static com.grace.book.utils.DrawableUtils.setIconDrawable;
+import static com.grace.book.utils.ImageLoaderUtils.setIconDrawable;
 
 public class MainActivity extends BaseActivity implements ColorChooserDialog.ColorCallback {
 
@@ -93,41 +93,19 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
 
         startTranslationNoShowTranslation();
 
-        DrawableUtils.setIconDrawable(mHome, MaterialDesignIconic.Icon.gmi_home);
-        DrawableUtils.setIconDrawable(mMall, MaterialDesignIconic.Icon.gmi_city);
-        DrawableUtils.setIconDrawable(mRecord, MaterialDesignIconic.Icon.gmi_calendar_note);
-        DrawableUtils.setIconDrawable(mContact, MaterialDesignIconic.Icon.gmi_accounts_list);
-        DrawableUtils.setIconDrawable(mSelf, MaterialDesignIconic.Icon.gmi_account);
+        ImageLoaderUtils.setIconDrawable(mHome, MaterialDesignIconic.Icon.gmi_home);
+        ImageLoaderUtils.setIconDrawable(mMall, MaterialDesignIconic.Icon.gmi_city);
+        ImageLoaderUtils.setIconDrawable(mRecord, MaterialDesignIconic.Icon.gmi_calendar_note);
+        ImageLoaderUtils.setIconDrawable(mContact, MaterialDesignIconic.Icon.gmi_accounts_list);
+        ImageLoaderUtils.setIconDrawable(mSelf, MaterialDesignIconic.Icon.gmi_account);
 
         setIconDrawable(mTheme, MaterialDesignIconic.Icon.gmi_palette);
 
         if (StringUtils.isEmpty(SharedUtils.getUserToken())) {
-            Glide.with(MainActivity.this)
-                    .load(R.drawable.logo)
-                    .placeholder(new IconicsDrawable(this)
-                            .icon(FoundationIcons.Icon.fou_photo)
-                            .color(Color.GRAY)
-                            .backgroundColor(Color.WHITE)
-                            .roundedCornersDp(40)
-                            .paddingDp(15)
-                            .sizeDp(75))
-                    .bitmapTransform(new CropCircleTransformation(this))
-                    .dontAnimate()
-                    .into(mAvatar);
+            ImageLoaderUtils.setCircleImageSource(mAvatar, R.drawable.logo);
             mUserName.setText("未登录");
         } else {
-            Glide.with(MainActivity.this)
-                    .load(SharedUtils.getString(ConstData.USER_AVATAR))
-                    .placeholder(new IconicsDrawable(this)
-                            .icon(FoundationIcons.Icon.fou_photo)
-                            .color(Color.GRAY)
-                            .backgroundColor(Color.WHITE)
-                            .roundedCornersDp(40)
-                            .paddingDp(15)
-                            .sizeDp(75))
-                    .bitmapTransform(new CropCircleTransformation(this))
-                    .dontAnimate()
-                    .into(mAvatar);
+            ImageLoaderUtils.setUserAvatarUrl(mAvatar, SharedUtils.getString(ConstData.USER_AVATAR));
             mUserName.setText(SharedUtils.getString(ConstData.USER_NAME));
         }
 
@@ -167,18 +145,7 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
     public void onLoginEvent(LoginEvent event) {
         LoginInfo loginInfo = event.getLoginInfo();
         mUserName.setText(loginInfo.getUserName());
-        Glide.with(MainActivity.this)
-                .load(loginInfo.getAvatar())
-                .placeholder(new IconicsDrawable(this)
-                        .icon(FoundationIcons.Icon.fou_photo)
-                        .color(Color.GRAY)
-                        .backgroundColor(Color.WHITE)
-                        .roundedCornersDp(40)
-                        .paddingDp(15)
-                        .sizeDp(75))
-                .bitmapTransform(new CropCircleTransformation(this))
-                .dontAnimate()
-                .into(mAvatar);
+        ImageLoaderUtils.setCircleImageUrl(mAvatar, loginInfo.getAvatar());
     }
 
     @Subscribe

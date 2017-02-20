@@ -123,9 +123,10 @@
 
                     <EditText
                         android:id="@+id/tv_mobile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_8"
+                        android:gravity="left|center_vertical"
                         android:text="123456"
                         android:textColor="?attr/colorPrimary"
                         android:textSize="@dimen/textsize_normal"/>
@@ -152,9 +153,10 @@
 
                     <EditText
                         android:id="@+id/tv_mail"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_8"
+                        android:gravity="left|center_vertical"
                         android:text="123456"
                         android:textColor="?attr/colorPrimary"
                         android:textSize="@dimen/textsize_normal"/>
@@ -181,9 +183,10 @@
 
                     <EditText
                         android:id="@+id/tv_birthday"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_8"
+                        android:gravity="left|center_vertical"
                         android:text="1988/12/11"
                         android:textColor="?attr/colorPrimary"
                         android:textSize="@dimen/textsize_normal"/>

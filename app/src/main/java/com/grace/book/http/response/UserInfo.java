@@ -5,7 +5,7 @@ package com.grace.book.http.response;
  * 17/2/17.
  */
 
-public class UserInfo {
+public class UserInfo extends BaseResponse{
 
     private String UserId;
     private String UserName;

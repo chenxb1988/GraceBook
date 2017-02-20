@@ -7,7 +7,7 @@
     android:scrollbars="none">
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -15,7 +15,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_4"
+            android:layout_margin="@dimen/dp_12"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="@dimen/dp_4">
 
@@ -25,7 +25,6 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/linear_wchat_public"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_6"
@@ -36,7 +35,7 @@
                         android:id="@+id/iv_avatar"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/logo"
+                        android:src="@drawable/user_default"
                         />
 
                     <TextView
@@ -51,7 +50,7 @@
                         android:textSize="@dimen/textsize_large"/>
 
                     <TextView
-                        android:id="@+id/tv_sex"
+                        android:id="@+id/tv_gentle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
@@ -73,8 +72,7 @@
                     android:id="@+id/tv_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_6"
-                    android:layout_marginTop="@dimen/dp_4"
+                    android:layout_margin="@dimen/dp_8"
                     android:text="组"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/textsize_normal"
@@ -84,79 +82,121 @@
                     android:id="@+id/tv_fellow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_6"
-                    android:layout_marginTop="@dimen/dp_4"
+                    android:layout_margin="@dimen/dp_8"
                     android:text="团"
                     android:textColor="@color/colorPrimaryText"
                     android:textSize="@dimen/textsize_normal"
+                    android:visibility="gone"
                     />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
-        <LinearLayout
-            android:id="@+id/linear_user_feedback"
-            style="@style/settingStyle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/common_white_bg"
-            android:gravity="center_vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="一起秀与帮助反馈"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="@dimen/textsize_normal"/>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="center"
-                android:src="@drawable/ic_large_arrow_right"/>
-        </LinearLayout>
-
-        <View
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/white_press"/>
-
-        <LinearLayout
-            android:id="@+id/linear_recommend"
-            style="@style/settingStyle"
-            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/common_white_bg"
-            android:gravity="center_vertical">
+            android:layout_marginBottom="@dimen/dp_12"
+            android:layout_marginLeft="@dimen/dp_12"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_marginTop="0dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/dp_4">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="推荐ID与查询码"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="@dimen/textsize_normal"/>
+                android:orientation="vertical">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"/>
+                <LinearLayout
+                    style="@style/settingStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/common_white_bg"
+                    android:gravity="center_vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="center"
-                android:src="@drawable/ic_large_arrow_right"/>
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="手机"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/textsize_normal"/>
 
+                    <TextView
+                        android:id="@+id/tv_mobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_8"
+                        android:gravity="left|center_vertical"
+                        android:text="123456"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="@dimen/textsize_normal"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/white_press"/>
+
+                <LinearLayout
+                    style="@style/settingStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/common_white_bg"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="邮箱"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/textsize_normal"/>
+
+                    <TextView
+                        android:id="@+id/tv_mail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_8"
+                        android:gravity="left|center_vertical"
+                        android:text="123456"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="@dimen/textsize_normal"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/white_press"/>
+
+                <LinearLayout
+                    style="@style/settingStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/common_white_bg"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="生日"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/textsize_normal"/>
+
+                    <TextView
+                        android:id="@+id/tv_birthday"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_8"
+                        android:gravity="left|center_vertical"
+                        android:text="1988/12/11"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="@dimen/textsize_normal"/>
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
         <LinearLayout
             style="@style/settingStyle"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"

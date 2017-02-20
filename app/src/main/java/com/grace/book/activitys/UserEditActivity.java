@@ -1,20 +1,25 @@
 package com.grace.book.activitys;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grace.book.R;
 import com.grace.book.base.BaseLoadingActivity;
+import com.grace.book.event.UserEditEvent;
 import com.grace.book.http.response.UserInfo;
 import com.grace.book.utils.ImageLoaderUtils;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.Calendar;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 /**
  * Created by chenxb
@@ -29,7 +34,7 @@ public class UserEditActivity extends BaseLoadingActivity {
     @Bind(R.id.tv_group)
     TextView mTvGroup;
     @Bind(R.id.tv_birthday)
-    EditText mTvBirthday;
+    TextView mTvBirthday;
     @Bind(R.id.tv_mail)
     EditText mTvMail;
     @Bind(R.id.tv_mobile)
@@ -59,6 +64,27 @@ public class UserEditActivity extends BaseLoadingActivity {
         setUserInfo(mUserInfo);
     }
 
+    @OnClick({R.id.tv_birthday})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_birthday:
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd = DatePickerDialog.newInstance(
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                                mTvBirthday.setText(year + "年" + (monthOfYear + 1) + "月" + dayOfMonth + "日");
+                            }
+                        },
+                        now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.show(getFragmentManager(), "UserEditActivity");
+                break;
+        }
+    }
+
     private void setUserInfo(UserInfo info) {
         ImageLoaderUtils.setUserAvatarUrl(ivAvatar, info.getAvatar());
         mTvName.setText(info.getRealName());
@@ -69,13 +95,12 @@ public class UserEditActivity extends BaseLoadingActivity {
         mTvMail.setText(info.getEmail());
     }
 
-    public void copy(String content) {
-        ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        cmb.setPrimaryClip(ClipData.newPlainText(null, content));
-    }
-
     @Override
     public void onClickRightText() {
+        mUserInfo.setBirthday(mTvBirthday.getText().toString());
+        mUserInfo.setMobile(mTvMobile.getText().toString());
+        mUserInfo.setEmail(mTvMail.getText().toString());
+        EventBus.getDefault().post(new UserEditEvent(mUserInfo));
         UserEditActivity.this.finish();
     }
 }

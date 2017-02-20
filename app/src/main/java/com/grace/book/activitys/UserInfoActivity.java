@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.grace.book.R;
 import com.grace.book.base.BaseLoadingActivity;
 import com.grace.book.event.LogoutEvent;
+import com.grace.book.event.UserEditEvent;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
@@ -23,7 +24,6 @@ import com.grace.book.http.request.BaseTokenRequest;
 import com.grace.book.http.request.UserInfoRequest;
 import com.grace.book.http.response.BaseResponse;
 import com.grace.book.http.response.UserInfo;
-import com.grace.book.utils.ActivityUtils;
 import com.grace.book.utils.DialogUtils;
 import com.grace.book.utils.ImageLoaderUtils;
 import com.grace.book.utils.SharedUtils;
@@ -31,6 +31,7 @@ import com.grace.book.utils.ToastUtils;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -67,10 +68,15 @@ public class UserInfoActivity extends BaseLoadingActivity {
         setLoadingContentView(R.layout.activity_user_info);
         ImageLoaderUtils.setIconDrawable(mTitle, MaterialDesignIconic.Icon.gmi_account);
         setTitle("个人信息", "编辑");
-
+        EventBus.getDefault().register(this);
         loadData();
     }
 
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
 
     @Override
     protected void loadData() {
@@ -141,6 +147,11 @@ public class UserInfoActivity extends BaseLoadingActivity {
                 }
                 break;
         }
+    }
+
+    @Subscribe
+    public void onUserEdit(UserEditEvent event){
+        setUserInfo(event.getUserInfo());
     }
 
     private void setUserInfo(UserInfo info) {

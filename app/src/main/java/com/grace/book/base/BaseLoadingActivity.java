@@ -60,6 +60,7 @@ public abstract class BaseLoadingActivity extends BaseActivity {
                 }
             });
         }
+        showContentView();
     }
 
     protected int getContentLayout() {

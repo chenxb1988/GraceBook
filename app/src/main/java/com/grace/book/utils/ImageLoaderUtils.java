@@ -81,6 +81,13 @@ public class ImageLoaderUtils {
         imageView.setImageURI(Uri.parse("file://" + path));
     }
 
+    public static void setLocalCircleImage(ImageView imageView, String path) {
+        Glide.with(imageView.getContext()).load(path)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .bitmapTransform(new CropCircleTransformation(imageView.getContext()))
+                .into(imageView);
+    }
+
     public static void setImageSource(ImageView imageView, int resId) {
         Glide.with(imageView.getContext()).load("android.resource://" + App.getInstance().getPackageName() + "/drawable/" + resId)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -93,6 +100,5 @@ public class ImageLoaderUtils {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .bitmapTransform(new CropCircleTransformation(imageView.getContext()))
                 .into(imageView);
-
     }
 }

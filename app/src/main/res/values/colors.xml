@@ -23,7 +23,9 @@
     <color name="transparent">#00000000</color>
     <color name="white">#ffffff</color>
     <color name="white_press">#e7e7e7</color>
-    <color name="black">#040404</color>
+    <color name="black">#000000</color>
+    <color name="black99">#99000000</color>
+
     <color name="colorTextIcon">#ffffff</color>
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondText">#727272</color>
@@ -130,4 +132,6 @@
     <color name="colorBlueGreyAccent">#FF4081</color>
     <color name="colorBlueGreyPrimaryCenter">#27373e</color>
 
+    <color name="hint_foreground_material_light">#607D8B</color>
+    <color name="hint_foreground_material_dark">#999999</color>
 </resources>

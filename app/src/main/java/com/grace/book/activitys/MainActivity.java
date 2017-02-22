@@ -23,6 +23,7 @@ import com.grace.book.base.BaseActivity;
 import com.grace.book.event.LoginEvent;
 import com.grace.book.event.LogoutEvent;
 import com.grace.book.event.SkinChangeEvent;
+import com.grace.book.event.UserEditEvent;
 import com.grace.book.fragments.HomeContactFragment;
 import com.grace.book.fragments.HomeMainFragment;
 import com.grace.book.fragments.HomeMallFragment;
@@ -146,6 +147,12 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
         LoginInfo loginInfo = event.getLoginInfo();
         mUserName.setText(loginInfo.getUserName());
         ImageLoaderUtils.setCircleImageUrl(mAvatar, loginInfo.getAvatar());
+    }
+
+    @Subscribe
+    public void onUserEdit(UserEditEvent event) {
+        mUserName.setText(event.getUserInfo().getUserName());
+        ImageLoaderUtils.setCircleImageUrl(mAvatar, event.getUserInfo().getAvatar());
     }
 
     @Subscribe

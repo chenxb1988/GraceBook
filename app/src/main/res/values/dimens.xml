@@ -26,4 +26,6 @@
     <dimen name="textsize_large">18sp</dimen>
     <dimen name="textsize_normal">15sp</dimen>
     <dimen name="textsize_small">12sp</dimen>
+
+    <dimen name="crop_size">300dp</dimen>
 </resources>

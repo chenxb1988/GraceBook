@@ -37,6 +37,9 @@
             android:name=".activitys.UserEditActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".activitys.CropPhotoActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".activitys.WebActivity"
             android:screenOrientation="portrait"/>
     </application>

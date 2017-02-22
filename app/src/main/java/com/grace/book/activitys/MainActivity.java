@@ -22,6 +22,7 @@ import com.grace.book.R;
 import com.grace.book.base.BaseActivity;
 import com.grace.book.event.LoginEvent;
 import com.grace.book.event.LogoutEvent;
+import com.grace.book.event.RefreshFellowEvent;
 import com.grace.book.event.SkinChangeEvent;
 import com.grace.book.event.UserEditEvent;
 import com.grace.book.fragments.HomeContactFragment;
@@ -29,6 +30,11 @@ import com.grace.book.fragments.HomeMainFragment;
 import com.grace.book.fragments.HomeMallFragment;
 import com.grace.book.fragments.HomeRecordFragment;
 import com.grace.book.fragments.HomeSelfFragment;
+import com.grace.book.http.CallBack;
+import com.grace.book.http.HttpData;
+import com.grace.book.http.RequestManager;
+import com.grace.book.http.request.FellowListRequest;
+import com.grace.book.http.response.FellowListResponse;
 import com.grace.book.http.response.LoginInfo;
 import com.grace.book.utils.ActivityUtils;
 import com.grace.book.utils.ConstData;
@@ -134,6 +140,25 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
         }
         switchFragment(new HomeMainFragment());
 
+        initPreloadAsync();
+    }
+
+    private void initPreloadAsync() {
+        FellowListRequest request = new FellowListRequest();
+        request.setAuthToken(SharedUtils.getUserToken());
+        request.setChurchId("*");
+        RequestManager.post(getName(), HttpData.FELLOW_LIST, request, new CallBack<FellowListResponse>() {
+            @Override
+            public void onSuccess(FellowListResponse result) {
+                SharedUtils.saveFellowList(result);
+                EventBus.getDefault().post(new RefreshFellowEvent());
+            }
+
+            @Override
+            public void onFailure(String message) {
+                showFailMsg(message);
+            }
+        });
     }
 
     @Override

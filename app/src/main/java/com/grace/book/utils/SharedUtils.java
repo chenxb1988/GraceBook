@@ -5,14 +5,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.google.gson.Gson;
 import com.grace.book.App;
+import com.grace.book.http.response.FellowListResponse;
 import com.grace.book.http.response.LoginInfo;
 import com.grace.book.widget.theme.Theme;
+
+import me.xiaopan.java.lang.StringUtils;
 
 
 public class SharedUtils {
     private static SharedPreferences mSharePreferences;
     private static SharedPreferences.Editor mEditor;
+    private static Gson Gson = new Gson();
 
     public static void init(App app) {
         mSharePreferences = PreferenceManager.getDefaultSharedPreferences(app.getApplicationContext());
@@ -100,41 +105,62 @@ public class SharedUtils {
     }
 
     public static Theme getCurrentTheme(Context context) {
-        return Theme.valueOf(SharedUtils.getString("app_theme", Theme.Indigo.name()));
+        return Theme.valueOf(getString("app_theme", Theme.Indigo.name()));
     }
 
     public static void setCurrentTheme(Theme currentTheme) {
-        SharedUtils.putString("app_theme", currentTheme.name());
+        putString("app_theme", currentTheme.name());
     }
 
     public static void saveUserData(LoginInfo loginInfo) {
-        SharedUtils.putString(ConstData.TOKEN, loginInfo.getAuthToken());
-        SharedUtils.putString(ConstData.USER_ID, loginInfo.getUserId());
-        SharedUtils.putString(ConstData.USER_NAME, loginInfo.getUserName());
-        SharedUtils.putString(ConstData.USER_AVATAR, loginInfo.getAvatar());
+        putString(ConstData.TOKEN, loginInfo.getAuthToken());
+        putString(ConstData.USER_ID, loginInfo.getUserId());
+        putString(ConstData.USER_NAME, loginInfo.getUserName());
+        putString(ConstData.USER_AVATAR, loginInfo.getAvatar());
     }
 
     public static void clearUserData() {
-        SharedUtils.putString(ConstData.TOKEN, "");
-        SharedUtils.putString(ConstData.USER_ID, "");
-        SharedUtils.putString(ConstData.USER_NAME, "");
-        SharedUtils.putString(ConstData.USER_AVATAR, "");
+        putString(ConstData.TOKEN, "");
+        putString(ConstData.USER_ID, "");
+        putString(ConstData.USER_NAME, "");
+        putString(ConstData.USER_AVATAR, "");
     }
 
     public static String getUserToken() {
-        return SharedUtils.getString(ConstData.TOKEN, "");
+        return getString(ConstData.TOKEN, "");
     }
 
     public static String getUserId() {
-        return SharedUtils.getString(ConstData.USER_ID, "");
+        return getString(ConstData.USER_ID, "");
     }
 
     public static String getUserName() {
-        return SharedUtils.getString(ConstData.USER_NAME, "");
+        return getString(ConstData.USER_NAME, "");
     }
 
     public static String getUserAvatar() {
-        return SharedUtils.getString(ConstData.USER_AVATAR, "");
+        return getString(ConstData.USER_AVATAR, "");
     }
 
+    public static void saveFellowName(String name) {
+        putString(ConstData.FELLOW_NAME, name);
+    }
+
+    public static String getFellowName() {
+        String name = getString(ConstData.FELLOW_NAME);
+        if (StringUtils.isEmpty(name)) {
+            return "选择团契";
+        }
+        return name;
+    }
+
+    public static void saveFellowList(FellowListResponse response) {
+        putString(ConstData.FELLOW_LIST, Gson.toJson(response));
+    }
+
+    public static FellowListResponse getFellowList() {
+        String json = getString(ConstData.FELLOW_LIST);
+        FellowListResponse response = Gson.fromJson(json, FellowListResponse.class);
+        return response == null ? new FellowListResponse() : response;
+    }
 }

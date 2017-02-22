@@ -72,7 +72,7 @@ public class UserEditActivity extends BaseLoadingActivity {
         setUserInfo(mUserInfo);
     }
 
-    @OnClick({R.id.tv_birthday, R.id.ll_avatar})
+    @OnClick({R.id.tv_birthday, R.id.ll_avatar, R.id.et_group})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_birthday:
@@ -92,6 +92,9 @@ public class UserEditActivity extends BaseLoadingActivity {
                 break;
             case R.id.ll_avatar:
                 CropUtils.pickImage(this);
+                break;
+            case R.id.et_group:
+
                 break;
         }
     }

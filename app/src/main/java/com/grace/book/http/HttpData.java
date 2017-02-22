@@ -7,8 +7,11 @@ package com.grace.book.http;
 public class HttpData {
     public static String URL = "http://120.27.201.161:4042/api/";
 
-    public static String LOGIN = "UserInfo/Login";
-    public static String LOGOUT = "UserInfo/ExitLogin";
-    public static String BOOK_LIST = "BookInfo/List";
+    public static String LOGIN = "userinfo/login";
+    public static String LOGOUT = "userinfo/exitlogin";
     public static String USER_INFO = "userinfo/get";
+
+    public static String BOOK_LIST = "bookinfo/list";
+
+    public static String FELLOW_LIST = "church/list";
 }

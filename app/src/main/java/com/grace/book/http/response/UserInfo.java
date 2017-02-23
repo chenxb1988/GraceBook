@@ -17,6 +17,8 @@ public class UserInfo extends BaseResponse{
     private String Birthday;
     private String GroupId;
     private String GroupName;
+    private String ChurchId;
+    private String ChurchName;
 
     public String getUserId() {
         return UserId;
@@ -96,5 +98,21 @@ public class UserInfo extends BaseResponse{
 
     public void setGroupName(String GroupName) {
         this.GroupName = GroupName;
+    }
+
+    public String getChurchId() {
+        return ChurchId;
+    }
+
+    public void setChurchId(String churchId) {
+        ChurchId = churchId;
+    }
+
+    public String getChurchName() {
+        return ChurchName;
+    }
+
+    public void setChurchName(String churchName) {
+        ChurchName = churchName;
     }
 }

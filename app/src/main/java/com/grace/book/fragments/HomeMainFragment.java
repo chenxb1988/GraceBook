@@ -10,7 +10,14 @@ import android.widget.ImageView;
 import com.grace.book.R;
 import com.grace.book.activitys.MainActivity;
 import com.grace.book.base.BaseLoadingWithTitleFragment;
-import com.grace.book.event.RefreshFellowEvent;
+import com.grace.book.event.LoginEvent;
+import com.grace.book.event.UserEditEvent;
+import com.grace.book.http.CallBack;
+import com.grace.book.http.HttpData;
+import com.grace.book.http.RequestManager;
+import com.grace.book.http.request.FellowListRequest;
+import com.grace.book.http.response.FellowListResponse;
+import com.grace.book.http.response.LoginInfo;
 import com.grace.book.utils.ImageLoaderUtils;
 import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.SystemUtils;
@@ -60,25 +67,53 @@ public class HomeMainFragment extends BaseLoadingWithTitleFragment {
         mIconMessage.setIIcon(MaterialDesignIconic.Icon.gmi_email, 24);
 
         showContentView();
-        ImageLoaderUtils.setCircleImageSource(mAvatar, R.drawable.logo);
-        mFellowNameList = SharedUtils.getFellowList().getFellowNames();
-        mNiceSpinner.attachDataSource(mFellowNameList);
+        ImageLoaderUtils.setUserAvatarUrl(mAvatar, SharedUtils.getUserAvatar());
+
         mNiceSpinner.setText(SharedUtils.getFellowName());
-        mNiceSpinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                SharedUtils.saveFellowName(mFellowNameList.get(i));
-                mNiceSpinner.setText(mFellowNameList.get(i));
-            }
-        });
+        getFellowList();
 
         EventBus.getDefault().register(this);
     }
 
     @Subscribe
-    public void onRefreshFellow(RefreshFellowEvent event){
-        mFellowNameList = SharedUtils.getFellowList().getFellowNames();
-        mNiceSpinner.attachDataSource(mFellowNameList);
+    public void onLoginEvent(LoginEvent event) {
+        LoginInfo loginInfo = event.getLoginInfo();
+        ImageLoaderUtils.setUserAvatarUrl(mAvatar, loginInfo.getAvatar());
+    }
+
+    @Subscribe
+    public void onUserEdit(UserEditEvent event) {
+        ImageLoaderUtils.setUserAvatarUrl(mAvatar, event.getUserInfo().getAvatar());
+    }
+
+    private void getFellowList() {
+        FellowListRequest request = new FellowListRequest();
+        request.setChurchId("*");
+        RequestManager.post(getName(), HttpData.FELLOW_LIST, request, new CallBack<FellowListResponse>() {
+            @Override
+            public void onSuccess(FellowListResponse result) {
+                SharedUtils.saveFellowList(result);
+                mFellowNameList = result.getFellowNames();
+                if (SharedUtils.isFellowNameNull()) {
+                    mFellowNameList.add(0, "选择团契");
+                }
+                mNiceSpinner.attachDataSource(mFellowNameList);
+                mNiceSpinner.setText(SharedUtils.getFellowName());
+                mNiceSpinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        SharedUtils.saveFellowName(mFellowNameList.get(i));
+                        mFellowNameList.remove("选择团契");
+                        mNiceSpinner.setText(mFellowNameList.get(i));
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(String message) {
+                showFailMsg(message);
+            }
+        });
     }
 
     @OnClick({R.id.ll_mall, R.id.ll_record, R.id.ll_contact, R.id.ll_more})

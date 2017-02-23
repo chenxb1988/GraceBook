@@ -15,10 +15,20 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.grace.book.R;
 import com.grace.book.base.BaseLoadingActivity;
 import com.grace.book.event.UserEditEvent;
+import com.grace.book.http.CallBack;
+import com.grace.book.http.HttpData;
+import com.grace.book.http.RequestManager;
+import com.grace.book.http.request.FellowListRequest;
+import com.grace.book.http.request.GroupListRequest;
+import com.grace.book.http.request.UploadImgRequest;
+import com.grace.book.http.response.FellowListResponse;
+import com.grace.book.http.response.GroupListResponse;
+import com.grace.book.http.response.UploadImgResponse;
 import com.grace.book.http.response.UserInfo;
 import com.grace.book.utils.CropUtils;
 import com.grace.book.utils.FileUtils;
 import com.grace.book.utils.ImageLoaderUtils;
+import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ToastUtils;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -27,9 +37,11 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import me.xiaopan.java.lang.StringUtils;
 
 /**
  * Created by chenxb
@@ -54,6 +66,7 @@ public class UserEditActivity extends BaseLoadingActivity {
 
     private UserInfo mUserInfo;
     private String mAvatarPath;
+    private String mFellowName = "", mGroupName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +107,90 @@ public class UserEditActivity extends BaseLoadingActivity {
                 CropUtils.pickImage(this);
                 break;
             case R.id.et_group:
-
+//                getFellowList();
                 break;
         }
+    }
+
+    private void getFellowList() {
+        if (SharedUtils.getFellowList().getFellowNames().size() == 0) {
+            FellowListRequest request = new FellowListRequest();
+            request.setChurchId("*");
+            RequestManager.post(getName(), HttpData.FELLOW_LIST, request, new CallBack<FellowListResponse>() {
+                @Override
+                public void onSuccess(FellowListResponse result) {
+                    SharedUtils.saveFellowList(result);
+                    if (result.getFellowNames().size() > 0) {
+                        showFellowDialog(result.getFellowNames());
+                    }
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    showFailMsg(message);
+                }
+            });
+        } else {
+            showFellowDialog(SharedUtils.getFellowList().getFellowNames());
+        }
+    }
+
+    private void showFellowDialog(List<String> fellowNames) {
+        new MaterialDialog.Builder(this)
+                .title("选择团契")
+                .items(fellowNames)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        mFellowName = text.toString();
+                        mGroupName = "";
+                        mTvGroup.setText(mFellowName);
+                        String fellowId = SharedUtils.getFellowList().getFellowId(mFellowName);
+                        if (!StringUtils.isEmpty(fellowId)) {
+                            getGroupList(fellowId);
+                        }
+                    }
+                })
+                .show();
+    }
+
+    private void getGroupList(final String fellowId) {
+        if (SharedUtils.getGroupList(fellowId).getGroupNames().size() == 0) {
+            GroupListRequest request = new GroupListRequest();
+            request.setAuthToken(SharedUtils.getUserToken());
+            request.setChurchId(fellowId);
+            RequestManager.post(getName(), HttpData.GROUP_LIST, request, new CallBack<GroupListResponse>() {
+                @Override
+                public void onSuccess(GroupListResponse result) {
+                    SharedUtils.saveGroupList(fellowId, result);
+                    if (result.getGroupNames().size() > 0) {
+                        showGroupDialog(result.getGroupNames());
+                    }
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    showFailMsg(message);
+                }
+            });
+        } else {
+            showGroupDialog(SharedUtils.getGroupList(fellowId).getGroupNames());
+        }
+    }
+
+    private void showGroupDialog(List<String> groupNames) {
+        new MaterialDialog.Builder(this)
+                .title("选择小组")
+                .items(groupNames)
+                .cancelable(false)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        mGroupName = text.toString();
+                        mTvGroup.setText(mFellowName + " " + mGroupName);
+                    }
+                })
+                .show();
     }
 
     @Override
@@ -121,6 +215,24 @@ public class UserEditActivity extends BaseLoadingActivity {
             Uri output = CropUtils.getOutput(result);
             mAvatarPath = output.getPath();
             ImageLoaderUtils.setLocalCircleImage(ivAvatar, mAvatarPath);
+
+            UploadImgRequest request = new UploadImgRequest();
+            request.setFile(mAvatarPath);
+            RequestManager.post(getName(), HttpData.UPLOAD_IMG, request, new CallBack<UploadImgResponse>() {
+                @Override
+                public void onSuccess(UploadImgResponse result) {
+                    if (result.getFileList() != null && result.getFileList().size() > 0) {
+                        mAvatarPath = result.getFileList().get(0).getThumbnailAddress();
+                        ImageLoaderUtils.setUserAvatarUrl(ivAvatar, mAvatarPath);
+                        ToastUtils.showSuccessToasty(UserEditActivity.this, "上传图片成功");
+                    }
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    showFailMsg(message);
+                }
+            });
         } else if (resultCode == CropUtils.RESULT_ERROR) {
             ToastUtils.showErrorToasty(this, CropUtils.getError(result).getMessage());
         }
@@ -130,7 +242,9 @@ public class UserEditActivity extends BaseLoadingActivity {
         ImageLoaderUtils.setUserAvatarUrl(ivAvatar, info.getAvatar());
         mTvName.setText(info.getRealName());
         mTvGentle.setText(info.getGender() == 0 ? "姊妹" : "弟兄");
-        mTvGroup.setText(info.getGroupName());
+        mFellowName = info.getChurchName() == null ? "" : info.getChurchName();
+        mGroupName = info.getGroupName() == null ? "" : info.getGroupName();
+        mTvGroup.setText(mFellowName + " " + mGroupName);
         mTvBirthday.setText(info.getBirthday());
         mTvMobile.setText(info.getMobile());
         mTvMail.setText(info.getEmail());
@@ -164,7 +278,7 @@ public class UserEditActivity extends BaseLoadingActivity {
     }
 
     private void saveUserInfo() {
-        mUserInfo.setAvatar(mAvatarPath);//TODO cxb
+        mUserInfo.setAvatar(mAvatarPath);
         mUserInfo.setBirthday(mTvBirthday.getText().toString());
         mUserInfo.setMobile(mTvMobile.getText().toString());
         mUserInfo.setEmail(mTvMail.getText().toString());

@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="用户名"
+            android:hint="手机号"
             android:textColorHint="?attr/colorTextHint">
 
             <EditText
@@ -31,7 +31,7 @@
                 android:background="@drawable/selector_bg_edit"
                 android:drawableLeft="@drawable/login_username"
                 android:drawablePadding="12dp"
-                android:inputType="textPersonName"
+                android:inputType="textPhonetic"
                 android:padding="8dp"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="20sp"/>

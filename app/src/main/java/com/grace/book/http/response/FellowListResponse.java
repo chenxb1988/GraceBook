@@ -9,25 +9,8 @@ import java.util.List;
  */
 
 public class FellowListResponse extends BaseResponse {
-    private int TotalRecords;
-    private int TotalPage;
+
     private List<FellowInfo> Records;
-
-    public int getTotalRecords() {
-        return TotalRecords;
-    }
-
-    public void setTotalRecords(int TotalRecords) {
-        this.TotalRecords = TotalRecords;
-    }
-
-    public int getTotalPage() {
-        return TotalPage;
-    }
-
-    public void setTotalPage(int TotalPage) {
-        this.TotalPage = TotalPage;
-    }
 
     public List<FellowInfo> getRecords() {
         return Records;
@@ -38,19 +21,11 @@ public class FellowListResponse extends BaseResponse {
     }
 
     public static class FellowInfo {
-        private String ChurchId;
         private String ChurchName;
+        private String UpdateTime;
         private String ParentId;
         private String Wechat;
-        private String UpdateTime;
-
-        public String getChurchId() {
-            return ChurchId;
-        }
-
-        public void setChurchId(String ChurchId) {
-            this.ChurchId = ChurchId;
-        }
+        private String ChurchId;
 
         public String getChurchName() {
             return ChurchName;
@@ -58,6 +33,14 @@ public class FellowListResponse extends BaseResponse {
 
         public void setChurchName(String ChurchName) {
             this.ChurchName = ChurchName;
+        }
+
+        public String getUpdateTime() {
+            return UpdateTime;
+        }
+
+        public void setUpdateTime(String UpdateTime) {
+            this.UpdateTime = UpdateTime;
         }
 
         public String getParentId() {
@@ -76,12 +59,12 @@ public class FellowListResponse extends BaseResponse {
             this.Wechat = Wechat;
         }
 
-        public String getUpdateTime() {
-            return UpdateTime;
+        public String getChurchId() {
+            return ChurchId;
         }
 
-        public void setUpdateTime(String UpdateTime) {
-            this.UpdateTime = UpdateTime;
+        public void setChurchId(String ChurchId) {
+            this.ChurchId = ChurchId;
         }
     }
 
@@ -93,5 +76,16 @@ public class FellowListResponse extends BaseResponse {
             }
         }
         return list;
+    }
+
+    public String getFellowId(String name) {
+        if (Records != null) {
+            for (FellowInfo fellow : Records) {
+                if (fellow.getChurchName().equals(name)) {
+                    return fellow.getChurchId();
+                }
+            }
+        }
+        return null;
     }
 }

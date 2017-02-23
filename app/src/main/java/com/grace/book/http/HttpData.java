@@ -14,4 +14,7 @@ public class HttpData {
     public static String BOOK_LIST = "bookinfo/list";
 
     public static String FELLOW_LIST = "church/list";
+    public static String GROUP_LIST = "churchgroup/listbychurchid";
+
+    public static String UPLOAD_IMG = "userinfo/imgupload";
 }

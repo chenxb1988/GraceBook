@@ -105,7 +105,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public String getName() {
-        return BaseActivity.class.getName();
+        return getClass().getName();
     }
 
     @Override

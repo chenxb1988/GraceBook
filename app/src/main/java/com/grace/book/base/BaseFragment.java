@@ -76,4 +76,8 @@ public abstract class BaseFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         outState.putBoolean(STATE_SAVE_IS_HIDDEN, isHidden());
     }
+
+    protected int getColor(int resId) {
+        return getResources().getColor(resId);
+    }
 }

@@ -17,7 +17,7 @@ public class ConstData {
 
     public static final String FELLOW_LIST = "fellow_list";
     public static final String FELLOW_NAME = "fellow_name";
-    public static final String GROUP_LIST = "group_list";
+    public static final String GROUP_LIST = "group_list_";
 
     public static String APP_VERSION;
     public static String DEVICE_ID;

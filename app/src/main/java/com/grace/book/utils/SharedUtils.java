@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.grace.book.App;
 import com.grace.book.http.response.FellowListResponse;
+import com.grace.book.http.response.GroupListResponse;
 import com.grace.book.http.response.LoginInfo;
 import com.grace.book.widget.theme.Theme;
 
@@ -154,6 +155,11 @@ public class SharedUtils {
         return name;
     }
 
+    public static boolean isFellowNameNull() {
+        String name = getString(ConstData.FELLOW_NAME);
+        return StringUtils.isEmpty(name);
+    }
+
     public static void saveFellowList(FellowListResponse response) {
         putString(ConstData.FELLOW_LIST, Gson.toJson(response));
     }
@@ -162,5 +168,15 @@ public class SharedUtils {
         String json = getString(ConstData.FELLOW_LIST);
         FellowListResponse response = Gson.fromJson(json, FellowListResponse.class);
         return response == null ? new FellowListResponse() : response;
+    }
+
+    public static void saveGroupList(String fellowId, GroupListResponse response) {
+        putString(ConstData.GROUP_LIST + fellowId, Gson.toJson(response));
+    }
+
+    public static GroupListResponse getGroupList(String fellowId) {
+        String json = getString(ConstData.GROUP_LIST + fellowId);
+        GroupListResponse response = Gson.fromJson(json, GroupListResponse.class);
+        return response == null ? new GroupListResponse() : response;
     }
 }

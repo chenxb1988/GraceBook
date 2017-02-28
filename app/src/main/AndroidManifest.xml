@@ -40,6 +40,10 @@
             android:name=".activitys.CropPhotoActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".activitys.BookInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullScreenTheme"/>
+        <activity
             android:name=".activitys.WebActivity"
             android:screenOrientation="portrait"/>
     </application>

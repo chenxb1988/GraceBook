@@ -60,6 +60,14 @@ public abstract class BaseLoadingActivity extends BaseActivity {
                 }
             });
         }
+        if (mIcon != null) {
+            mIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    BaseLoadingActivity.this.finish();
+                }
+            });
+        }
         showContentView();
     }
 

@@ -36,6 +36,10 @@ public class ImageLoaderUtils {
         setIconDrawable(view, icon, Color.WHITE, 16);
     }
 
+    public static void setIconDrawable(ImageView view, IIcon icon) {
+        setIconDrawable(view, icon, Color.WHITE, 20);
+    }
+
     public static void setIconDrawable(TextView view, IIcon icon, int color, int dp) {
         view.setCompoundDrawablesWithIntrinsicBounds(new IconicsDrawable(view.getContext())
                         .icon(icon)
@@ -43,6 +47,13 @@ public class ImageLoaderUtils {
                         .sizeDp(dp),
                 null, null, null);
         view.setCompoundDrawablePadding(DimenUtils.dp2px(view.getContext(), 10));
+    }
+
+    public static void setIconDrawable(ImageView view, IIcon icon, int color, int dp) {
+        view.setImageDrawable(new IconicsDrawable(view.getContext())
+                .color(color)
+                .icon(icon)
+                .sizeDp(dp));
     }
 
     public static void setImageUrl(ImageView imageView, String url) {

@@ -92,7 +92,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
+    protected void setTranslucentStatus(boolean on) {
         Window win = getWindow();
         WindowManager.LayoutParams winParams = win.getAttributes();
         final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;

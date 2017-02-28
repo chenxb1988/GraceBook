@@ -58,7 +58,7 @@ public class UserInfoActivity extends BaseLoadingActivity {
     @Bind(R.id.iv_avatar)
     ImageView ivAvatar;
     @Bind(R.id.tv_fellow)
-    TextView tvFellow;
+    TextView mTvFellow;
 
     private UserInfo mUserInfo;
 
@@ -66,7 +66,7 @@ public class UserInfoActivity extends BaseLoadingActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setLoadingContentView(R.layout.activity_user_info);
-        ImageLoaderUtils.setIconDrawable(mTitle, MaterialDesignIconic.Icon.gmi_account);
+        ImageLoaderUtils.setIconDrawable(mIcon, MaterialDesignIconic.Icon.gmi_account);
         setTitle("个人信息", "编辑");
         EventBus.getDefault().register(this);
         loadData();
@@ -116,6 +116,7 @@ public class UserInfoActivity extends BaseLoadingActivity {
 
                     @Override
                     public void onFailure(String message) {
+                        DialogUtils.dismissProgress();
                         showFailMsg(message);
                     }
                 });
@@ -150,7 +151,7 @@ public class UserInfoActivity extends BaseLoadingActivity {
     }
 
     @Subscribe
-    public void onUserEdit(UserEditEvent event){
+    public void onUserEdit(UserEditEvent event) {
         setUserInfo(event.getUserInfo());
     }
 
@@ -159,6 +160,7 @@ public class UserInfoActivity extends BaseLoadingActivity {
         ImageLoaderUtils.setUserAvatarUrl(ivAvatar, info.getAvatar());
         mTvName.setText(info.getRealName());
         mTvGentle.setText(info.getGender() == 0 ? "姊妹" : "弟兄");
+        mTvFellow.setText(info.getChurchName());
         mTvGroup.setText(info.getGroupName());
         mTvBirthday.setText(info.getBirthday());
         mTvMobile.setText(info.getMobile());

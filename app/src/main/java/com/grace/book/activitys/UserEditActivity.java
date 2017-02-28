@@ -72,7 +72,7 @@ public class UserEditActivity extends BaseLoadingActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setLoadingContentView(R.layout.activity_user_edit);
-        ImageLoaderUtils.setIconDrawable(mTitle, MaterialDesignIconic.Icon.gmi_account);
+        ImageLoaderUtils.setIconDrawable(mIcon, MaterialDesignIconic.Icon.gmi_account);
         setTitle("编辑信息", "完成");
 
         loadData();

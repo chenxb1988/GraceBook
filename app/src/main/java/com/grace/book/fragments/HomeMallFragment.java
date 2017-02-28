@@ -13,13 +13,14 @@ import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.grace.book.R;
 import com.grace.book.adapter.MallItemAdapter;
+import com.grace.book.base.BaseActivity;
 import com.grace.book.base.BaseLoadingWithTitleFragment;
-import com.grace.book.http.response.BookSummaryList;
 import com.grace.book.event.SkinChangeEvent;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
 import com.grace.book.http.request.BookListRequest;
+import com.grace.book.http.response.BookSummaryList;
 import com.grace.book.utils.SystemUtils;
 import com.grace.book.widget.SwitchButton;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -130,7 +131,7 @@ public class HomeMallFragment extends BaseLoadingWithTitleFragment implements On
         mSwipeToLoadLayout.setOnLoadMoreListener(this);
 
         gridLayoutManager = new GridLayoutManager(getActivity(), 1);
-        itemAdapter = new MallItemAdapter(items, gridLayoutManager);
+        itemAdapter = new MallItemAdapter((BaseActivity) getActivity(), items, gridLayoutManager);
         recyclerView.setAdapter(itemAdapter);
         recyclerView.setLayoutManager(gridLayoutManager);
 

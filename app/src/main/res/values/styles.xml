@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -191,6 +191,9 @@
         <item name="colorTextHint">@color/colorBlueGreyHint</item>
     </style>
 
+    <style name="FullScreenTheme" parent="AppTheme">
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+    </style>
 
     <style name="MenuStyle">
         <item name="android:layout_width">match_parent</item>

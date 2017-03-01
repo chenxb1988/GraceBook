@@ -25,6 +25,7 @@ import com.grace.book.http.request.UserInfoRequest;
 import com.grace.book.http.response.BaseResponse;
 import com.grace.book.http.response.UserInfo;
 import com.grace.book.utils.DialogUtils;
+import com.grace.book.utils.ExtraUtils;
 import com.grace.book.utils.ImageLoaderUtils;
 import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ToastUtils;
@@ -178,7 +179,7 @@ public class UserInfoActivity extends BaseLoadingActivity {
             return;
         }
         Intent intent = new Intent(UserInfoActivity.this, UserEditActivity.class);
-        intent.putExtra("user", mUserInfo);
+        intent.putExtra(ExtraUtils.USER_INFO, mUserInfo);
         UserInfoActivity.this.startActivity(intent);
     }
 }

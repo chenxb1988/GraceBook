@@ -56,8 +56,22 @@ public class ImageLoaderUtils {
                 .sizeDp(dp));
     }
 
+    public static Drawable getDrawable(Context context, IIcon icon) {
+        return new IconicsDrawable(context)
+                .icon(icon)
+                .color(Color.WHITE)
+                .sizeDp(20);
+    }
+
     public static void setImageUrl(ImageView imageView, String url) {
         Glide.with(imageView.getContext()).load(url)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imageView);
+    }
+
+    public static void setImageUrl(ImageView imageView, String url, int resId) {
+        Glide.with(imageView.getContext()).load(url)
+                .placeholder(resId)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);
     }
@@ -78,12 +92,12 @@ public class ImageLoaderUtils {
 
     public static void setUserAvatarUrl(ImageView imageView, String url) {
         if (StringUtils.isEmpty(url)) {
-            setCircleImageSource(imageView, R.drawable.user_default);
+            setCircleImageSource(imageView, R.drawable.default_avatar);
             return;
         }
         Glide.with(imageView.getContext()).load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.user_default)
+                .placeholder(R.drawable.default_avatar)
                 .bitmapTransform(new CropCircleTransformation(imageView.getContext()))
                 .into(imageView);
     }

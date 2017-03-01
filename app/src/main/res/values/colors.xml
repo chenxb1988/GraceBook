@@ -25,6 +25,7 @@
     <color name="white_press">#e7e7e7</color>
     <color name="black">#000000</color>
     <color name="black99">#99000000</color>
+    <color name="gray">#dddddd</color>
 
     <color name="colorTextIcon">#ffffff</color>
     <color name="colorPrimaryText">#212121</color>

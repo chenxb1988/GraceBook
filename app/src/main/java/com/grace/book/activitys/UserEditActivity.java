@@ -26,6 +26,7 @@ import com.grace.book.http.response.GroupListResponse;
 import com.grace.book.http.response.UploadImgResponse;
 import com.grace.book.http.response.UserInfo;
 import com.grace.book.utils.CropUtils;
+import com.grace.book.utils.ExtraUtils;
 import com.grace.book.utils.FileUtils;
 import com.grace.book.utils.ImageLoaderUtils;
 import com.grace.book.utils.SharedUtils;
@@ -81,7 +82,7 @@ public class UserEditActivity extends BaseLoadingActivity {
 
     @Override
     protected void loadData() {
-        mUserInfo = (UserInfo) getIntent().getSerializableExtra("user");
+        mUserInfo = (UserInfo) getIntent().getSerializableExtra(ExtraUtils.USER_INFO);
         setUserInfo(mUserInfo);
     }
 

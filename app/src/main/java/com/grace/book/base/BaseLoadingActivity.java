@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
  * 基类-加载内容页面
  */
 public abstract class BaseLoadingActivity extends BaseActivity {
+    protected View mToolBarLayout;
     protected View mStatusBar;
     protected ImageView mIcon;
     protected TextView mTitle, mRightText;
@@ -32,6 +33,7 @@ public abstract class BaseLoadingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(getContentLayout());
 
+        mToolBarLayout = findViewById(R.id.tool_bar_layout);
         mStatusBar = findViewById(R.id.status_bar);
         mIcon = (ImageView) findViewById(R.id.icon);
         mTitle = (TextView) findViewById(R.id.title);

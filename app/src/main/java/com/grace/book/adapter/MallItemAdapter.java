@@ -13,6 +13,8 @@ import com.grace.book.R;
 import com.grace.book.activitys.BookInfoActivity;
 import com.grace.book.base.BaseActivity;
 import com.grace.book.http.response.BookSummaryList;
+import com.grace.book.utils.ExtraUtils;
+import com.grace.book.utils.ImageLoaderUtils;
 
 import java.util.List;
 
@@ -49,21 +51,23 @@ public class MallItemAdapter extends RecyclerView.Adapter<MallItemAdapter.ItemVi
             holder.layoutBig.setVisibility(View.GONE);
         }
 
+        final BookSummaryList.BookSummary item = mItems.get(position);
+        holder.titleSmall.setText(item.getBookName());
+        holder.titleBig.setText(item.getBookName());
+        ImageLoaderUtils.setImageUrl(holder.ivSmall, item.getPic(), R.drawable.default_book_cover);
+        ImageLoaderUtils.setImageUrl(holder.ivBig, item.getPic(), R.drawable.default_book_cover);
+        holder.info.setText(item.getComment());
+        holder.author.setText(item.getAuthor());
+        holder.type.setText(item.getBookTypeName());
+
         holder.frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mActivity, BookInfoActivity.class);
+                intent.putExtra(ExtraUtils.BOOK_ID, item.getBookId());
                 mActivity.startActivity(intent);
             }
         });
-
-
-        BookSummaryList.BookSummary item = mItems.get(position);
-        holder.titleSmall.setText(item.getBookName());
-        holder.titleBig.setText(item.getBookName());
-        holder.ivSmall.setImageResource(R.drawable.logo);
-        holder.ivBig.setImageResource(R.drawable.logo);
-        holder.info.setText(item.getComment());
     }
 
     @Override
@@ -73,13 +77,17 @@ public class MallItemAdapter extends RecyclerView.Adapter<MallItemAdapter.ItemVi
 
     class ItemViewHolder extends RecyclerView.ViewHolder {
         View frameLayout;
+
         View layoutSmall;
         ImageView ivSmall;
         TextView titleSmall;
+
         View layoutBig;
         ImageView ivBig;
         TextView titleBig;
         TextView info;
+        TextView author;
+        TextView type;
 
         ItemViewHolder(View itemView) {
             super(itemView);
@@ -91,6 +99,8 @@ public class MallItemAdapter extends RecyclerView.Adapter<MallItemAdapter.ItemVi
             ivBig = (ImageView) itemView.findViewById(R.id.image_big);
             titleBig = (TextView) itemView.findViewById(R.id.title_big);
             info = (TextView) itemView.findViewById(R.id.tv_info);
+            author = (TextView) itemView.findViewById(R.id.tv_author);
+            type = (TextView) itemView.findViewById(R.id.tv_type);
         }
     }
 }

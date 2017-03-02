@@ -20,15 +20,6 @@ import com.library.viewspread.helper.BaseViewHelper;
 public class BaseActivity extends AppCompatActivity {
     BaseViewHelper helper;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        onPreCreate();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-        }
-    }
-
     private void onPreCreate() {
         Theme theme = SharedUtils.getCurrentTheme(this);
         switch (theme) {
@@ -79,6 +70,15 @@ public class BaseActivity extends AppCompatActivity {
                 break;
         }
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        onPreCreate();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+        }
     }
 
     protected void startTranslationNoShowTranslation() {

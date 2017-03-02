@@ -23,7 +23,7 @@ public class BookInfoResponse extends BaseResponse {
     private int CommendCount;
     private int CollectCount;
     private int ReadCount;
-    private int BookState;
+    private int BookState;//0-可借阅;1-已借阅;2-借阅数量上限;3-已借完
 
     public int getIsCollect() {
         return IsCollect;
@@ -167,5 +167,32 @@ public class BookInfoResponse extends BaseResponse {
 
     public void setBookState(int BookState) {
         this.BookState = BookState;
+    }
+
+    public String getBookStateText() {
+        //0-可借阅;1-已借阅;2-借阅数量上限;3-已借完
+        switch (BookState) {
+            case 0:
+                return "可借阅";
+            case 1:
+                return "已借阅";
+            case 2:
+                return "借阅数量上限";
+            case 3:
+                return "已借完";
+        }
+        return " - ";
+    }
+
+    public boolean canBorrow() {
+        return BookState == 0;
+    }
+
+    public boolean haveBorrowed() {
+        return BookState == 1;
+    }
+
+    public boolean isCollected() {
+        return IsCollect == 1;
     }
 }

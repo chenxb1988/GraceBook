@@ -30,13 +30,13 @@
             android:layout_centerInParent="true"
             android:gravity="center">
 
-            <ImageView
+            <com.grace.book.widget.theme.ColorTintImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_error"
                 android:tint="?attr/colorPrimary" />
 
-            <TextView
+            <com.grace.book.widget.theme.ColorTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -47,7 +47,7 @@
         </LinearLayout>
 
         <!-- empty text -->
-        <TextView
+        <com.grace.book.widget.theme.ColorTextView
             android:id="@+id/common_empty_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -86,7 +86,7 @@ public class HomeRecordFragment extends BaseLoadingWithTitleFragment {
         @Override
         public Fragment getItem(int position) {
             if (mFragments[position] == null) {
-                mFragments[position] = RecordFragment.newInstance(0);
+                mFragments[position] = RecordFragment.newInstance(position);
             }
             return mFragments[position];
         }

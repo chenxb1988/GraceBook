@@ -1,7 +1,7 @@
 package com.grace.book.event;
 
 /**
- * Created by dongjunkun on 2016/2/19.
+ * Created by chenxb on 2017/2/19.
  */
 public class SkinChangeEvent {
 }

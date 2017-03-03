@@ -6,7 +6,7 @@ import android.os.Build;
 import android.view.View;
 
 /**
- * Created by dongjunkun on 2015/11/24.
+ * Created by chenxb on 2015/11/24.
  */
 public class SystemUtils {
 

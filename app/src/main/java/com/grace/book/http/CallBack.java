@@ -11,7 +11,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 /**
- * Created by dongjunkun on 2016/2/1.
+ * Created by chenxb on 2017/2/1.
  */
 public abstract class CallBack<T> {
     public Type type;

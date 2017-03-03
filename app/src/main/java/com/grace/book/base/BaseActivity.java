@@ -15,7 +15,7 @@ import com.grace.book.utils.SharedUtils;
 import com.library.viewspread.helper.BaseViewHelper;
 
 /**
- * Created by dongjunkun on 2016/2/2.
+ * Created by chenxb on 2017/2/2.
  */
 public class BaseActivity extends AppCompatActivity {
     BaseViewHelper helper;

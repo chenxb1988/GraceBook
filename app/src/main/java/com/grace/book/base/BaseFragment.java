@@ -13,7 +13,7 @@ import com.grace.book.http.RequestManager;
 import butterknife.ButterKnife;
 
 /**
- * Created by dongjunkun on 2016/2/2.
+ * Created by chenxb on 2017/2/2.
  */
 public abstract class BaseFragment extends Fragment {
     protected String STATE_SAVE_IS_HIDDEN = "state_save_is_hidden";

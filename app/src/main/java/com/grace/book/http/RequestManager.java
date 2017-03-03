@@ -27,7 +27,7 @@ import okhttp3.Response;
 
 /**
  * 管理所有请求类
- * Created by dongjunkun on 2016/2/1.
+ * Created by chenxb on 2017/2/1.
  */
 public class RequestManager {
     private static final String CODE = "Code";

@@ -3,7 +3,7 @@ package com.grace.book.http.response;
 import java.io.Serializable;
 
 /**
- * Created by dongjunkun on 2016/2/1.
+ * Created by chenxb on 2017/2/1.
  */
 public class GanHuo implements Serializable {
 

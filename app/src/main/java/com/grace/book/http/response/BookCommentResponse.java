@@ -3,7 +3,7 @@ package com.grace.book.http.response;
 import java.util.List;
 
 /**
- * Created by DuoNuo on 2017/3/3.
+ * Created by chenxb on 2017/3/3.
  */
 public class BookCommentResponse {
     private List<BookComment> Records;

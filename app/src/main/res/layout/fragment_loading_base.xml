@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/tool_bar_layout"/>
+    <include layout="@layout/tool_bar_layout" />
 
     <RelativeLayout
         android:id="@+id/base_layout"
@@ -17,22 +16,37 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <!-- loading -->
         <ProgressBar
             android:id="@+id/common_progress_view"
             style="@style/Loading"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true" />
 
         <!-- error -->
-        <ImageView
+        <LinearLayout
             android:id="@+id/common_error_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/logo"
-            android:visibility="gone"/>
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_error"
+                android:tint="?attr/colorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:text="加载出错了, 点击重试"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="15sp" />
+        </LinearLayout>
 
         <!-- empty text -->
         <TextView
@@ -40,7 +54,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="暂无内容"
-            android:visibility="gone"/>
+            android:text="暂无内容, 点击重试"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="15sp"
+            android:visibility="gone" />
     </RelativeLayout>
 </LinearLayout>

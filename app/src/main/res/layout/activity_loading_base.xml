@@ -48,6 +48,7 @@
                 android:textColor="?attr/colorPrimary"
                 android:textSize="15sp"/>
         </LinearLayout>
+
         <!-- empty text -->
         <TextView
             android:id="@+id/common_empty_view"

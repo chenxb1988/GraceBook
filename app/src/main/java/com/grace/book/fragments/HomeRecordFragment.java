@@ -10,10 +10,13 @@ import android.support.v4.view.ViewPager;
 import com.grace.book.R;
 import com.grace.book.base.BaseFragment;
 import com.grace.book.base.BaseLoadingWithTitleFragment;
+import com.grace.book.event.CancelStarEvent;
 import com.grace.book.utils.SystemUtils;
 import com.grace.book.widget.PagerSlidingTabStrip;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
 
@@ -29,7 +32,7 @@ public class HomeRecordFragment extends BaseLoadingWithTitleFragment {
 
     private TabFragmentPageAdapter mPagerAdapter;
 
-    private String mTitles[] = {"tab1", "tab2", "tab3", "tab4"};
+    private String mTitles[] = {"在读", "已读", "收藏"};
     private int mPosition;
 
     @Override
@@ -83,7 +86,7 @@ public class HomeRecordFragment extends BaseLoadingWithTitleFragment {
         @Override
         public Fragment getItem(int position) {
             if (mFragments[position] == null) {
-                mFragments[position] = RecordFragment.newInstance();
+                mFragments[position] = RecordFragment.newInstance(0);
             }
             return mFragments[position];
         }

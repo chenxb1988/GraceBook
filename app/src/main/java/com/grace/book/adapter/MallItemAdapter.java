@@ -19,7 +19,7 @@ import com.grace.book.utils.ImageLoaderUtils;
 import java.util.List;
 
 /**
- * Created by gjz on 16/01/2017.
+ * Created by gjz on 2017/2/15.
  */
 
 public class MallItemAdapter extends RecyclerView.Adapter<MallItemAdapter.ItemViewHolder> {

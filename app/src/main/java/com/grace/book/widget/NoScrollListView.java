@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.widget.ListView;
 
 /**
- * Created by DuoNuo on 2017/3/3.
+ * Created by chenxb on 2017/3/3.
  */
 public class NoScrollListView extends ListView {
     public NoScrollListView(Context context) {

@@ -17,7 +17,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by dongjunkun on 2016/2/15.
+ * Created by chenxb on 2017/2/15.
  */
 public class AndroidAdapter extends BaseAdapter {
     private Context context;

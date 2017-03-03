@@ -1,9 +1,11 @@
 package com.grace.book.http;
 
+import android.content.Context;
 import android.widget.Toast;
 
 import com.google.gson.internal.$Gson$Types;
 import com.grace.book.App;
+import com.grace.book.utils.ToastUtils;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -33,5 +35,9 @@ public abstract class CallBack<T> {
 
     public void showFailMsg(String message) {
         Toast.makeText(App.getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showFailMsg(Context context, String message) {
+        ToastUtils.showErrorToasty(context, message);
     }
 }

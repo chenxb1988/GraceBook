@@ -5,7 +5,7 @@ package com.grace.book.http.request;
  * 17/3/1.
  */
 
-public class BookInfoRequest extends BaseRequest {
+public class BaseBookRequest extends BaseRequest {
     private String bookId;
     private String authToken;
 

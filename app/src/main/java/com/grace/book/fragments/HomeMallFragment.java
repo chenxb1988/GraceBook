@@ -111,7 +111,7 @@ public class HomeMallFragment extends BaseLoadingWithTitleFragment implements On
 
                     @Override
                     public void onFailure(String message) {
-                        showFailMsg(message);
+                        showFailMsg(getActivity(),message);
                         if (mSwipeToLoadLayout != null) {
                             mSwipeToLoadLayout.setRefreshing(false);
                             mSwipeToLoadLayout.setLoadingMore(false);

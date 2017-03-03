@@ -8,12 +8,12 @@ import android.widget.LinearLayout;
 
 import com.grace.book.R;
 import com.grace.book.base.BaseActivity;
-import com.grace.book.http.response.LoginInfo;
 import com.grace.book.event.LoginEvent;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
 import com.grace.book.http.request.LoginRequest;
+import com.grace.book.http.response.LoginInfo;
 import com.grace.book.utils.ConstData;
 import com.grace.book.utils.DialogUtils;
 import com.grace.book.utils.SharedUtils;
@@ -122,7 +122,7 @@ public class LoginDialog extends Dialog {
 
                     @Override
                     public void onFailure(String message) {
-                        showFailMsg(message);
+                        showFailMsg(mActivity, message);
                         DialogUtils.dismissProgress();
                         dismiss();
                     }

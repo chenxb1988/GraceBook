@@ -10,9 +10,9 @@ import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.grace.book.R;
 import com.grace.book.adapter.AndroidAdapter;
 import com.grace.book.base.BaseLoadingNoTitleFragment;
-import com.grace.book.http.response.GanHuo;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.RequestManager;
+import com.grace.book.http.response.GanHuo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ public class RecordFragment extends BaseLoadingNoTitleFragment implements OnRefr
 
                     @Override
                     public void onFailure(String message) {
-                        showFailMsg(message);
+                        showFailMsg(getActivity(), message);
                         showErrorView();
                         if (mSwipeToLoadLayout != null) {
                             mSwipeToLoadLayout.setRefreshing(false);

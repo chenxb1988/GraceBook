@@ -13,6 +13,8 @@ public class HttpData {
 
     public static String BOOK_LIST = "bookinfo/list";
     public static String BOOK_INFO = "bookinfo/get";
+    public static String BOOK_BORROW = "bookinfo/borrowbook";
+    public static String BOOK_STAR = "bookborrow/collectbook";
 
     public static String FELLOW_LIST = "church/list";
     public static String GROUP_LIST = "churchgroup/listbychurchid";

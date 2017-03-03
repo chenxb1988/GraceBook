@@ -171,7 +171,7 @@ public class UserEditActivity extends BaseLoadingActivity {
 
                 @Override
                 public void onFailure(String message) {
-                    showFailMsg(message);
+                    showFailMsg(UserEditActivity.this, message);
                 }
             });
         } else {
@@ -231,7 +231,7 @@ public class UserEditActivity extends BaseLoadingActivity {
 
                 @Override
                 public void onFailure(String message) {
-                    showFailMsg(message);
+                    showFailMsg(UserEditActivity.this, message);
                 }
             });
         } else if (resultCode == CropUtils.RESULT_ERROR) {

@@ -13,6 +13,7 @@ import me.xiaopan.java.lang.StringUtils;
 public class LoginUtils {
     public static boolean isLogin(BaseActivity activity) {
         if (StringUtils.isEmpty(SharedUtils.getUserToken())) {
+            ToastUtils.showInfoToasty(activity, "请先登录");
             showLoginDialog(activity);
             return false;
         }

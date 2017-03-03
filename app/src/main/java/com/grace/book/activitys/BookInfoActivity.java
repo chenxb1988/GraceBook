@@ -20,11 +20,13 @@ import com.grace.book.base.BaseLoadingActivity;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
-import com.grace.book.http.request.BookInfoRequest;
+import com.grace.book.http.request.BaseBookRequest;
+import com.grace.book.http.response.BaseResponse;
 import com.grace.book.http.response.BookInfoResponse;
 import com.grace.book.utils.DimenUtils;
 import com.grace.book.utils.ExtraUtils;
 import com.grace.book.utils.ImageLoaderUtils;
+import com.grace.book.utils.LoginUtils;
 import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.utils.ToastUtils;
@@ -49,6 +51,14 @@ public class BookInfoActivity extends BaseLoadingActivity {
     FloatingActionButton fab;
     @Bind(R.id.back_view)
     View backView;
+    @Bind(R.id.tv_book_state)
+    TextView tvBookState;
+    @Bind(R.id.tv_person_read)
+    TextView tvPersonRead;
+    @Bind(R.id.tv_person_recommend)
+    TextView tvPersonRecommend;
+    @Bind(R.id.tv_person_star)
+    TextView tvPersonStar;
 
     private BookInfoResponse mBookInfo;
 
@@ -76,6 +86,7 @@ public class BookInfoActivity extends BaseLoadingActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(ImageLoaderUtils.getDrawable(BookInfoActivity.this, MaterialDesignIconic.Icon.gmi_arrow_back));
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         collapsingToolbar.setExpandedTitleColor(Color.WHITE);
         collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);
@@ -85,25 +96,23 @@ public class BookInfoActivity extends BaseLoadingActivity {
 
     @Override
     protected void loadData() {
-        BookInfoRequest request = new BookInfoRequest();
+        BaseBookRequest request = new BaseBookRequest();
         request.setBookId(getIntent().getStringExtra(ExtraUtils.BOOK_ID));
         request.setAuthToken(SharedUtils.getUserToken());
 
         RequestManager.post(getName(), HttpData.BOOK_INFO, request, new CallBack<BookInfoResponse>() {
             @Override
             public void onSuccess(BookInfoResponse result) {
-                showContentView();
                 mToolBarLayout.setVisibility(View.GONE);
-                mBookInfo = result;
-
-                collapsingToolbar.setTitle(result.getBookName());
-                ImageLoaderUtils.setImageUrl(ivCover, result.getPic(), R.drawable.default_book_info);
+                showContentView();
+                setBookContent(result);
             }
 
             @Override
             public void onFailure(String message) {
-                showFailMsg(message);
+                mToolBarLayout.setVisibility(View.VISIBLE);
                 showErrorView();
+                showFailMsg(BookInfoActivity.this, message);
             }
         });
     }
@@ -115,6 +124,17 @@ public class BookInfoActivity extends BaseLoadingActivity {
                 showPopupWindow();
                 break;
         }
+    }
+
+    private void setBookContent(BookInfoResponse bookInfo) {
+        mBookInfo = bookInfo;
+
+        collapsingToolbar.setTitle(mBookInfo.getBookName());
+        ImageLoaderUtils.setImageUrl(ivCover, mBookInfo.getPic(), R.drawable.default_book_info);
+        tvBookState.setText("书籍状态： " + mBookInfo.getBookStateText());
+        tvPersonRead.setText(mBookInfo.getReadCount() + "");
+        tvPersonStar.setText(mBookInfo.getCollectCount() + "");
+        tvPersonRecommend.setText(mBookInfo.getCommendCount() + "");
     }
 
     private void showPopupWindow() {
@@ -130,14 +150,14 @@ public class BookInfoActivity extends BaseLoadingActivity {
             llBorrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ToastUtils.showSnack(BookInfoActivity.this, "borrow");
+                    clickBorrowBook();
                     mPopupWindow.dismiss();
                 }
             });
             llStar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ToastUtils.showSnack(BookInfoActivity.this, "star");
+                    clickStarBook();
                     mPopupWindow.dismiss();
                 }
             });
@@ -162,26 +182,65 @@ public class BookInfoActivity extends BaseLoadingActivity {
         mPopupWindow.showAsDropDown(fab, -DimenUtils.dp2px(this, 40), -20);
         if (mBookInfo.isCollected()) {
             ivStar.setImageResource(R.drawable.ic_star_select);
-            tvStar.setText("取消收藏");
+            tvStar.setText("已收藏");
         } else {
             ivStar.setImageResource(R.drawable.ic_star_normal);
             tvStar.setText("收藏");
         }
         if (mBookInfo.canBorrow()) {
-            llBorrow.setVisibility(View.VISIBLE);
             ivBorrow.setImageResource(R.drawable.ic_star_normal);
             tvBorrow.setText("借阅");
-        } else if (mBookInfo.haveBorrowed()) {
-            llBorrow.setVisibility(View.VISIBLE);
+        } else if (mBookInfo.hasBorrowed()) {
             ivBorrow.setImageResource(R.drawable.ic_star_select);
-            tvBorrow.setText("取消预借");
+            tvBorrow.setText("已预借");
         } else {
-            llBorrow.setVisibility(View.GONE);
+            ivBorrow.setImageResource(R.drawable.ic_star_normal);
+            tvBorrow.setText(mBookInfo.getBookStateText());
         }
 
         backView.setVisibility(View.VISIBLE);
         ObjectAnimator animator = ObjectAnimator.ofFloat(fab, "rotation", 0f, 270f);
         animator.setDuration(300);
         animator.start();
+    }
+
+    private void clickBorrowBook() {
+        if (!mBookInfo.isCollected()) {
+            BaseBookRequest request = new BaseBookRequest();
+            request.setBookId(mBookInfo.getBookId());
+            request.setAuthToken(SharedUtils.getUserToken());
+            RequestManager.post(getName(), HttpData.BOOK_BORROW, request, new CallBack<BaseResponse>() {
+                @Override
+                public void onSuccess(BaseResponse result) {
+                    mBookInfo.setHasBorrowed();
+                    ToastUtils.showSnack(BookInfoActivity.this, "预借成功");
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    showFailMsg(BookInfoActivity.this, message);
+                }
+            });
+        }
+    }
+
+    private void clickStarBook() {
+        if (!mBookInfo.isCollected() && LoginUtils.isLogin(this)) {
+            BaseBookRequest request = new BaseBookRequest();
+            request.setBookId(mBookInfo.getBookId());
+            request.setAuthToken(SharedUtils.getUserToken());
+            RequestManager.post(getName(), HttpData.BOOK_STAR, request, new CallBack<BaseResponse>() {
+                @Override
+                public void onSuccess(BaseResponse result) {
+                    mBookInfo.setHasCollected();
+                    ToastUtils.showSnack(BookInfoActivity.this, "收藏成功");
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    showFailMsg(BookInfoActivity.this, message);
+                }
+            });
+        }
     }
 }

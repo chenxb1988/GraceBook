@@ -111,7 +111,7 @@ public class HomeMainFragment extends BaseLoadingWithTitleFragment {
 
             @Override
             public void onFailure(String message) {
-                showFailMsg(message);
+                showFailMsg(getActivity(), message);
             }
         });
     }

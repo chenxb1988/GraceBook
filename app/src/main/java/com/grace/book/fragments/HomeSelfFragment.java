@@ -11,9 +11,9 @@ import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.grace.book.R;
 import com.grace.book.adapter.AndroidAdapter;
 import com.grace.book.base.BaseLoadingWithTitleFragment;
-import com.grace.book.http.response.GanHuo;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.RequestManager;
+import com.grace.book.http.response.GanHuo;
 import com.grace.book.utils.SystemUtils;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
@@ -74,7 +74,7 @@ public class HomeSelfFragment extends BaseLoadingWithTitleFragment implements On
 
                     @Override
                     public void onFailure(String message) {
-                        showFailMsg(message);
+                        showFailMsg(getActivity(), message);
                         if (mSwipeToLoadLayout != null) {
                             mSwipeToLoadLayout.setRefreshing(false);
                             mSwipeToLoadLayout.setLoadingMore(false);

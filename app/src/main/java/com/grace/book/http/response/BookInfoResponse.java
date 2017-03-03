@@ -188,11 +188,19 @@ public class BookInfoResponse extends BaseResponse {
         return BookState == 0;
     }
 
-    public boolean haveBorrowed() {
+    public boolean hasBorrowed() {
         return BookState == 1;
+    }
+
+    public void setHasBorrowed() {
+        BookState = 1;
     }
 
     public boolean isCollected() {
         return IsCollect == 1;
+    }
+
+    public void setHasCollected() {
+        IsCollect = 1;
     }
 }

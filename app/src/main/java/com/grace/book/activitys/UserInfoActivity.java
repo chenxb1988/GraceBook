@@ -95,6 +95,7 @@ public class UserInfoActivity extends BaseLoadingActivity {
 
             @Override
             public void onFailure(String message) {
+                showFailMsg(UserInfoActivity.this, message);
                 showErrorView();
             }
         });
@@ -118,7 +119,7 @@ public class UserInfoActivity extends BaseLoadingActivity {
                     @Override
                     public void onFailure(String message) {
                         DialogUtils.dismissProgress();
-                        showFailMsg(message);
+                        showFailMsg(UserInfoActivity.this, message);
                     }
                 });
                 break;

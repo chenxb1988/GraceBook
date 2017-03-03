@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="120dp"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_rectangle_white"
+    android:background="@drawable/bg_popup_dialog"
     android:orientation="vertical"
     android:paddingBottom="@dimen/dp_12"
     android:paddingTop="@dimen/dp_12">
@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="@dimen/dp_4"
         android:gravity="center_vertical">
 
         <ImageView
@@ -34,13 +35,20 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="#33333333"
+        />
+
     <LinearLayout
         android:id="@+id/ll_star"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical">
 
         <ImageView

@@ -203,4 +203,12 @@ public class BookInfoResponse extends BaseResponse {
     public void setHasCollected() {
         IsCollect = 1;
     }
+
+    public void addCollectCount() {
+        this.CollectCount += 1;
+    }
+
+    public void addBorrow() {
+        this.ReadCount += 1;
+    }
 }

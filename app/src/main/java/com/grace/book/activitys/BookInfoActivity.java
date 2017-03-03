@@ -16,12 +16,14 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.grace.book.R;
+import com.grace.book.adapter.BookCommentAdapter;
 import com.grace.book.base.BaseLoadingActivity;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
 import com.grace.book.http.request.BaseBookRequest;
 import com.grace.book.http.response.BaseResponse;
+import com.grace.book.http.response.BookCommentResponse;
 import com.grace.book.http.response.BookInfoResponse;
 import com.grace.book.utils.DimenUtils;
 import com.grace.book.utils.ExtraUtils;
@@ -30,8 +32,12 @@ import com.grace.book.utils.LoginUtils;
 import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.utils.ToastUtils;
+import com.grace.book.widget.NoScrollListView;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -59,8 +65,21 @@ public class BookInfoActivity extends BaseLoadingActivity {
     TextView tvPersonRecommend;
     @Bind(R.id.tv_person_star)
     TextView tvPersonStar;
+    @Bind(R.id.tv_book_author)
+    TextView tvBookAuthor;
+    @Bind(R.id.tv_book_type)
+    TextView tvBookType;
+    @Bind(R.id.tv_book_store_time)
+    TextView tvBookStoreTime;
+    @Bind(R.id.tv_book_comment)
+    TextView tvBookComment;
+    @Bind(R.id.tv_comment)
+    TextView tvComment;
+    @Bind(R.id.lv_comment)
+    NoScrollListView lvComment;
 
     private BookInfoResponse mBookInfo;
+    private List<BookCommentResponse.BookComment> mCommentList;
 
     private PopupWindow mPopupWindow;
     private View mPopView;
@@ -70,6 +89,8 @@ public class BookInfoActivity extends BaseLoadingActivity {
     private LinearLayout llStar;
     private ImageView ivBorrow;
     private ImageView ivStar;
+
+    private BookCommentAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +136,28 @@ public class BookInfoActivity extends BaseLoadingActivity {
                 showFailMsg(BookInfoActivity.this, message);
             }
         });
+
+        mCommentList = new ArrayList<>();
+        mAdapter = new BookCommentAdapter(this, mCommentList);
+        lvComment.setAdapter(mAdapter);
+        RequestManager.post(getName(), HttpData.BOOK_COMMENTS, request, new CallBack<BookCommentResponse>() {
+            @Override
+            public void onSuccess(BookCommentResponse result) {
+                if (result.getRecords() != null && result.getRecords().size() > 0) {
+                    mCommentList.clear();
+                    mCommentList.addAll(result.getRecords());
+                    mAdapter.notifyDataSetChanged();
+
+                    tvComment.setVisibility(View.VISIBLE);
+                    lvComment.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(String message) {
+                showFailMsg(BookInfoActivity.this, message);
+            }
+        });
     }
 
     @OnClick({R.id.fab})
@@ -131,10 +174,14 @@ public class BookInfoActivity extends BaseLoadingActivity {
 
         collapsingToolbar.setTitle(mBookInfo.getBookName());
         ImageLoaderUtils.setImageUrl(ivCover, mBookInfo.getPic(), R.drawable.default_book_info);
-        tvBookState.setText("书籍状态： " + mBookInfo.getBookStateText());
+        tvBookState.setText(mBookInfo.getBookStateText());
         tvPersonRead.setText(mBookInfo.getReadCount() + "");
         tvPersonStar.setText(mBookInfo.getCollectCount() + "");
         tvPersonRecommend.setText(mBookInfo.getCommendCount() + "");
+        tvBookAuthor.setText(mBookInfo.getAuthor());
+        tvBookStoreTime.setText(mBookInfo.getInStoreTime());
+        tvBookType.setText(mBookInfo.getBookTypeName());
+        tvBookComment.setText(mBookInfo.getComment());
     }
 
     private void showPopupWindow() {
@@ -195,7 +242,7 @@ public class BookInfoActivity extends BaseLoadingActivity {
             tvBorrow.setText("已预借");
         } else {
             ivBorrow.setImageResource(R.drawable.ic_star_normal);
-            tvBorrow.setText(mBookInfo.getBookStateText());
+            tvBorrow.setText("无法借阅");
         }
 
         backView.setVisibility(View.VISIBLE);
@@ -205,7 +252,7 @@ public class BookInfoActivity extends BaseLoadingActivity {
     }
 
     private void clickBorrowBook() {
-        if (!mBookInfo.isCollected()) {
+        if (mBookInfo.canBorrow() && LoginUtils.isLogin(this)) {
             BaseBookRequest request = new BaseBookRequest();
             request.setBookId(mBookInfo.getBookId());
             request.setAuthToken(SharedUtils.getUserToken());
@@ -233,6 +280,8 @@ public class BookInfoActivity extends BaseLoadingActivity {
                 @Override
                 public void onSuccess(BaseResponse result) {
                     mBookInfo.setHasCollected();
+                    mBookInfo.addCollectCount();
+                    setBookContent(mBookInfo);
                     ToastUtils.showSnack(BookInfoActivity.this, "收藏成功");
                 }
 

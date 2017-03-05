@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.grace.book.R;
 import com.grace.book.adapter.BookCommentAdapter;
 import com.grace.book.base.BaseLoadingActivity;
+import com.grace.book.event.AddBorrowEvent;
+import com.grace.book.event.AddStarEvent;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
@@ -35,6 +37,8 @@ import com.grace.book.utils.ToastUtils;
 import com.grace.book.widget.NoScrollListView;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -260,6 +264,7 @@ public class BookInfoActivity extends BaseLoadingActivity {
                 @Override
                 public void onSuccess(BaseResponse result) {
                     mBookInfo.setHasBorrowed();
+                    EventBus.getDefault().post(new AddBorrowEvent(mBookInfo.getBookId()));
                     ToastUtils.showSnack(BookInfoActivity.this, "预借成功");
                 }
 
@@ -282,6 +287,7 @@ public class BookInfoActivity extends BaseLoadingActivity {
                     mBookInfo.setHasCollected();
                     mBookInfo.addCollectCount();
                     setBookContent(mBookInfo);
+                    EventBus.getDefault().post(new AddStarEvent(mBookInfo.getBookId()));
                     ToastUtils.showSnack(BookInfoActivity.this, "收藏成功");
                 }
 

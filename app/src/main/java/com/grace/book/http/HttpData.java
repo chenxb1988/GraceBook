@@ -16,6 +16,7 @@ public class HttpData {
     public static String BOOK_BORROW = "bookinfo/borrowbook";
     public static String BOOK_COMMENTS = "bookinfo/getbookeavl";
     public static String BOOK_STAR = "bookborrow/collectbook";
+    public static String BOOK_RECOMMEND = "bookborrow/commendbook";
     public static String BOOK_CALCEL_STAR = "bookborrow/cancelcollect";
 
     public static String RECORD_LIST = "bookborrow/list";

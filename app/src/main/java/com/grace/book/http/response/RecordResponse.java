@@ -198,5 +198,25 @@ public class RecordResponse {
         public boolean isCommented() {
             return IsEvaluate == 1;
         }
+
+        public boolean isBorrowing() {
+            return IsBorrow == 1;
+        }
+
+        public boolean isCollected() {
+            return IsCollect == 1;
+        }
+
+        public void setUnCollected() {
+            IsCollect = 0;
+        }
+
+        public void setHasCollected() {
+            IsCollect = 1;
+        }
+
+        public void setHasRecommend() {
+            IsCommend = 1;
+        }
     }
 }

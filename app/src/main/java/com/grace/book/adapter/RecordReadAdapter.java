@@ -5,12 +5,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grace.book.R;
+import com.grace.book.event.AddStarEvent;
+import com.grace.book.http.CallBack;
+import com.grace.book.http.HttpData;
+import com.grace.book.http.RequestManager;
+import com.grace.book.http.request.BaseBookRequest;
+import com.grace.book.http.request.RecommendRequest;
+import com.grace.book.http.response.BaseResponse;
 import com.grace.book.http.response.RecordResponse;
+import com.grace.book.utils.ImageLoaderUtils;
+import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.widget.theme.ColorBackButton;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -55,7 +67,11 @@ public class RecordReadAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         }
 
-        RecordResponse.RecordInfo record = records.get(position);
+        final RecordResponse.RecordInfo record = records.get(position);
+        ImageLoaderUtils.setImageUrl(viewHolder.ivAvatar, record.getPic(), R.drawable.default_book_cover);
+        viewHolder.tvName.setText(record.getBookName());
+        viewHolder.tvType.setText(record.getBookTypeName());
+        viewHolder.tvAuthor.setText(record.getAuthor());
         if (record.isCommented()) {
             viewHolder.tvComment.setVisibility(View.VISIBLE);
             viewHolder.btnComment.setVisibility(View.GONE);
@@ -70,11 +86,37 @@ public class RecordReadAdapter extends BaseAdapter {
             viewHolder.tvRecommend.setVisibility(View.GONE);
             viewHolder.btnRecommend.setVisibility(View.VISIBLE);
         }
+        viewHolder.btnRecommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addRecommend(record);
+            }
+        });
 
         return convertView;
     }
 
+    private void addRecommend(final RecordResponse.RecordInfo record) {
+        RecommendRequest request = new RecommendRequest();
+        request.setBorrowId(record.getBorrowId());
+        request.setAuthToken(SharedUtils.getUserToken());
+        RequestManager.post(getClass().getSimpleName(), HttpData.BOOK_RECOMMEND, request, new CallBack<BaseResponse>() {
+            @Override
+            public void onSuccess(BaseResponse result) {
+                record.setHasRecommend();
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(String message) {
+                showFailMsg(context, message);
+            }
+        });
+    }
+
     class ViewHolder {
+        @Bind(R.id.iv_avatar)
+        ImageView ivAvatar;
         @Bind(R.id.tv_name)
         TextView tvName;
         @Bind(R.id.tv_author)
@@ -92,7 +134,6 @@ public class RecordReadAdapter extends BaseAdapter {
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
-
             ThemeUtils.addThemeToView(btnComment);
             ThemeUtils.addThemeToView(btnRecommend);
         }

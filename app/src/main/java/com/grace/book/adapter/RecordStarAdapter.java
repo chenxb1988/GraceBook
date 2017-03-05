@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grace.book.R;
@@ -15,6 +16,7 @@ import com.grace.book.http.RequestManager;
 import com.grace.book.http.request.CancelStarRequest;
 import com.grace.book.http.response.BaseResponse;
 import com.grace.book.http.response.RecordResponse;
+import com.grace.book.utils.ImageLoaderUtils;
 import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.utils.ToastUtils;
@@ -66,6 +68,10 @@ public class RecordStarAdapter extends BaseAdapter {
         }
 
         final RecordResponse.RecordInfo record = records.get(position);
+        ImageLoaderUtils.setImageUrl(viewHolder.ivAvatar, record.getPic(), R.drawable.default_book_cover);
+        viewHolder.tvName.setText(record.getBookName());
+        viewHolder.tvType.setText(record.getBookTypeName());
+        viewHolder.tvAuthor.setText(record.getAuthor());
         viewHolder.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,6 +100,8 @@ public class RecordStarAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
+        @Bind(R.id.iv_avatar)
+        ImageView ivAvatar;
         @Bind(R.id.tv_name)
         TextView tvName;
         @Bind(R.id.tv_author)

@@ -1,12 +1,14 @@
 package com.grace.book.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
@@ -14,10 +16,13 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.grace.book.R;
+import com.grace.book.activitys.BookInfoActivity;
 import com.grace.book.adapter.RecordReadAdapter;
 import com.grace.book.adapter.RecordReadingAdapter;
 import com.grace.book.adapter.RecordStarAdapter;
 import com.grace.book.base.BaseLoadingNoTitleFragment;
+import com.grace.book.event.AddBorrowEvent;
+import com.grace.book.event.AddStarEvent;
 import com.grace.book.event.CancelBorrowEvent;
 import com.grace.book.event.CancelStarEvent;
 import com.grace.book.http.CallBack;
@@ -25,6 +30,7 @@ import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
 import com.grace.book.http.request.RecordRequest;
 import com.grace.book.http.response.RecordResponse;
+import com.grace.book.utils.ExtraUtils;
 import com.grace.book.utils.SharedUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -39,7 +45,6 @@ import butterknife.Bind;
  * A simple {@link Fragment} subclass.
  */
 public class RecordFragment extends BaseLoadingNoTitleFragment implements OnRefreshListener, OnLoadMoreListener {
-
     @Bind(R.id.swipe_target)
     ListView mListView;
     @Bind(R.id.swipeToLoadLayout)
@@ -79,30 +84,67 @@ public class RecordFragment extends BaseLoadingNoTitleFragment implements OnRefr
     }
 
     @Subscribe
-    public void onCancelStarEvent(CancelStarEvent event) {
-        if (type != 2) {
-            return;
-        }
-        for (int i = records.size() - 1; i >= 0; i--) {
-            if (event.getCollectId().equals(records.get(i).getCollectId())) {
-                records.remove(i);
-                adapter.notifyDataSetChanged();
-                return;
-            }
+    public void onAddBorrowEvent(AddBorrowEvent event) {
+        if (type == 0) {
+            //在读界面更新
+            loadData();
         }
     }
 
     @Subscribe
     public void onCancelBorrowEvent(CancelBorrowEvent event) {
-        if (type != 0) {
-            return;
-        }
-        for (int i = records.size() - 1; i >= 0; i--) {
-            if (event.getBorrowId().equals(records.get(i).getBorrowId())) {
-                records.remove(i);
-                adapter.notifyDataSetChanged();
-                return;
+        if (type == 0) {
+            for (int i = records.size() - 1; i >= 0; i--) {
+                if (event.getBorrowId().equals(records.get(i).getBorrowId())) {
+                    records.remove(i);
+                    if (records.size() > 0) {
+                        showContentView();
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        showEmptyView();
+                    }
+                    return;
+                }
             }
+        }
+    }
+
+    @Subscribe
+    public void onAddStarEvent(AddStarEvent event) {
+        if (type == 2) {
+            //收藏界面增加该条
+            loadData();
+        } else if (type == 0) {
+            //在读界面更新
+            for (int i = records.size() - 1; i >= 0; i--) {
+                if (event.getBookId().equals(records.get(i).getBookId())) {
+                    records.get(i).setHasCollected();
+                    adapter.notifyDataSetChanged();
+                    return;
+                }
+            }
+        }
+    }
+
+    @Subscribe
+    public void onCancelStarEvent(CancelStarEvent event) {
+        if (type == 2) {
+            //收藏界面取消该条
+            for (int i = records.size() - 1; i >= 0; i--) {
+                if (event.getCollectId().equals(records.get(i).getCollectId())) {
+                    records.remove(i);
+                    if (records.size() > 0) {
+                        showContentView();
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        showEmptyView();
+                    }
+                    return;
+                }
+            }
+        } else if (type == 0) {
+            //在读界面更新
+            loadData();
         }
     }
 
@@ -178,6 +220,14 @@ public class RecordFragment extends BaseLoadingNoTitleFragment implements OnRefr
                 break;
         }
         mListView.setAdapter(adapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), BookInfoActivity.class);
+                intent.putExtra(ExtraUtils.BOOK_ID, records.get(i).getBookId());
+                getActivity().startActivity(intent);
+            }
+        });
     }
 
     @Override

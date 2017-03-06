@@ -1,2 +1,2 @@
-include ':app', ':viewspreadtranslationlibrary'
+include ':app', ':viewspreadtranslationlibrary', ':PushSDK'
 

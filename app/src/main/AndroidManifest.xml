@@ -46,6 +46,20 @@
         <activity
             android:name=".activitys.WebActivity"
             android:screenOrientation="portrait"/>
+
+        <!--友盟消息推送-->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="58bcfe38f43e481d7100051a">
+        </meta-data>
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="17578c7cc394cf2f4a173973232c596c">
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="normal" >
+        </meta-data>
     </application>
 
 </manifest>

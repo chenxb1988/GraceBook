@@ -21,7 +21,7 @@ public class BaseRequest {
         osVersion = Build.VERSION.RELEASE;
         appVersion = ConstData.APP_VERSION;
         deviceId = ConstData.DEVICE_ID;
-        deviceToken = "";
+        deviceToken = ConstData.DEVICE_TOKEN;
     }
 
     public String getOs() {

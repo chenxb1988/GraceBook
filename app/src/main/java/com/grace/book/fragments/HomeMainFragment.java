@@ -4,6 +4,7 @@ package com.grace.book.fragments;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 
@@ -22,6 +23,7 @@ import com.grace.book.utils.ImageLoaderUtils;
 import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.SystemUtils;
 import com.grace.book.utils.ThemeUtils;
+import com.grace.book.widget.BannerView;
 import com.grace.book.widget.spinner.NiceSpinner;
 import com.grace.book.widget.theme.ColorBackButton;
 import com.grace.book.widget.theme.ColorIconTextView;
@@ -31,9 +33,11 @@ import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -53,6 +57,8 @@ public class HomeMainFragment extends BaseLoadingWithTitleFragment {
     ColorBackButton mBtnReadBible;
 
     List<String> mFellowNameList;
+    @Bind(R.id.banner_view)
+    BannerView bannerView;
 
     @Override
     public void initFragment() {
@@ -72,7 +78,25 @@ public class HomeMainFragment extends BaseLoadingWithTitleFragment {
         mNiceSpinner.setText(SharedUtils.getFellowName());
         getFellowList();
 
+        initBannerView();
+
         EventBus.getDefault().register(this);
+    }
+
+    private void initBannerView() {
+        int[] banners = {R.drawable.banner1, R.drawable.banner2, R.drawable.banner3, R.drawable.banner4};
+
+        List<View> viewList = new ArrayList<View>();
+        for (int i = 0; i < banners.length; i++) {
+            ImageView image = new ImageView(getActivity());
+            image.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            //设置显示格式
+            image.setScaleType(ImageView.ScaleType.FIT_XY);
+            image.setImageResource(banners[i]);
+            viewList.add(image);
+        }
+        bannerView.setViewList(viewList);
+        bannerView.startLoop(true);
     }
 
     @Subscribe
@@ -139,6 +163,7 @@ public class HomeMainFragment extends BaseLoadingWithTitleFragment {
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
+        ButterKnife.unbind(this);
     }
 
     @Override

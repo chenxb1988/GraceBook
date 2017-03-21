@@ -112,6 +112,12 @@ public class BookInfoActivity extends BaseLoadingActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(ImageLoaderUtils.getDrawable(BookInfoActivity.this, MaterialDesignIconic.Icon.gmi_arrow_back));
         getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BookInfoActivity.this.finish();
+            }
+        });
 
         collapsingToolbar.setExpandedTitleColor(Color.WHITE);
         collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);

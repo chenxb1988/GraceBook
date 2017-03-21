@@ -1,120 +1,116 @@
 package com.grace.book.widget;
 
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.SparseArray;
-import android.view.LayoutInflater;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.grace.book.R;
+import com.grace.book.adapter.BannerAdapter;
 
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.lang.ref.WeakReference;
+import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
-/**
- * banner轮播
- */
-public class BannerView extends RelativeLayout {
-    @Bind(R.id.promotion_pager)
-    ViewPager mViewPager;
-    @Bind(R.id.promotion_bottom_dots)
-    LinearLayout mViewDots;
+public class BannerView extends FrameLayout {
 
-    ArrayList<View> mViews;
-    ArrayList<ImageView> mPoints;
-    Context mContext;
+    private static final int MSG_LOOP = 1000;
+    //间隔时间
+    private static long LOOP_INTERVAL = 1000;
+    private LinearLayout mLinearPosition = null;
+    private ViewPager mViewPager = null;
+    private BannerHandler mBannerHandler = null;
 
-    final int TIME_PERIOD = 2000;
-    Timer timer;
-    TimerTask mTimerTask;
-    int currentIndex;
+    //真实显示的banner view 集合
+    private List<View> viewList;
+    //真实显示的banner view个数
+    private int viewSize;
 
-    int[] banners = {R.drawable.banner1, R.drawable.banner2, R.drawable.banner3, R.drawable.banner4};
+    private static class BannerHandler extends Handler {
+        private WeakReference<BannerView> weakReference = null;
+
+        public BannerHandler(BannerView bannerView) {
+            super(Looper.getMainLooper());
+            this.weakReference = new WeakReference<BannerView>(bannerView);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (this.weakReference == null) {
+                return;
+            }
+            BannerView bannerView = this.weakReference.get();
+            if (bannerView == null || bannerView.mViewPager == null || bannerView.mViewPager.getAdapter() == null || bannerView.mViewPager.getAdapter().getCount() <= 0) {
+                sendEmptyMessageDelayed(MSG_LOOP, LOOP_INTERVAL);
+                return;
+            }
+            int curPos = bannerView.mViewPager.getCurrentItem();
+            curPos = (curPos + 1) % bannerView.mViewPager.getAdapter().getCount();
+            bannerView.mViewPager.setCurrentItem(curPos);
+            sendEmptyMessageDelayed(MSG_LOOP, LOOP_INTERVAL);
+        }
+    }
 
     public BannerView(Context context) {
         super(context);
-        this.mContext = context;
         init();
     }
 
     public BannerView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.mContext = context;
         init();
     }
 
-    private void init() {
-        initView();
-        initData();
-    }
-
-    private void initView() {
-        View itemView = LayoutInflater.from(mContext).inflate(R.layout.layout_banner_viewpager, this);
-        ButterKnife.bind(this, itemView);
-
-        mViews = new ArrayList<>();
-        mPoints = new ArrayList<>();
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT
-                , LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(20, 20, 20, 20);
-        for (int i = banners.length - 1; i < banners.length * 2 + 1; i++) {
-            ImageView imageView = new ImageView(mContext);
-            imageView.setLayoutParams(params);
-            imageView.setImageResource(banners[i % banners.length]);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-
-            imageView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
+    public void startLoop(boolean flag) {
+        if (flag) {
+            if (mBannerHandler == null) {
+                mBannerHandler = new BannerHandler(this);
+            }
+            mBannerHandler.sendEmptyMessageDelayed(MSG_LOOP, LOOP_INTERVAL);
+        } else {
+            if (mBannerHandler != null) {
+                if (mBannerHandler.hasMessages(MSG_LOOP)) {
+                    mBannerHandler.removeMessages(MSG_LOOP);
                 }
-            });
-            mViews.add(imageView);
-        }
-        for (int i = 0; i < banners.length; i++) {
-            ImageView dot = new ImageView(mContext);
-            dot.setImageResource(mPoints.size() == 0 ? R.drawable.ic_point_select : R.drawable.ic_point_normal);
-            mPoints.add(dot);
-            mViewDots.addView(dot, params);
+            }
         }
     }
 
-    /**
-     * 填充数据
-     */
-    public void initData() {
-        mViewPager.setAdapter(new PromotionAdapter());
+    private void init() {
+        initViewPager();
+        initLinearPosition();
+        this.addView(mViewPager);
+        this.addView(mLinearPosition);
+    }
+
+    private void initViewPager() {
+        mViewPager = new ViewPager(getContext());
+        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
+                , ViewGroup.LayoutParams.WRAP_CONTENT);
+        mViewPager.setLayoutParams(layoutParams);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                Log.d("dagger","position :"+position+"    positionOffset :"+positionOffset);
             }
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 0) {
-                    position = banners.length;
-                    mViewPager.setCurrentItem(position, false);
-                } else if (position == banners.length + 1) {
-                    position = 1;
-                    mViewPager.setCurrentItem(position, false);
-                }
-                currentIndex = position;
-                setCurrentDot(currentIndex);
+                Log.d("dagger","onPageSelected :"+position);
+                 updateLinearPosition();
             }
 
             @Override
@@ -125,143 +121,149 @@ public class BannerView extends RelativeLayout {
         mViewPager.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
+                switch (event.getAction()){
                     case MotionEvent.ACTION_DOWN:
-                        stopTimer();
+                        if (mBannerHandler != null) {
+                            if (mBannerHandler.hasMessages(MSG_LOOP)) {
+                                mBannerHandler.removeMessages(MSG_LOOP);
+                            }
+                        }
                         break;
-                    case MotionEvent.ACTION_CANCEL:
                     case MotionEvent.ACTION_UP:
-                        startTimer();
+                        if (mBannerHandler != null) {
+                            mBannerHandler.sendEmptyMessageDelayed(MSG_LOOP, LOOP_INTERVAL);
+                        }
+                        break;
+                    default:
                         break;
                 }
                 return false;
             }
         });
-        mViewPager.setCurrentItem(banners.length);
-
-        startTimer();
     }
 
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return super.onInterceptTouchEvent(ev);
+    private void initLinearPosition() {
+        mLinearPosition = new LinearLayout(getContext());
+        mLinearPosition.setOrientation(LinearLayout.HORIZONTAL);
+        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
+                , ViewGroup.LayoutParams.WRAP_CONTENT);
+        //点在中间
+        layoutParams.gravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
+        layoutParams.bottomMargin = getResources().getDimensionPixelSize(R.dimen.dimen_9dp);
+        mLinearPosition.setPadding(getResources().getDimensionPixelSize(R.dimen.dimen_9dp), 0, 0, 0);
+        mLinearPosition.setLayoutParams(layoutParams);
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        return super.onTouchEvent(ev);
+    public void setAdapter(PagerAdapter adapter) {
+        mViewPager.setAdapter(adapter);
+        adapter.registerDataSetObserver(mDataObserver);
+        updateLinearPosition();
     }
 
-    /**
-     * 设置轮播位置的显示图
-     *
-     * @param dot
-     * @param enable
-     */
-    private void setDotEnable(ImageView dot, boolean enable) {
-        if (enable) {
-            dot.setImageResource(R.drawable.ic_point_select);
-        } else {
-            dot.setImageResource(R.drawable.ic_point_normal);
-        }
-    }
-
-    private void setCurrentDot(int position) {
-        position = position % banners.length;
-        for (int i = 0; i < mPoints.size(); i++) {
-            if (i == position) {
-                setDotEnable(mPoints.get(i), true);
-            } else {
-                setDotEnable(mPoints.get(i), false);
-            }
-        }
-    }
-
-    /**
-     * 开始轮播
-     */
-    private void startTimer() {
-        if (timer == null) {
-            timer = new Timer();
-        }
-        initTimerTask();
-        timer.schedule(mTimerTask, TIME_PERIOD, TIME_PERIOD);
-    }
-
-    /**
-     * 结束轮播
-     */
-    private void stopTimer() {
-        if (mTimerTask != null) {
-            mTimerTask.cancel();
-            mTimerTask = null;
-        }
-    }
-
-    private void initTimerTask() {
-        stopTimer();
-        mTimerTask = new TimerTask() {
-            @Override
-            public void run() {
-                Message message = new Message();
-                message.what = 1;
-                handler.sendMessage(message);
-            }
-        };
-    }
-
-    Handler handler = new Handler() {
+    private DataSetObserver mDataObserver = new DataSetObserver() {
         @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 1:
-                    mViewPager.setCurrentItem(currentIndex + 1);
-                    break;
-            }
+        public void onChanged() {
+            super.onChanged();
+            updateLinearPosition();
+        }
+
+        @Override
+        public void onInvalidated() {
+            super.onInvalidated();
         }
     };
 
-    class PromotionAdapter extends PagerAdapter {
-        private SparseArray<View> mToDestroy = new SparseArray<View>();
-
-        @Override
-        public int getCount() {
-            return mViews.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-//            View toDestroy = mToDestroy.get(position);
-//            if (toDestroy != null) {
-//                mToDestroy.remove(position);
-//                return toDestroy;
-//            }
-//            position = position % banners.length;
-            if (mViews.get(position).getParent() == null) {
-                container.addView(mViews.get(position), 0);
+    private void updateLinearPosition() {
+        if (viewList != null && viewList.size() != 0) {
+            if (mLinearPosition.getChildCount() != viewSize) {
+                int diffCnt = mLinearPosition.getChildCount() - viewSize;
+                boolean needAdd = diffCnt < 0;
+                diffCnt = Math.abs(diffCnt);
+                for (int i = 0; i < diffCnt; i++) {
+                    if (needAdd) {
+                        ImageView img = new ImageView(getContext());
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        layoutParams.rightMargin = getResources().getDimensionPixelOffset(R.dimen.dimen_9dp);
+                        img.setLayoutParams(layoutParams);
+                        img.setBackgroundResource(R.drawable.banner_point);
+                        mLinearPosition.addView(img);
+                    } else {
+                        mLinearPosition.removeViewAt(0);
+                    }
+                }
             }
-            return mViews.get(position);
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-//            if (position == 1 || position == banners.length) {
-//                mToDestroy.put(position, (View) object);
-//            } else {
-//                position = position % banners.length;
-            container.removeView(mViews.get(position));
-//            }
-        }
-
-        @Override
-        public void notifyDataSetChanged() {
-            mToDestroy.clear();
-            super.notifyDataSetChanged();
+            int curPos = mViewPager.getCurrentItem();
+            for (int i = 0; i < mLinearPosition.getChildCount(); i++) {
+                if (i == (curPos % viewSize)) {
+                    mLinearPosition.getChildAt(i).setBackgroundResource(R.drawable.banner_point_select);
+                } else {
+                    mLinearPosition.getChildAt(i).setBackgroundResource(R.drawable.banner_point);
+                }
+            }
         }
     }
+
+    public void setViewList(List<View> viewList) {
+        this.viewList = viewList;
+        if (viewList != null && viewList.size() != 0) {
+            viewSize = viewList.size();
+            BannerAdapter bannerAdapter = new BannerAdapter(viewList);
+            setAdapter(bannerAdapter);
+        }
+    }
+
+    public void setTransformAnim (boolean flag){
+        if (flag){
+            /**
+             *假设现在ViewPager在A页现在滑出B页，则:
+              A页的position变化就是( 0, -1]
+              B页的position变化就是[ 1 , 0 ]
+             */
+            mViewPager.setPageTransformer(true, new ViewPager.PageTransformer() {
+                private static final float MIN_SCALE = 0.75f;
+                @Override
+                public void transformPage(View view, float position) {
+                    int pageWidth = view.getWidth();
+                    if (position < -1)
+                    { // [-Infinity,-1)
+                        // This page is way off-screen to the left.
+                        view.setRotation(0);
+
+                    } else if (position <= 1) // a页滑动至b页 ； a页从 0.0 ~ -1 ；b页从1 ~ 0.0
+                    { // [-1,1]
+                        // Modify the default slide transition to shrink the page as well
+                        if (position < 0)
+                        {
+
+                            float mRot = (20f * position);
+                            view.setPivotX(view.getMeasuredWidth() * 0.5f);
+                            view.setPivotY(view.getMeasuredHeight());
+                            view.setRotation(mRot);
+                        } else
+                        {
+
+                            float mRot = (20f * position);
+                            view.setPivotX(view.getMeasuredWidth() * 0.5f);
+                            view.setPivotY(view.getMeasuredHeight());
+                            view.setRotation(mRot);
+                        }
+
+                        // Scale the page down (between MIN_SCALE and 1)
+
+                        // Fade the page relative to its size.
+
+                    } else
+                    { // (1,+Infinity]
+                        // This page is way off-screen to the right.
+                        view.setRotation(0);
+                    }
+                }
+            });
+        }
+    }
+
+    public static void setLoopInterval(long loopInterval) {
+        LOOP_INTERVAL = loopInterval;
+    }
+
 }

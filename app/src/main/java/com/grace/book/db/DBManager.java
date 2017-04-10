@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.grace.book.App;
+import com.grace.book.MyApplication;
 
 
 /**
@@ -15,7 +15,7 @@ public class DBManager {
     private DBHelper dbHelper;
 
     public DBManager() {
-        dbHelper = new DBHelper(App.getContext());
+        dbHelper = new DBHelper(MyApplication.getContext());
     }
 
     /**

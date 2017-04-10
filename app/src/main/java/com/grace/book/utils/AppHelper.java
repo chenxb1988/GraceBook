@@ -20,7 +20,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.grace.book.App;
+import com.grace.book.MyApplication;
 
 /**
  * 应用程序辅助类
@@ -154,7 +154,7 @@ public class AppHelper {
     }
 
     public static String getAndroidId() {
-        return Settings.Secure.getString(App.getInstance().getContentResolver(), Settings.Secure.ANDROID_ID);
+        return Settings.Secure.getString(MyApplication.getInstance().getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     //获取设备唯一imei

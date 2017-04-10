@@ -1,4 +1,4 @@
-package com.grace.book.activitys;
+package com.grace.book.activity;
 
 import android.animation.Animator;
 import android.graphics.Bitmap;
@@ -19,16 +19,16 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.bumptech.glide.Glide;
 import com.grace.book.R;
-import com.grace.book.base.BaseActivity;
+import com.grace.book.activity.base.BaseActivity;
 import com.grace.book.event.LoginEvent;
 import com.grace.book.event.LogoutEvent;
 import com.grace.book.event.SkinChangeEvent;
 import com.grace.book.event.UserEditEvent;
-import com.grace.book.fragments.HomeContactFragment;
-import com.grace.book.fragments.HomeMainFragment;
-import com.grace.book.fragments.HomeMallFragment;
-import com.grace.book.fragments.HomeRecordFragment;
-import com.grace.book.fragments.HomeSelfFragment;
+import com.grace.book.fragment.HomeContactFragment;
+import com.grace.book.fragment.HomeMainFragment;
+import com.grace.book.fragment.HomeMallFragment;
+import com.grace.book.fragment.HomeRecordFragment;
+import com.grace.book.fragment.HomeSelfFragment;
 import com.grace.book.http.response.LoginInfo;
 import com.grace.book.utils.ActivityUtils;
 import com.grace.book.utils.ConstData;

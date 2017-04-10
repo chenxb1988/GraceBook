@@ -1,4 +1,4 @@
-package com.grace.book.fragments;
+package com.grace.book.fragment;
 
 
 import android.graphics.Color;
@@ -9,8 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import com.grace.book.R;
-import com.grace.book.activitys.MainActivity;
-import com.grace.book.base.BaseLoadingWithTitleFragment;
+import com.grace.book.activity.MainActivity;
+import com.grace.book.fragment.base.BaseLoadingWithTitleFragment;
 import com.grace.book.event.LoginEvent;
 import com.grace.book.event.UserEditEvent;
 import com.grace.book.http.CallBack;

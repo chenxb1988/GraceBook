@@ -5,7 +5,7 @@ import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.grace.book.base.BaseActivity;
+import com.grace.book.activity.base.BaseActivity;
 import com.grace.book.dialog.LoginDialog;
 
 import me.xiaopan.java.lang.StringUtils;

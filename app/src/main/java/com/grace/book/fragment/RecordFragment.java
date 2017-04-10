@@ -1,13 +1,11 @@
-package com.grace.book.fragments;
+package com.grace.book.fragment;
 
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -16,11 +14,11 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.grace.book.R;
-import com.grace.book.activitys.BookInfoActivity;
+import com.grace.book.activity.BookInfoActivity;
 import com.grace.book.adapter.RecordReadAdapter;
 import com.grace.book.adapter.RecordReadingAdapter;
 import com.grace.book.adapter.RecordStarAdapter;
-import com.grace.book.base.BaseLoadingNoTitleFragment;
+import com.grace.book.fragment.base.BaseLoadingNoTitleFragment;
 import com.grace.book.event.AddBorrowEvent;
 import com.grace.book.event.AddStarEvent;
 import com.grace.book.event.CancelBorrowEvent;

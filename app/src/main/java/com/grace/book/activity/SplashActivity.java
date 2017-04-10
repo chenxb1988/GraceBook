@@ -1,10 +1,10 @@
-package com.grace.book.activitys;
+package com.grace.book.activity;
 
 import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.grace.book.R;
-import com.grace.book.base.BaseActivity;
+import com.grace.book.activity.base.BaseActivity;
 import com.grace.book.http.response.SVG;
 import com.grace.book.utils.ActivityUtils;
 import com.grace.book.utils.ConstData;

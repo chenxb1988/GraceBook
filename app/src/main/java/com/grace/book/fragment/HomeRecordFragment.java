@@ -1,4 +1,4 @@
-package com.grace.book.fragments;
+package com.grace.book.fragment;
 
 
 import android.graphics.Color;
@@ -8,15 +8,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.grace.book.R;
-import com.grace.book.base.BaseFragment;
-import com.grace.book.base.BaseLoadingWithTitleFragment;
-import com.grace.book.event.CancelStarEvent;
+import com.grace.book.fragment.base.BaseFragment;
+import com.grace.book.fragment.base.BaseLoadingWithTitleFragment;
 import com.grace.book.utils.SystemUtils;
 import com.grace.book.widget.PagerSlidingTabStrip;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
-
-import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.Bind;
 

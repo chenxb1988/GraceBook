@@ -1,4 +1,4 @@
-package com.grace.book.activitys;
+package com.grace.book.activity;
 
 import android.animation.ObjectAnimator;
 import android.graphics.Color;
@@ -16,8 +16,8 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.grace.book.R;
+import com.grace.book.activity.base.BaseLoadingActivity;
 import com.grace.book.adapter.BookCommentAdapter;
-import com.grace.book.base.BaseLoadingActivity;
 import com.grace.book.event.AddBorrowEvent;
 import com.grace.book.event.AddStarEvent;
 import com.grace.book.http.CallBack;

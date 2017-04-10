@@ -28,7 +28,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 
-import com.grace.book.activitys.MainActivity;
+import com.grace.book.activity.MainActivity;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

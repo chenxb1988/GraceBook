@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.grace.book.App;
+import com.grace.book.MyApplication;
 import com.grace.book.R;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.iconics.typeface.IIcon;
@@ -114,7 +114,7 @@ public class ImageLoaderUtils {
     }
 
     public static void setImageSource(ImageView imageView, int resId) {
-        Glide.with(imageView.getContext()).load("android.resource://" + App.getInstance().getPackageName() + "/drawable/" + resId)
+        Glide.with(imageView.getContext()).load("android.resource://" + MyApplication.getInstance().getPackageName() + "/drawable/" + resId)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);
 

@@ -1,11 +1,11 @@
-package com.grace.book.base;
+package com.grace.book.fragment.base;
 
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grace.book.R;
-import com.grace.book.activitys.MainActivity;
+import com.grace.book.activity.MainActivity;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.grace.book.activitys;
+package com.grace.book.activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.grace.book.R;
-import com.grace.book.base.BaseLoadingActivity;
+import com.grace.book.activity.base.BaseLoadingActivity;
 import com.grace.book.event.UserEditEvent;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.HttpData;

@@ -1,4 +1,4 @@
-package com.grace.book.activitys;
+package com.grace.book.activity;
 
 import android.Manifest;
 import android.content.ClipData;
@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grace.book.R;
-import com.grace.book.base.BaseLoadingActivity;
+import com.grace.book.activity.base.BaseLoadingActivity;
 import com.grace.book.event.LogoutEvent;
 import com.grace.book.event.UserEditEvent;
 import com.grace.book.http.CallBack;

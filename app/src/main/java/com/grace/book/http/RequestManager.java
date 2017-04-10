@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.google.gson.Gson;
-import com.grace.book.App;
+import com.grace.book.MyApplication;
 import com.grace.book.db.DBManager;
 import com.grace.book.http.request.BaseRequest;
 import com.orhanobut.logger.Logger;
@@ -55,7 +55,7 @@ public class RequestManager {
         }
 
         //判断网络是否已连接，连接则往下走，未连接则返回失败回调，并终止请求
-        if (!NetworkUtils.isConnectedByState(App.getContext())) {
+        if (!NetworkUtils.isConnectedByState(MyApplication.getContext())) {
             callBack.onFailure("network not contented!!");
             return;
 
@@ -112,7 +112,7 @@ public class RequestManager {
         }
 
         //判断网络是否已连接，连接则往下走，未连接则返回失败回调，并终止请求
-        if (!NetworkUtils.isConnectedByState(App.getContext())) {
+        if (!NetworkUtils.isConnectedByState(MyApplication.getContext())) {
             callBack.onFailure("网络未连接!!");
             return;
         }

@@ -13,10 +13,10 @@ import com.umeng.message.PushAgent;
 /**
  * Created by chenxb on 2017/2/1.
  */
-public class App extends Application {
+public class MyApplication extends Application {
 
     private static Context context;
-    private static App instance;
+    private static MyApplication instance;
 
     @Override
     public void onCreate() {
@@ -53,7 +53,7 @@ public class App extends Application {
         return context;
     }
 
-    public static App getInstance() {
+    public static MyApplication getInstance() {
         return instance;
     }
 }

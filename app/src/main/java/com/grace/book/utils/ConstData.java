@@ -1,6 +1,6 @@
 package com.grace.book.utils;
 
-import com.grace.book.App;
+import com.grace.book.MyApplication;
 
 /**
  * Created by chenxb on 17/2/13.
@@ -25,7 +25,7 @@ public class ConstData {
     public static String DEVICE_TOKEN;
 
     public static void initData() {
-        APP_VERSION = AppHelper.getVersionName(App.getInstance());
-        DEVICE_ID = AppHelper.getDeviceId(App.getInstance());
+        APP_VERSION = AppHelper.getVersionName(MyApplication.getInstance());
+        DEVICE_ID = AppHelper.getDeviceId(MyApplication.getInstance());
     }
 }

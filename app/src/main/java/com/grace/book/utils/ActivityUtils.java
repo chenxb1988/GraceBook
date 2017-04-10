@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.grace.book.activitys.WebActivity;
+import com.grace.book.activity.WebActivity;
 import com.grace.book.http.response.GanHuo;
 import com.library.viewspread.helper.BaseViewHelper;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;

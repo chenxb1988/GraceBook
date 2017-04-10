@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
-import com.grace.book.App;
+import com.grace.book.MyApplication;
 import com.grace.book.http.response.FellowListResponse;
 import com.grace.book.http.response.GroupListResponse;
 import com.grace.book.http.response.LoginInfo;
@@ -20,7 +20,7 @@ public class SharedUtils {
     private static SharedPreferences.Editor mEditor;
     private static Gson Gson = new Gson();
 
-    public static void init(App app) {
+    public static void init(MyApplication app) {
         mSharePreferences = PreferenceManager.getDefaultSharedPreferences(app.getApplicationContext());
         mEditor = mSharePreferences.edit();
     }

@@ -112,7 +112,7 @@
 -keep class com.grace.book.App { <init>(...); }
 
 # view AndroidManifest.xml #generated:25
--keep class com.grace.book.activitys.MainActivity { <init>(...); }
+-keep class com.grace.book.activity.MainActivity { <init>(...); }
 
 # view res/layout/fragment_android.xml #generated:22
 -keep class com.grace.book.widget.theme.ColorListView { <init>(...); }

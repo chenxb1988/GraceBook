@@ -12,14 +12,14 @@
     <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
-        android:name=".App"
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/IndigoTheme">
         <activity
-            android:name=".activitys.SplashActivity"
+            android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -28,23 +28,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activitys.MainActivity"
+            android:name=".activity.MainActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activitys.UserInfoActivity"
+            android:name=".activity.UserInfoActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activitys.UserEditActivity"
+            android:name=".activity.UserEditActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activitys.CropPhotoActivity"
+            android:name=".activity.CropPhotoActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activitys.BookInfoActivity"
+            android:name=".activity.BookInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/FullScreenTheme"/>
         <activity
-            android:name=".activitys.WebActivity"
+            android:name=".activity.WebActivity"
             android:screenOrientation="portrait"/>
 
         <!--友盟消息推送-->

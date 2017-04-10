@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grace.book.R;
-import com.grace.book.activitys.BookInfoActivity;
-import com.grace.book.base.BaseActivity;
+import com.grace.book.activity.BookInfoActivity;
+import com.grace.book.activity.base.BaseActivity;
 import com.grace.book.http.response.BookSummaryList;
 import com.grace.book.utils.ExtraUtils;
 import com.grace.book.utils.ImageLoaderUtils;

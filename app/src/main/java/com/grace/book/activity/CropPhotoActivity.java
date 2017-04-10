@@ -1,4 +1,4 @@
-package com.grace.book.activitys;
+package com.grace.book.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 
 import com.grace.book.R;
-import com.grace.book.base.BaseLoadingActivity;
+import com.grace.book.activity.base.BaseLoadingActivity;
 import com.grace.book.widget.CropView;
 
 import java.io.File;

@@ -1,4 +1,4 @@
-package com.grace.book.base;
+package com.grace.book.activity.base;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

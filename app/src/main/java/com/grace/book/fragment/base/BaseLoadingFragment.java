@@ -1,4 +1,4 @@
-package com.grace.book.base;
+package com.grace.book.fragment.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

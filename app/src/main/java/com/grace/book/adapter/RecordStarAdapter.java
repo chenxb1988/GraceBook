@@ -17,7 +17,6 @@ import com.grace.book.http.request.CancelStarRequest;
 import com.grace.book.http.response.BaseResponse;
 import com.grace.book.http.response.RecordResponse;
 import com.grace.book.utils.ImageLoaderUtils;
-import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.utils.ToastUtils;
 import com.grace.book.widget.theme.ColorBackButton;
@@ -85,7 +84,6 @@ public class RecordStarAdapter extends BaseAdapter {
     private void cancelStar(final RecordResponse.RecordInfo record) {
         CancelStarRequest request = new CancelStarRequest();
         request.setCollectId(record.getCollectId());
-        request.setAuthToken(SharedUtils.getUserToken());
         RequestManager.post(getClass().getSimpleName(), HttpData.BOOK_CALCEL_STAR, request, new CallBack<BaseResponse>() {
             @Override
             public void onSuccess(BaseResponse result) {

@@ -44,6 +44,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/FullScreenTheme"/>
         <activity
+            android:name=".activity.MessageActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.GroupListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.ContactListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".activity.WebActivity"
             android:screenOrientation="portrait"/>
 

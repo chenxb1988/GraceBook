@@ -6,7 +6,6 @@ package com.grace.book.http.request;
 public class RecommendRequest extends BaseRequest {
 
     private String borrowId;
-    private String authToken;
 
     public String getBorrowId() {
         return borrowId;
@@ -14,13 +13,5 @@ public class RecommendRequest extends BaseRequest {
 
     public void setBorrowId(String borrowId) {
         this.borrowId = borrowId;
-    }
-
-    public String getAuthToken() {
-        return authToken;
-    }
-
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
     }
 }

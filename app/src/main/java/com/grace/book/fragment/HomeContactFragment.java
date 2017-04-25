@@ -9,11 +9,14 @@ import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.grace.book.R;
-import com.grace.book.adapter.AndroidAdapter;
+import com.grace.book.adapter.FellowAdapter;
 import com.grace.book.fragment.base.BaseLoadingWithTitleFragment;
 import com.grace.book.http.CallBack;
+import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
-import com.grace.book.http.response.GanHuo;
+import com.grace.book.http.request.FellowListRequest;
+import com.grace.book.http.response.FellowListResponse;
+import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.SystemUtils;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
@@ -32,55 +35,56 @@ public class HomeContactFragment extends BaseLoadingWithTitleFragment implements
     ListView mListView;
     @Bind(R.id.swipeToLoadLayout)
     SwipeToLoadLayout mSwipeToLoadLayout;
-    private AndroidAdapter adapter;
-    private List<GanHuo> ganHuos = new ArrayList<>();
+    private FellowAdapter adapter;
+    private List<FellowListResponse.FellowInfo> fellowInfos = new ArrayList<>();
 
-    private int pageSize = 30;
+    private int pageSize = 10;
     private int page = 1;
 
     @Override
     public void initFragment() {
-        setLoadingContentView(R.layout.fragment_android);
+        setLoadingContentView(R.layout.fragment_list);
 
         SystemUtils.setStatusBar(getActivity(), mStatusBar);
         mIcon.setImageDrawable(new IconicsDrawable(getActivity()).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_accounts_list).sizeDp(20));
-        mTitle.setText(R.string.contact);
+        mTitle.setText("团契");
 
         initView();
         onRefresh();
     }
 
     private void getData(final boolean isRefresh) {
-        RequestManager.get(getName(), "http://gank.io/api/data/Android/"
-                        + String.valueOf(pageSize) + "/"
-                        + String.valueOf(page), isRefresh,
-                new CallBack<List<GanHuo>>() {
-                    @Override
-                    public void onSuccess(List<GanHuo> result) {
-                        if (isRefresh) {
-                            ganHuos.clear();
-                            page = 2;
-                        } else {
-                            page++;
-                        }
-                        showContentView();
-                        ganHuos.addAll(result);
-                        adapter.notifyDataSetChanged();
-                        if (mSwipeToLoadLayout != null) {
-                            mSwipeToLoadLayout.setRefreshing(false);
-                            mSwipeToLoadLayout.setLoadingMore(false);
-                        }
-                    }
+        FellowListRequest request = new FellowListRequest();
+        request.setChurchId("*");
+        RequestManager.post(getName(), HttpData.FELLOW_LIST, request, new CallBack<FellowListResponse>() {
+            @Override
+            public void onSuccess(FellowListResponse result) {
+                SharedUtils.saveFellowList(result);
+                if (isRefresh) {
+                    fellowInfos.clear();
+                    page = 2;
+                } else {
+                    page++;
+                }
+                showContentView();
+                fellowInfos.addAll(result.getRecords());
+                adapter.notifyDataSetChanged();
+                if (mSwipeToLoadLayout != null) {
+                    mSwipeToLoadLayout.setRefreshing(false);
+                    mSwipeToLoadLayout.setLoadingMore(false);
+                }
+                if (fellowInfos.size() > 0) {
+                    showContentView();
+                } else {
+                    showEmptyView();
+                }
+            }
 
-                    @Override
-                    public void onFailure(String message) {
-                        showFailMsg(getActivity(), message);
-                        if (mSwipeToLoadLayout != null) {
-                            mSwipeToLoadLayout.setRefreshing(false);
-                            mSwipeToLoadLayout.setLoadingMore(false);
-                        }
-                    }
-                });
+            @Override
+            public void onFailure(String message) {
+                showFailMsg(message);
+            }
+        });
     }
 
     private void initView() {
@@ -92,7 +96,7 @@ public class HomeContactFragment extends BaseLoadingWithTitleFragment implements
         });
         mSwipeToLoadLayout.setOnRefreshListener(this);
         mSwipeToLoadLayout.setOnLoadMoreListener(this);
-        adapter = new AndroidAdapter(getActivity(), ganHuos);
+        adapter = new FellowAdapter(getActivity(), fellowInfos);
         mListView.setAdapter(adapter);
     }
 

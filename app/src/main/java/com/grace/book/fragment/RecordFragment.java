@@ -18,18 +18,17 @@ import com.grace.book.activity.BookInfoActivity;
 import com.grace.book.adapter.RecordReadAdapter;
 import com.grace.book.adapter.RecordReadingAdapter;
 import com.grace.book.adapter.RecordStarAdapter;
-import com.grace.book.fragment.base.BaseLoadingNoTitleFragment;
 import com.grace.book.event.AddBorrowEvent;
 import com.grace.book.event.AddStarEvent;
 import com.grace.book.event.CancelBorrowEvent;
 import com.grace.book.event.CancelStarEvent;
+import com.grace.book.fragment.base.BaseLoadingNoTitleFragment;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
 import com.grace.book.http.request.RecordRequest;
 import com.grace.book.http.response.RecordResponse;
 import com.grace.book.utils.ExtraUtils;
-import com.grace.book.utils.SharedUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -150,7 +149,6 @@ public class RecordFragment extends BaseLoadingNoTitleFragment implements OnRefr
         RecordRequest request = new RecordRequest();
         request.setPageIndex(pageIndex);
         request.setPageSize(pageSize);
-        request.setAuthToken(SharedUtils.getUserToken());
         request.setType(type + "");
 
         RequestManager.post(getName(), HttpData.RECORD_LIST, request,

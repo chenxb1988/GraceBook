@@ -3,6 +3,7 @@ package com.grace.book.http.request;
 import android.os.Build;
 
 import com.grace.book.utils.ConstData;
+import com.grace.book.utils.SharedUtils;
 
 /**
  * Created by chenxb
@@ -15,6 +16,7 @@ public class BaseRequest {
     private String appVersion;
     private String deviceId;
     private String deviceToken;
+    private String authToken;
 
     public BaseRequest() {
         os = "Android";
@@ -22,6 +24,15 @@ public class BaseRequest {
         appVersion = ConstData.APP_VERSION;
         deviceId = ConstData.DEVICE_ID;
         deviceToken = ConstData.DEVICE_TOKEN;
+        authToken = SharedUtils.getUserToken();
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 
     public String getOs() {

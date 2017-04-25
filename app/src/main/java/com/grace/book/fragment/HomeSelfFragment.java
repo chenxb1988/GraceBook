@@ -40,7 +40,7 @@ public class HomeSelfFragment extends BaseLoadingWithTitleFragment implements On
 
     @Override
     public void initFragment() {
-        setLoadingContentView(R.layout.fragment_android);
+        setLoadingContentView(R.layout.fragment_list);
 
         SystemUtils.setStatusBar(getActivity(), mStatusBar);
         mIcon.setImageDrawable(new IconicsDrawable(getActivity()).color(Color.WHITE).icon(MaterialDesignIconic.Icon.gmi_account).sizeDp(20));

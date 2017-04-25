@@ -9,20 +9,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.grace.book.R;
-import com.grace.book.event.AddStarEvent;
+import com.grace.book.dialog.InputDialog;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
-import com.grace.book.http.request.BaseBookRequest;
+import com.grace.book.http.request.CommentRequest;
 import com.grace.book.http.request.RecommendRequest;
 import com.grace.book.http.response.BaseResponse;
 import com.grace.book.http.response.RecordResponse;
 import com.grace.book.utils.ImageLoaderUtils;
-import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.widget.theme.ColorBackButton;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -86,6 +83,19 @@ public class RecordReadAdapter extends BaseAdapter {
             viewHolder.tvRecommend.setVisibility(View.GONE);
             viewHolder.btnRecommend.setVisibility(View.VISIBLE);
         }
+        viewHolder.btnComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new InputDialog.Builder(context).setTitle("评论")
+                        .setInputHint("这本书怎么样？")
+                        .setPositiveButton("发表", new InputDialog.ButtonActionListener() {
+                            @Override
+                            public void onClick(CharSequence inputText) {
+                                addComment(record, inputText.toString());
+                            }
+                        }).show();
+            }
+        });
         viewHolder.btnRecommend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,10 +106,28 @@ public class RecordReadAdapter extends BaseAdapter {
         return convertView;
     }
 
+    private void addComment(final RecordResponse.RecordInfo record, String comment) {
+        CommentRequest request = new CommentRequest();
+        request.setBookId(record.getBookId());
+        request.setMsg(comment);
+        RequestManager.post(getClass().getSimpleName(), HttpData.BOOK_COMMENT, request, new CallBack<BaseResponse>() {
+
+            @Override
+            public void onSuccess(BaseResponse result) {
+                record.setHasComment();
+                notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(String message) {
+                showFailMsg(context, message);
+            }
+        });
+    }
+
     private void addRecommend(final RecordResponse.RecordInfo record) {
         RecommendRequest request = new RecommendRequest();
         request.setBorrowId(record.getBorrowId());
-        request.setAuthToken(SharedUtils.getUserToken());
         RequestManager.post(getClass().getSimpleName(), HttpData.BOOK_RECOMMEND, request, new CallBack<BaseResponse>() {
             @Override
             public void onSuccess(BaseResponse result) {

@@ -7,15 +7,6 @@ package com.grace.book.http.request;
 
 public class BaseBookRequest extends BaseRequest {
     private String bookId;
-    private String authToken;
-
-    public String getAuthToken() {
-        return authToken;
-    }
-
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
-    }
 
     public String getBookId() {
         return bookId;

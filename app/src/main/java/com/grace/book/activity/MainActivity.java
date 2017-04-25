@@ -1,6 +1,7 @@
 package com.grace.book.activity;
 
 import android.animation.Animator;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -30,7 +31,6 @@ import com.grace.book.fragment.HomeMallFragment;
 import com.grace.book.fragment.HomeRecordFragment;
 import com.grace.book.fragment.HomeSelfFragment;
 import com.grace.book.http.response.LoginInfo;
-import com.grace.book.utils.ActivityUtils;
 import com.grace.book.utils.ConstData;
 import com.grace.book.utils.ImageLoaderUtils;
 import com.grace.book.utils.LoginUtils;
@@ -241,7 +241,9 @@ public class MainActivity extends BaseActivity implements ColorChooserDialog.Col
         switch (view.getId()) {
             case R.id.avatar:
                 if (LoginUtils.isLogin(this)) {
-                    ActivityUtils.launchActivity(MainActivity.this, UserInfoActivity.class);
+                    Intent intent = new Intent(MainActivity.this, UserInfoActivity.class);
+                    intent.putExtra(UserInfoActivity.KEY_USERID, SharedUtils.getUserId());
+                    MainActivity.this.startActivity(intent);
                 }
                 break;
             case R.id.home:

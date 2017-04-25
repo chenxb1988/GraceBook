@@ -218,5 +218,9 @@ public class RecordResponse {
         public void setHasRecommend() {
             IsCommend = 1;
         }
+
+        public void setHasComment(){
+            IsEvaluate = 1;
+        }
     }
 }

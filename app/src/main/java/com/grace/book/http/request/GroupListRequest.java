@@ -7,7 +7,8 @@ package com.grace.book.http.request;
 
 public class GroupListRequest extends BaseRequest {
     private String churchId;
-    private String authToken;
+    private int pageIndex;
+    private int pageSize;
 
     public String getChurchId() {
         return churchId;
@@ -17,11 +18,19 @@ public class GroupListRequest extends BaseRequest {
         this.churchId = churchId;
     }
 
-    public String getAuthToken() {
-        return authToken;
+    public int getPageIndex() {
+        return pageIndex;
     }
 
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
+    public void setPageIndex(int pageIndex) {
+        this.pageIndex = pageIndex;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 }

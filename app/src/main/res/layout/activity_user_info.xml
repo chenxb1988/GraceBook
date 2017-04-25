@@ -194,24 +194,16 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
-        <LinearLayout
-            style="@style/settingStyle"
+        <com.grace.book.widget.theme.ColorBackButton
+            android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/common_white_bg"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/tv_logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="logout"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textsize_normal"/>
-        </LinearLayout>
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="退出登录"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textsize_normal"/>
 
     </LinearLayout>
 </ScrollView>

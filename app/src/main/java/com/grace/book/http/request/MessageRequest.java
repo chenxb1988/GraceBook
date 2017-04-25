@@ -1,20 +1,20 @@
 package com.grace.book.http.request;
 
 /**
- * Created by DuoNuo on 2017/3/4.
+ * Created by chenxb on 2017/4/24.
  */
-public class RecordRequest extends BaseRequest {
 
-    private String type;
+public class MessageRequest extends BaseRequest {
+    private String userId;
     private int pageSize;
     private int pageIndex;
 
-    public String getType() {
-        return type;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public int getPageSize() {

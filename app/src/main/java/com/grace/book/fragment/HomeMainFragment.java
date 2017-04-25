@@ -1,6 +1,7 @@
 package com.grace.book.fragment;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -10,9 +11,10 @@ import android.widget.ImageView;
 
 import com.grace.book.R;
 import com.grace.book.activity.MainActivity;
-import com.grace.book.fragment.base.BaseLoadingWithTitleFragment;
+import com.grace.book.activity.MessageActivity;
 import com.grace.book.event.LoginEvent;
 import com.grace.book.event.UserEditEvent;
+import com.grace.book.fragment.base.BaseLoadingWithTitleFragment;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
@@ -20,6 +22,7 @@ import com.grace.book.http.request.FellowListRequest;
 import com.grace.book.http.response.FellowListResponse;
 import com.grace.book.http.response.LoginInfo;
 import com.grace.book.utils.ImageLoaderUtils;
+import com.grace.book.utils.LoginUtils;
 import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.SystemUtils;
 import com.grace.book.utils.ThemeUtils;
@@ -140,10 +143,16 @@ public class HomeMainFragment extends BaseLoadingWithTitleFragment {
         });
     }
 
-    @OnClick({R.id.ll_mall, R.id.ll_record, R.id.ll_contact, R.id.ll_more})
+    @OnClick({R.id.ll_mall, R.id.ll_record, R.id.ll_contact, R.id.ll_more, R.id.icon_message})
     public void onClick(View view) {
         MainActivity activity = (MainActivity) getActivity();
         switch (view.getId()) {
+            case R.id.icon_message:
+                if (LoginUtils.isLogin(activity)) {
+                    Intent intent = new Intent(activity, MessageActivity.class);
+                    activity.startActivity(intent);
+                }
+                break;
             case R.id.ll_mall:
                 activity.switchFragment(1);
                 break;

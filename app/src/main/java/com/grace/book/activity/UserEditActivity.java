@@ -158,7 +158,6 @@ public class UserEditActivity extends BaseLoadingActivity {
     private void getGroupList(final String fellowId) {
         if (SharedUtils.getGroupList(fellowId).getGroupNames().size() == 0) {
             GroupListRequest request = new GroupListRequest();
-            request.setAuthToken(SharedUtils.getUserToken());
             request.setChurchId(fellowId);
             RequestManager.post(getName(), HttpData.GROUP_LIST, request, new CallBack<GroupListResponse>() {
                 @Override

@@ -31,7 +31,6 @@ import com.grace.book.utils.DimenUtils;
 import com.grace.book.utils.ExtraUtils;
 import com.grace.book.utils.ImageLoaderUtils;
 import com.grace.book.utils.LoginUtils;
-import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ThemeUtils;
 import com.grace.book.utils.ToastUtils;
 import com.grace.book.widget.NoScrollListView;
@@ -129,7 +128,6 @@ public class BookInfoActivity extends BaseLoadingActivity {
     protected void loadData() {
         BaseBookRequest request = new BaseBookRequest();
         request.setBookId(getIntent().getStringExtra(ExtraUtils.BOOK_ID));
-        request.setAuthToken(SharedUtils.getUserToken());
 
         RequestManager.post(getName(), HttpData.BOOK_INFO, request, new CallBack<BookInfoResponse>() {
             @Override
@@ -265,7 +263,6 @@ public class BookInfoActivity extends BaseLoadingActivity {
         if (mBookInfo.canBorrow() && LoginUtils.isLogin(this)) {
             BaseBookRequest request = new BaseBookRequest();
             request.setBookId(mBookInfo.getBookId());
-            request.setAuthToken(SharedUtils.getUserToken());
             RequestManager.post(getName(), HttpData.BOOK_BORROW, request, new CallBack<BaseResponse>() {
                 @Override
                 public void onSuccess(BaseResponse result) {
@@ -286,7 +283,6 @@ public class BookInfoActivity extends BaseLoadingActivity {
         if (!mBookInfo.isCollected() && LoginUtils.isLogin(this)) {
             BaseBookRequest request = new BaseBookRequest();
             request.setBookId(mBookInfo.getBookId());
-            request.setAuthToken(SharedUtils.getUserToken());
             RequestManager.post(getName(), HttpData.BOOK_STAR, request, new CallBack<BaseResponse>() {
                 @Override
                 public void onSuccess(BaseResponse result) {

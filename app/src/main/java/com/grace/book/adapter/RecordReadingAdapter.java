@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.grace.book.R;
 import com.grace.book.event.AddStarEvent;
-import com.grace.book.event.CancelStarEvent;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
@@ -18,9 +17,7 @@ import com.grace.book.http.request.BaseBookRequest;
 import com.grace.book.http.response.BaseResponse;
 import com.grace.book.http.response.RecordResponse;
 import com.grace.book.utils.ImageLoaderUtils;
-import com.grace.book.utils.SharedUtils;
 import com.grace.book.utils.ThemeUtils;
-import com.grace.book.utils.ToastUtils;
 import com.grace.book.widget.theme.ColorBackButton;
 import com.grace.book.widget.theme.ColorTextView;
 
@@ -99,7 +96,6 @@ public class RecordReadingAdapter extends BaseAdapter {
     private void addStar(final RecordResponse.RecordInfo record) {
         BaseBookRequest request = new BaseBookRequest();
         request.setBookId(record.getBookId());
-        request.setAuthToken(SharedUtils.getUserToken());
         RequestManager.post(getClass().getSimpleName(), HttpData.BOOK_STAR, request, new CallBack<BaseResponse>() {
             @Override
             public void onSuccess(BaseResponse result) {

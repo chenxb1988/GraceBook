@@ -20,7 +20,7 @@ import com.grace.book.event.UserEditEvent;
 import com.grace.book.http.CallBack;
 import com.grace.book.http.HttpData;
 import com.grace.book.http.RequestManager;
-import com.grace.book.http.request.BaseTokenRequest;
+import com.grace.book.http.request.BaseRequest;
 import com.grace.book.http.request.UserInfoRequest;
 import com.grace.book.http.response.BaseResponse;
 import com.grace.book.http.response.UserInfo;
@@ -28,7 +28,9 @@ import com.grace.book.utils.DialogUtils;
 import com.grace.book.utils.ExtraUtils;
 import com.grace.book.utils.ImageLoaderUtils;
 import com.grace.book.utils.SharedUtils;
+import com.grace.book.utils.ThemeUtils;
 import com.grace.book.utils.ToastUtils;
+import com.grace.book.widget.theme.ColorBackButton;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,6 +46,7 @@ import me.xiaopan.java.lang.StringUtils;
  */
 
 public class UserInfoActivity extends BaseLoadingActivity {
+    public static final String KEY_USERID = "key_userid";
     @Bind(R.id.tv_name)
     TextView mTvName;
     @Bind(R.id.tv_gentle)
@@ -60,15 +63,18 @@ public class UserInfoActivity extends BaseLoadingActivity {
     ImageView ivAvatar;
     @Bind(R.id.tv_fellow)
     TextView mTvFellow;
+    @Bind(R.id.btn_logout)
+    ColorBackButton mBtnLogout;
 
     private UserInfo mUserInfo;
+    private String mUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setLoadingContentView(R.layout.activity_user_info);
         ImageLoaderUtils.setIconDrawable(mIcon, MaterialDesignIconic.Icon.gmi_account);
-        setTitle("个人信息", "编辑");
+        ThemeUtils.addThemeToView(mBtnLogout);
         EventBus.getDefault().register(this);
         loadData();
     }
@@ -81,10 +87,22 @@ public class UserInfoActivity extends BaseLoadingActivity {
 
     @Override
     protected void loadData() {
+        mUserId = getIntent().getStringExtra(KEY_USERID);
+        if (StringUtils.isEmpty(mUserId)) {
+            mUserId = SharedUtils.getUserId();
+        }
+        if (mUserId.equals(SharedUtils.getUserId())) {
+            setTitle("个人信息", "编辑");
+            mBtnLogout.setVisibility(View.VISIBLE);
+        } else {
+            setTitle("个人信息");
+            ThemeUtils.addThemeToView(mBtnLogout);
+            mBtnLogout.setVisibility(View.GONE);
+        }
+
         showLoadingView();
         UserInfoRequest request = new UserInfoRequest();
-        request.setUserId(SharedUtils.getUserId());
-        request.setAuthToken(SharedUtils.getUserToken());
+        request.setUserId(mUserId);
 
         RequestManager.post(getName(), HttpData.USER_INFO, request, new CallBack<UserInfo>() {
             @Override
@@ -101,11 +119,11 @@ public class UserInfoActivity extends BaseLoadingActivity {
         });
     }
 
-    @OnClick({R.id.tv_logout, R.id.tv_mobile, R.id.tv_mail, R.id.tv_birthday})
+    @OnClick({R.id.btn_logout, R.id.tv_mobile, R.id.tv_mail, R.id.tv_birthday})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tv_logout:
-                BaseTokenRequest request = new BaseTokenRequest(SharedUtils.getUserToken());
+            case R.id.btn_logout:
+                BaseRequest request = new BaseRequest();
                 DialogUtils.showProgress(UserInfoActivity.this, "正在退出登录...");
                 RequestManager.post(getName(), HttpData.LOGOUT, request, new CallBack<BaseResponse>() {
                     @Override
@@ -128,11 +146,13 @@ public class UserInfoActivity extends BaseLoadingActivity {
                 if (!StringUtils.isEmpty(mobile)) {
                     copy(mobile);
                     ToastUtils.showSuccessToasty(UserInfoActivity.this, "手机号已复制到粘贴板");
-                    Intent intentPhone = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mobile));
-                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        return;
+                    if (!mUserId.equals(SharedUtils.getUserId())) {
+                        Intent intentPhone = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mobile));
+                        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            return;
+                        }
+                        startActivity(intentPhone);
                     }
-                    startActivity(intentPhone);
                 }
                 break;
             case R.id.tv_mail:

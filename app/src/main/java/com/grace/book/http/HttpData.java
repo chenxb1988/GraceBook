@@ -10,6 +10,7 @@ public class HttpData {
     public static String LOGIN = "userinfo/login";
     public static String LOGOUT = "userinfo/exitlogin";
     public static String USER_INFO = "userinfo/get";
+    public static String USER_LIST = "userinfo/getlistbyrealname";
 
     public static String BOOK_LIST = "bookinfo/list";
     public static String BOOK_INFO = "bookinfo/get";
@@ -17,7 +18,10 @@ public class HttpData {
     public static String BOOK_COMMENTS = "bookinfo/getbookeavl";
     public static String BOOK_STAR = "bookborrow/collectbook";
     public static String BOOK_RECOMMEND = "bookborrow/commendbook";
+    public static String BOOK_COMMENT = "bookborrow/evaluatebook";
     public static String BOOK_CALCEL_STAR = "bookborrow/cancelcollect";
+
+    public static String MESSAGE_LIST = "message/list";
 
     public static String RECORD_LIST = "bookborrow/list";
 
